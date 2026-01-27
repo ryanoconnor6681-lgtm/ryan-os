@@ -365,7 +365,7 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
                     </p>
                 </div>
                 <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
-                    Build: RyanOS v89.0 // Powered by Vercel & OpenAI
+                    Build: RyanOS v89.1 // Powered by Vercel & OpenAI
                 </div>
             </motion.div>
         </motion.div>
@@ -418,9 +418,10 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
     const handleSend = async (text: string) => {
         if(!text.trim()) return;
         
-        // Add user message immediately
-        const newHistory = [...chatHistory, { role: 'user', content: text }];
-        setChatHistory(newHistory as any);
+        // --- TYPE FIX IS HERE ---
+        const newHistory: { role: 'user'|'ai', content: string }[] = [...chatHistory, { role: 'user', content: text }];
+        
+        setChatHistory(newHistory);
         setLoading(true);
         
         try {
@@ -570,9 +571,10 @@ export default function Home() {
     const msgToSend = textOverride || mainInput;
     if (!msgToSend.trim()) return;
 
-    // Add user message
-    const newHistory = [...mainHistory, { role: 'user', content: msgToSend }];
-    setMainHistory(newHistory as any);
+    // --- TYPE FIX IS HERE ---
+    const newHistory: { role: 'user'|'ai', content: string }[] = [...mainHistory, { role: 'user', content: msgToSend }];
+    
+    setMainHistory(newHistory);
     if (!textOverride) setMainInput('');
     setMainLoading(true);
 
@@ -636,7 +638,7 @@ export default function Home() {
         {/* ROW 1: STATUS BAR */}
         <div className="bg-black text-white px-8 py-2 flex justify-between items-center text-[10px] font-mono tracking-widest border-b border-neutral-800">
             <div className="flex gap-4 items-center">
-                <span>RYAN_OS v89.0 // ONLINE</span>
+                <span>RYAN_OS v89.1 // ONLINE</span>
                 <button onClick={() => setIsAboutOpen(true)} className="hover:text-neutral-400 transition-colors flex items-center gap-1 border-l border-neutral-700 pl-4"><Info size={10} /> SYSTEM_INFO</button>
             </div>
             <div>MILWAUKEE, WI</div>
