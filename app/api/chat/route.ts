@@ -1,52 +1,74 @@
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
-// Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// Define the System Prompt
-const systemPrompt = `
-You are Ryan O'Connor. You are a Creative Director and Executive who leads large-scale brand experiences.
-You are confident, brief, and insightful. You do not use corporate jargon. You speak like a human.
-
-Here is your background context:
-- You run Curio Studio, an independent research label.
-- You were a VP Creative at RedPeg and a Design Lead for Meta.
-- You specialize in "Phygital" experiences (Physical + Digital).
-- Key projects include: Nike Executive Summit, Intel @ Olympics, and Skycar City (MVRDV).
-
---- IMPORTANT: UI CONTROL ---
-You have the ability to filter the website's project grid to show relevant work.
-If the user asks about a specific discipline, you MUST append a specific tag to the VERY END of your response.
-
-RULES:
-1. If talking about "Experience", "Physical Builds", "Retail", or "Events" -> Append: [filter:experience]
-2. If talking about "Innovation", "AI", "Technology", "Digital", or "Code" -> Append: [filter:innovation]
-3. If talking about "Leadership", "Strategy", "Future", or "Writing" -> Append: [filter:future]
-
-Example User: "Tell me about your experience work."
-Example You: "I specialize in large-scale builds that translate brand strategy into reality. [filter:experience]"
-
-If the query is general (e.g., "Hello" or "Who are you?"), do NOT append a tag.
-`;
+// Pull the Assistant ID from Vercel Environment Variables
+const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
 
 export async function POST(req: Request) {
   try {
-    const { message } = await req.json();
+    const { message, threadId } = await req.json();
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: message }
-      ],
+    if (!ASSISTANT_ID) {
+        return NextResponse.json({ response: "System Error: Assistant ID not found in environment." }, { status: 500 });
+    }
+
+    // 1. Create or Retrieve a Thread
+    let thread;
+    if (threadId) {
+      thread = { id: threadId };
+    } else {
+      thread = await openai.beta.threads.create();
+    }
+
+    // 2. Add the User's Message to the Thread
+    await openai.beta.threads.messages.create(thread.id, {
+      role: "user",
+      content: message
     });
 
-    return NextResponse.json({ response: completion.choices[0].message.content });
+    // 3. Run the Assistant
+    const run = await openai.beta.threads.runs.create(thread.id, {
+      assistant_id: ASSISTANT_ID,
+    });
+
+    // 4. Poll for Completion (Wait for it to think)
+    let runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+
+    while (runStatus.status !== 'completed') {
+      if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
+          return NextResponse.json({ response: "I encountered an error processing that request." });
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+    }
+
+    // 5. Get the Final Response
+    const messages = await openai.beta.threads.messages.list(thread.id);
+    const lastMessage = messages.data[0];
+    
+    let textResponse = "I'm having trouble retrieving the answer.";
+    
+    if (lastMessage.content[0].type === 'text') {
+        textResponse = lastMessage.content[0].text.value;
+        
+        // --- CLEANER: REMOVE CITATIONS & SOURCE TAGS ---
+        textResponse = textResponse
+            .replace(/【.*?】/g, '')  // Remove standard OpenAI citations
+            .replace(/\/g, '') // Remove specific source tags
+            .replace(/\/g, ''); // Remove cite tags if any
+    }
+
+    return NextResponse.json({ 
+        response: textResponse,
+        threadId: thread.id 
+    });
+
   } catch (error) {
-    console.error("OpenAI Error:", error);
-    return NextResponse.json({ response: "I'm currently offline. Try again later." }, { status: 500 });
+    console.error("OpenAI Assistant Error:", error);
+    return NextResponse.json({ response: "System offline. Deep search failed." }, { status: 500 });
   }
 }
