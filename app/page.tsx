@@ -97,7 +97,7 @@ const allProjects = [
     stats: ['400+ VPs', '$2M+ Budget', 'Global Summit'],
     desc: 'Aligning 400 VPs on a future vision. 4 days. 1 Strategy.',
     fullDesc: 'We needed to align 400 VPs on a 50-year strategic roadmap. Instead of a conference, we built a "Future-Casting" simulator.',
-    context: 'The challenge was high: Nike needed to align 400 VPs on a new future vision without it feeling like just another corporate event. My intervention was to model the revenue logic of the experience itself. The "secret detail" was a sculptural installation called "We Are One" using 400 individual rods. Each VP physically placed their own rod into the structure to complete it—a tangible, silence-inducing metaphor for alignment. This wasn\'t just design; it was a strategic pivot point for the company.',
+    context: 'The challenge was high: Nike needed to align 400 VPs on a new future vision without it feeling like just another corporate event. My intervention was to model the revenue logic of the experience itself. The "secret detail" was the sculptural installation called "We Are One" using 400 individual rods. Each VP physically placed their own rod into the structure to complete it—a tangible, silence-inducing metaphor for alignment. This wasn\'t just design; it was a strategic pivot point for the company.',
   },
   { 
     id: 'meta', 
@@ -337,6 +337,8 @@ const allProjects = [
   }
 ];
 
+// --- COMPONENTS ---
+
 const AboutModal = ({ onClose }: { onClose: () => void }) => {
     return (
         <motion.div 
@@ -363,7 +365,7 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
                     </p>
                 </div>
                 <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
-                    Build: RyanOS v80.0 // Powered by Vercel & OpenAI
+                    Build: RyanOS v89.0 // Powered by Vercel & OpenAI
                 </div>
             </motion.div>
         </motion.div>
@@ -409,39 +411,42 @@ const parseBold = (text: string) => {
 const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onClose: () => void, initialChatMsg?: string }) => {
     const [mode, setMode] = useState<'details' | 'chat'>('details');
     const [input, setInput] = useState('');
-    const [response, setResponse] = useState<string | null>(null);
+    const [chatHistory, setChatHistory] = useState<{role: 'user'|'ai', content: string}[]>([]);
     const [loading, setLoading] = useState(false);
-    const abortRef = useRef<AbortController | null>(null);
+    const chatEndRef = useRef<HTMLDivElement>(null);
 
     const handleSend = async (text: string) => {
-        if (abortRef.current) abortRef.current.abort();
-        const controller = new AbortController();
-        abortRef.current = controller;
-
+        if(!text.trim()) return;
+        
+        // Add user message immediately
+        const newHistory = [...chatHistory, { role: 'user', content: text }];
+        setChatHistory(newHistory as any);
         setLoading(true);
-        setResponse(null);
+        
         try {
             const res = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text }),
-                signal: controller.signal
+                body: JSON.stringify({ message: text })
             });
-            if (!res.ok) throw new Error("API Error");
             const data = await res.json();
-            setResponse(data.response.replace(/【.*?】/g, '').replace(/\[.*?\]/g, ''));
-        } catch (e: any) {
-            if (e.name !== 'AbortError') setResponse("Connection error.");
+            setChatHistory([...newHistory, { role: 'ai', content: data.response }]);
+        } catch (e) {
+            setChatHistory([...newHistory, { role: 'ai', content: "Error connecting to RyanOS." }]);
         } finally {
-            if (!controller.signal.aborted) setLoading(false);
+            setLoading(false);
         }
     };
 
     useEffect(() => {
-        if (initialChatMsg && mode === 'chat') {
+        if (initialChatMsg && mode === 'chat' && chatHistory.length === 0) {
             handleSend(initialChatMsg);
         }
     }, [initialChatMsg, mode]);
+
+    useEffect(() => {
+        chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [chatHistory, loading]);
 
     return (
         <motion.div 
@@ -456,62 +461,23 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                     <X size={24} />
                 </button>
 
+                {/* Left Side: Visuals */}
                 <div className="w-full md:w-2/3 h-1/2 md:h-full bg-neutral-100 overflow-y-auto relative scrollbar-hide border-r border-neutral-200">
                     {project.videos && project.videos.map((vid: string, i: number) => (
                         <div key={i} className="aspect-video w-full">
                             <iframe 
                                 src={`https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1`} 
                                 className="w-full h-full" 
-                                frameBorder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowFullScreen 
+                                frameBorder="0" allowFullScreen 
                             />
                         </div>
                     ))}
-
-                    {project.type === 'whitepaper' ? (
-                        <div className="p-12 max-w-3xl mx-auto">
-                            <div className="mb-8 p-4 bg-white border border-neutral-200 inline-block"><FileText size={32} /></div>
-                            <h2 className="text-5xl font-black uppercase mb-8 leading-none tracking-tight">{project.title}</h2>
-                            <div className="prose prose-lg font-serif text-neutral-600 leading-loose">
-                                <p>{project.fullDesc}</p>
-                                <p className="mt-6 text-sm text-neutral-400 border-l-2 border-neutral-200 pl-4 italic">{project.context}</p>
-                            </div>
-                            {project.papers && (
-                                <div className="mt-12 p-8 bg-white border border-neutral-200">
-                                    <h4 className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-4 flex items-center gap-2">
-                                        <Download size={12}/> Available Downloads
-                                    </h4>
-                                    <div className="space-y-3">
-                                        {project.papers.map((paper: any, i: number) => (
-                                            <a 
-                                                key={i} 
-                                                href={paper.url} 
-                                                target="_blank"
-                                                className="block p-4 border border-neutral-200 hover:border-black hover:bg-neutral-50 transition-colors group flex justify-between items-center"
-                                            >
-                                                <span className="font-bold text-sm group-hover:underline">{paper.title}</span>
-                                                <ArrowUpRight size={14} className="text-neutral-400 group-hover:text-black"/>
-                                            </a>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 gap-1">
-                            {project.images && project.images.map((img: string, i: number) => (
-                                <img key={i} src={img} className="w-full h-auto object-cover" />
-                            ))}
-                            {(!project.images || project.images.length === 0) && (
-                                <div className="absolute bottom-8 left-8 text-white z-20 pointer-events-none mix-blend-difference">
-                                    <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none">{project.title}</h2>
-                                </div>
-                            )}
-                        </div>
-                    )}
+                    {project.images && project.images.map((img: string, i: number) => (
+                        <img key={i} src={img} className="w-full h-auto object-cover" />
+                    ))}
                 </div>
 
+                {/* Right Side: Details/Chat */}
                 <div className="w-full md:w-1/3 h-1/2 md:h-full bg-white flex flex-col">
                     <div className="p-6 border-b border-neutral-100 flex justify-between items-center pr-16">
                         {mode === 'chat' ? (
@@ -521,7 +487,6 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                         ) : (
                             <div className="text-xs font-bold text-neutral-400 uppercase tracking-widest">{project.category} // {project.date}</div>
                         )}
-                        <div />
                     </div>
 
                     {mode === 'details' ? (
@@ -547,24 +512,33 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                             </div>
                         </div>
                     ) : (
-                        <div className="flex-1 flex flex-col bg-neutral-50 h-full">
-                            <div className="flex-1 p-6 overflow-y-auto">
-                                {loading ? (
-                                    <div className="flex items-center gap-2 text-neutral-400 text-sm animate-pulse"><Sparkles size={16} /> Retrieving...</div>
-                                ) : (
-                                    <div className="text-sm md:text-base font-medium leading-relaxed text-neutral-800">
-                                        <FormattedText text={response || "Ask me anything about this project."} />
+                        <div className="flex-1 flex flex-col bg-neutral-50 h-full relative">
+                            <div className="flex-1 p-6 overflow-y-auto space-y-4 pb-20">
+                                {chatHistory.map((msg, i) => (
+                                    <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                                        <div className={`max-w-[85%] p-4 text-sm ${msg.role === 'user' ? 'bg-black text-white rounded-t-lg rounded-bl-lg' : 'bg-white border border-neutral-200 rounded-t-lg rounded-br-lg shadow-sm'}`}>
+                                            {msg.role === 'ai' ? <FormattedText text={msg.content} /> : msg.content}
+                                        </div>
+                                        <span className="text-[10px] text-neutral-400 mt-1 uppercase tracking-wider font-bold">{msg.role === 'user' ? 'You' : 'RyanOS'}</span>
+                                    </div>
+                                ))}
+                                {loading && (
+                                    <div className="flex items-start">
+                                         <div className="bg-white border border-neutral-200 p-4 rounded-t-lg rounded-br-lg shadow-sm flex items-center gap-2 text-neutral-400">
+                                            <Sparkles size={14} className="animate-spin" /> Thinking...
+                                         </div>
                                     </div>
                                 )}
+                                <div ref={chatEndRef} />
                             </div>
-                            <div className="p-4 bg-white border-t border-neutral-200">
+                            <div className="absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-neutral-200">
                                 <div className="relative">
                                     <input 
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
                                         onKeyDown={(e) => { if(e.key === 'Enter') { handleSend(input); setInput(''); }}}
                                         placeholder={`Ask about ${project.title}...`}
-                                        className="w-full bg-neutral-100 border border-transparent focus:bg-white focus:border-black rounded-none py-3 px-4 text-sm outline-none transition-all"
+                                        className="w-full bg-neutral-100 border border-transparent focus:bg-white focus:border-black rounded-none py-3 px-4 text-sm outline-none transition-all pr-10"
                                         autoFocus
                                     />
                                     <button onClick={() => { handleSend(input); setInput(''); }} className="absolute right-2 top-2 p-1.5 text-neutral-400 hover:text-black">
@@ -585,41 +559,35 @@ export default function Home() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [visibleCount, setVisibleCount] = useState(9);
-  const [input, setInput] = useState('');
-  const [response, setResponse] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [threadId, setThreadId] = useState<string | null>(null);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  
+  // MAIN CHAT STATE
+  const [mainInput, setMainInput] = useState('');
+  const [mainHistory, setMainHistory] = useState<{role: 'user'|'ai', content: string}[]>([]);
+  const [mainLoading, setMainLoading] = useState(false);
+  const mainChatEndRef = useRef<HTMLDivElement>(null);
 
-  const hasInteracted = !!response || loading;
-
-  const sendMessage = async (textOverride?: string) => {
-    const msgToSend = textOverride || input;
+  const sendMainMessage = async (textOverride?: string) => {
+    const msgToSend = textOverride || mainInput;
     if (!msgToSend.trim()) return;
 
-    if (abortControllerRef.current) abortControllerRef.current.abort();
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
-
-    if (!textOverride) setInput('');
-    setLoading(true);
-    setResponse(null);
+    // Add user message
+    const newHistory = [...mainHistory, { role: 'user', content: msgToSend }];
+    setMainHistory(newHistory as any);
+    if (!textOverride) setMainInput('');
+    setMainLoading(true);
 
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msgToSend, threadId }),
-        signal: controller.signal
+        body: JSON.stringify({ message: msgToSend })
       });
-      if (!res.ok) throw new Error("API Error");
       const data = await res.json();
-      if (data.threadId) setThreadId(data.threadId);
       
       let rawResponse = data.response || '';
       
+      // Filter Logic
       const tagMatch = rawResponse.match(/\[filter:([a-zA-Z0-9_-]+)\]/i);
-      
       if (tagMatch) {
           const tag = tagMatch[1].toLowerCase();
           setActiveFilter(tag);
@@ -629,14 +597,17 @@ export default function Home() {
           setVisibleCount(9); 
       }
 
-      const cleanResponse = rawResponse.replace(/【.*?】/g, '').replace(/\[.*?\]/g, '');
-      setResponse(cleanResponse);
-    } catch (error: any) {
-      if (error.name !== 'AbortError') setResponse("System offline. Please try again.");
+      setMainHistory([...newHistory, { role: 'ai', content: rawResponse }]);
+    } catch (error) {
+      setMainHistory([...newHistory, { role: 'ai', content: "System offline. Please try again." }]);
     } finally {
-        if (!controller.signal.aborted) setLoading(false);
+        setMainLoading(false);
     }
   };
+
+  useEffect(() => {
+    mainChatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [mainHistory, mainLoading]);
 
   const handleLoadMore = () => {
       setVisibleCount(prev => prev + 7);
@@ -653,6 +624,7 @@ export default function Home() {
   });
 
   const projectsToShow = activeFilter ? displayedProjects : displayedProjects.slice(0, visibleCount);
+  const hasInteracted = mainHistory.length > 0;
 
   return (
     <div className="min-h-screen bg-[#E5E5E5] text-neutral-900 font-sans selection:bg-black selection:text-white flex flex-col relative overflow-x-hidden">
@@ -664,7 +636,7 @@ export default function Home() {
         {/* ROW 1: STATUS BAR */}
         <div className="bg-black text-white px-8 py-2 flex justify-between items-center text-[10px] font-mono tracking-widest border-b border-neutral-800">
             <div className="flex gap-4 items-center">
-                <span>RYAN_OS v80.0 // ONLINE</span>
+                <span>RYAN_OS v89.0 // ONLINE</span>
                 <button onClick={() => setIsAboutOpen(true)} className="hover:text-neutral-400 transition-colors flex items-center gap-1 border-l border-neutral-700 pl-4"><Info size={10} /> SYSTEM_INFO</button>
             </div>
             <div>MILWAUKEE, WI</div>
@@ -675,7 +647,7 @@ export default function Home() {
             <div className="bg-white border-b border-neutral-100 px-8 py-3 text-[10px] font-bold uppercase tracking-widest text-neutral-400">Core Disciplines // Specialized Zones</div>
             <div className="grid grid-cols-1 md:grid-cols-3">
                 {focusAreas.map((area) => (
-                    <div key={area.id} className="relative h-[300px] overflow-hidden group cursor-pointer border-r border-neutral-100 last:border-r-0" onClick={() => !loading && sendMessage(area.prompt)}>
+                    <div key={area.id} className="relative h-[300px] overflow-hidden group cursor-pointer border-r border-neutral-100 last:border-r-0" onClick={() => !mainLoading && sendMainMessage(area.prompt)}>
                         <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{ backgroundImage: `url(${area.img})` }} />
                         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/80 transition-colors duration-500" />
                         <div className="absolute inset-0 opacity-20 mix-blend-overlay" style={{ backgroundImage: `url("${NOISE_SVG}")` }} />
@@ -713,8 +685,8 @@ export default function Home() {
             <motion.div layout className={`p-8 md:p-8 flex flex-col bg-white h-full max-h-full ${hasInteracted ? 'col-span-2' : 'col-span-1'}`}>
                 <div className="flex items-center justify-between mb-4 shrink-0">
                     <div className="flex items-center gap-2">
-                        {loading ? (
-                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400"><Sparkles size={12} className="animate-spin" /> Ryan is thinking... answer coming...</div>
+                        {mainLoading ? (
+                            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-400"><Sparkles size={12} className="animate-spin" /> Ryan is thinking...</div>
                         ) : (
                             <><div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"/><span className="text-xs font-bold uppercase tracking-widest text-neutral-400">System Online</span></>
                         )}
@@ -724,13 +696,28 @@ export default function Home() {
                         <a href="/labs/solar.html" target="_blank" className="text-[10px] font-mono text-neutral-400 hover:text-black uppercase tracking-widest transition-colors flex items-center gap-1">SOLAR <ArrowUpRight size={8} /></a>
                     </div>
                 </div>
-                {/* FIXED HEIGHT CHAT WINDOW: 280px */}
-                <div className="h-[280px] overflow-y-auto mb-4 pr-2 scrollbar-hide shrink-0">
-                    {loading ? <div className="flex h-full items-center justify-center opacity-50"></div> : <div className="text-lg font-medium leading-relaxed text-neutral-800"><FormattedText text={response || "What do you want to know? Ask me anything about my work, leadership style, or what I'm building next."} /></div>}
+                
+                {/* CHAT HISTORY AREA */}
+                <div className="h-[280px] overflow-y-auto mb-4 pr-2 scrollbar-hide shrink-0 space-y-4">
+                    {mainHistory.length === 0 ? (
+                        <div className="h-full flex items-center justify-center text-neutral-400 text-lg font-medium">
+                            What do you want to know? Ask me anything about my work, leadership style, or what I'm building next.
+                        </div>
+                    ) : (
+                        mainHistory.map((msg, i) => (
+                            <div key={i} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                                <div className={`max-w-[85%] p-4 text-sm md:text-base leading-relaxed ${msg.role === 'user' ? 'bg-black text-white rounded-t-lg rounded-bl-lg' : 'bg-neutral-100 text-neutral-900 rounded-t-lg rounded-br-lg'}`}>
+                                    {msg.role === 'ai' ? <FormattedText text={msg.content} /> : msg.content}
+                                </div>
+                            </div>
+                        ))
+                    )}
+                    <div ref={mainChatEndRef} />
                 </div>
-                <div className={`relative group border-b-2 border-neutral-200 focus-within:border-black transition-colors shrink-0 mt-auto ${loading ? 'opacity-50 pointer-events-none' : ''}`}>
-                    <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !loading && sendMessage()} placeholder="Type to talk to Ryan..." disabled={loading} className="w-full bg-transparent py-4 pr-12 text-lg font-bold placeholder:text-neutral-300 text-black outline-none disabled:cursor-not-allowed" />
-                    <button onClick={() => !loading && sendMessage()} disabled={loading} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-neutral-400 hover:text-black transition-colors disabled:cursor-not-allowed"><Send size={20} /></button>
+
+                <div className={`relative group border-b-2 border-neutral-200 focus-within:border-black transition-colors shrink-0 mt-auto ${mainLoading ? 'opacity-50 pointer-events-none' : ''}`}>
+                    <input value={mainInput} onChange={(e) => setMainInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !mainLoading && sendMainMessage()} placeholder="Type to talk to Ryan..." disabled={mainLoading} className="w-full bg-transparent py-4 pr-12 text-lg font-bold placeholder:text-neutral-300 text-black outline-none disabled:cursor-not-allowed" />
+                    <button onClick={() => !mainLoading && sendMainMessage()} disabled={mainLoading} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-neutral-400 hover:text-black transition-colors disabled:cursor-not-allowed"><Send size={20} /></button>
                 </div>
             </motion.div>
         </motion.div>
