@@ -365,7 +365,7 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
                     </p>
                 </div>
                 <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
-                    Build: RyanOS v89.1 // Powered by Vercel & OpenAI
+                    Build: RyanOS v89.2 // Powered by Vercel & OpenAI
                 </div>
             </motion.div>
         </motion.div>
@@ -418,8 +418,8 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
     const handleSend = async (text: string) => {
         if(!text.trim()) return;
         
-        // --- TYPE FIX IS HERE ---
-        const newHistory: { role: 'user'|'ai', content: string }[] = [...chatHistory, { role: 'user', content: text }];
+        // --- SINGLE TURN LOGIC FOR PROJECT MODAL ---
+        const newHistory: { role: 'user'|'ai', content: string }[] = [{ role: 'user', content: text }];
         
         setChatHistory(newHistory);
         setLoading(true);
@@ -571,8 +571,8 @@ export default function Home() {
     const msgToSend = textOverride || mainInput;
     if (!msgToSend.trim()) return;
 
-    // --- TYPE FIX IS HERE ---
-    const newHistory: { role: 'user'|'ai', content: string }[] = [...mainHistory, { role: 'user', content: msgToSend }];
+    // --- SINGLE TURN LOGIC (WIPE HISTORY ON NEW QUESTION) ---
+    const newHistory: { role: 'user'|'ai', content: string }[] = [{ role: 'user', content: msgToSend }];
     
     setMainHistory(newHistory);
     if (!textOverride) setMainInput('');
@@ -588,8 +588,8 @@ export default function Home() {
       
       let rawResponse = data.response || '';
       
-      // Filter Logic
-      const tagMatch = rawResponse.match(/\[filter:([a-zA-Z0-9_-]+)\]/i);
+      // Filter Logic - Now Robust to spaces (e.g. [filter: Experience])
+      const tagMatch = rawResponse.match(/\[filter:\s*([a-zA-Z0-9_-]+)\]/i);
       if (tagMatch) {
           const tag = tagMatch[1].toLowerCase();
           setActiveFilter(tag);
@@ -638,7 +638,7 @@ export default function Home() {
         {/* ROW 1: STATUS BAR */}
         <div className="bg-black text-white px-8 py-2 flex justify-between items-center text-[10px] font-mono tracking-widest border-b border-neutral-800">
             <div className="flex gap-4 items-center">
-                <span>RYAN_OS v89.1 // ONLINE</span>
+                <span>RYAN_OS v89.2 // ONLINE</span>
                 <button onClick={() => setIsAboutOpen(true)} className="hover:text-neutral-400 transition-colors flex items-center gap-1 border-l border-neutral-700 pl-4"><Info size={10} /> SYSTEM_INFO</button>
             </div>
             <div>MILWAUKEE, WI</div>
@@ -699,7 +699,7 @@ export default function Home() {
                     </div>
                 </div>
                 
-                {/* CHAT HISTORY AREA */}
+                {/* CHAT HISTORY AREA - SINGLE TURN */}
                 <div className="h-[280px] overflow-y-auto mb-4 pr-2 scrollbar-hide shrink-0 space-y-4">
                     {mainHistory.length === 0 ? (
                         <div className="h-full flex items-center justify-center text-neutral-400 text-lg font-medium">
