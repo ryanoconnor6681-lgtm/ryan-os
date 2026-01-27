@@ -6,7 +6,6 @@ import { motion, AnimatePresence, Variants } from 'framer-motion';
 // --- VISUAL ASSETS ---
 const NOISE_SVG = `data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E`;
 
-// --- ANIMATION VARIANTS ---
 const topRowVariants: Variants = {
   hidden: { y: -100, opacity: 0 },
   visible: { 
@@ -25,7 +24,6 @@ const identityRowVariants: Variants = {
   }
 };
 
-// --- DATA LAYER ---
 const focusAreas = [
   {
     id: 'experience',
@@ -59,7 +57,6 @@ const focusAreas = [
   }
 ];
 
-// --- HELPER: GENERATE IMAGE ARRAYS (STANDARD 01-XX) ---
 const generateImages = (projectId: string, count: number) => {
     return Array.from({ length: count }, (_, i) => {
         const num = (i + 1).toString().padStart(2, '0');
@@ -67,9 +64,7 @@ const generateImages = (projectId: string, count: number) => {
     });
 };
 
-// --- PROJECT DATABASE ---
 const allProjects = [
-  // --- TOP 9 ---
   { 
     id: 'curio', 
     tags: ['innovation', 'future', 'ai', 'leadership', 'strategy'],
@@ -166,8 +161,7 @@ const allProjects = [
     date: '2008',
     category: 'Future',
     img: '/images/skycar/hero.jpg', 
-    videos: ['H4NrGEHelz8'], // UPDATED: Skycar Video
-    // UPDATED: Custom image map for 00-14 indexing
+    videos: ['H4NrGEHelz8'],
     images: Array.from({ length: 15 }, (_, i) => {
         const num = i.toString().padStart(2, '0');
         return `/images/skycar/detail_${num}.jpg`;
@@ -227,8 +221,6 @@ const allProjects = [
     fullDesc: 'We built virtual environments and digital storytelling engines that allowed fans to explore the X Games remotely.',
     context: 'This was an experiment in community-driven virtual worlds. We translated the high-energy culture of action sports into code and immersive digital exploration, allowing fans to engage with the X Games remotely in a way that felt authentic to the gaming community.',
   },
-  
-  // --- ARCHIVE ---
   {
     id: 'iqos',
     tags: ['experience', 'branding', 'retail', 'architecture'],
@@ -345,7 +337,6 @@ const allProjects = [
   }
 ];
 
-// --- COMPONENTS ---
 const AboutModal = ({ onClose }: { onClose: () => void }) => {
     return (
         <motion.div 
@@ -372,7 +363,7 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
                     </p>
                 </div>
                 <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
-                    Build: RyanOS v67.0 // Powered by Vercel & OpenAI
+                    Build: RyanOS v80.0 // Powered by Vercel & OpenAI
                 </div>
             </motion.div>
         </motion.div>
@@ -673,7 +664,7 @@ export default function Home() {
         {/* ROW 1: STATUS BAR */}
         <div className="bg-black text-white px-8 py-2 flex justify-between items-center text-[10px] font-mono tracking-widest border-b border-neutral-800">
             <div className="flex gap-4 items-center">
-                <span>RYAN_OS v67.0 // ONLINE</span>
+                <span>RYAN_OS v80.0 // ONLINE</span>
                 <button onClick={() => setIsAboutOpen(true)} className="hover:text-neutral-400 transition-colors flex items-center gap-1 border-l border-neutral-700 pl-4"><Info size={10} /> SYSTEM_INFO</button>
             </div>
             <div>MILWAUKEE, WI</div>
