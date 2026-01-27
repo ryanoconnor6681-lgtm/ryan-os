@@ -41,6 +41,7 @@ export async function POST(req: Request) {
       if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
           return NextResponse.json({ response: "I encountered an error processing that request." });
       }
+      // Wait 1 second before checking again
       await new Promise(resolve => setTimeout(resolve, 1000));
       runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
     }
@@ -54,11 +55,15 @@ export async function POST(req: Request) {
     if (lastMessage.content[0].type === 'text') {
         textResponse = lastMessage.content[0].text.value;
         
-        // --- CLEANER: REMOVE CITATIONS & SOURCE TAGS ---
-        // We use safe regex patterns here to avoid build errors
-        textResponse = textResponse.replace(/【.*?】/g, ''); 
-        textResponse = textResponse.replace(/\/g, '');
-        textResponse = textResponse.replace(/\/g, '');
+        // --- CLEANER: REMOVE CITATIONS & SOURCE TAGS (SAFE MODE) ---
+        // Using RegExp constructor to avoid build errors with slashes
+        const citationRegex = new RegExp('【.*?】', 'g');
+        const sourceRegex = new RegExp('\\', 'g');
+        const citeRegex = new RegExp('\\', 'g');
+
+        textResponse = textResponse.replace(citationRegex, '');
+        textResponse = textResponse.replace(sourceRegex, '');
+        textResponse = textResponse.replace(citeRegex, '');
     }
 
     return NextResponse.json({ 
