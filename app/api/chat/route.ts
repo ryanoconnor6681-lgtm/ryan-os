@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 
 // ⚠️ PASTE YOUR KEYS HERE
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 const MY_ASSISTANT_ID = "asst_lDBeuMQlca4yjadkBue3xVcW";
 
