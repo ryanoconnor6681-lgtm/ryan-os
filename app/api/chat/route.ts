@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const { message, threadId } = await req.json();
 
     if (!ASSISTANT_ID) {
-        return NextResponse.json({ response: "System Error: Assistant ID not found in environment." }, { status: 500 });
+        return NextResponse.json({ response: "System Error: Assistant ID not found." }, { status: 500 });
     }
 
     // 1. Create or Retrieve a Thread
@@ -23,53 +23,43 @@ export async function POST(req: Request) {
       thread = await openai.beta.threads.create();
     }
 
-    // 2. Add the User's Message to the Thread
+    // 2. Add the User's Message
     await openai.beta.threads.messages.create(thread.id, {
       role: "user",
       content: message
     });
 
-    // 3. Run the Assistant
-    const run = await openai.beta.threads.runs.create(thread.id, {
+    // 3. THE MAGIC FIX: Create and Poll in one step
+    // This replaces the old "while loop" that was breaking
+    const run = await openai.beta.threads.runs.createAndPoll(thread.id, {
       assistant_id: ASSISTANT_ID,
     });
 
-    // 4. Poll for Completion
-    let runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-
-    while (runStatus.status !== 'completed') {
-      if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
-          return NextResponse.json({ response: "I encountered an error processing that request." });
-      }
-      // Wait 1 second before checking again
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-    }
-
-    // 5. Get the Final Response
-    const messages = await openai.beta.threads.messages.list(thread.id);
-    const lastMessage = messages.data[0];
-    
-    let textResponse = "I'm having trouble retrieving the answer.";
-    
-    if (lastMessage.content[0].type === 'text') {
-        textResponse = lastMessage.content[0].text.value;
+    // 4. Handle the Result
+    if (run.status === 'completed') {
+        const messages = await openai.beta.threads.messages.list(run.thread_id);
+        const lastMessage = messages.data[0];
         
-        // --- CLEANER: REMOVE CITATIONS & SOURCE TAGS (SAFE MODE) ---
-        // Using RegExp constructor to avoid build errors with slashes
-        const citationRegex = new RegExp('【.*?】', 'g');
-        const sourceRegex = new RegExp('\\', 'g');
-        const citeRegex = new RegExp('\\', 'g');
+        let textResponse = "I'm having trouble retrieving the answer.";
+        
+        if (lastMessage.content[0].type === 'text') {
+            textResponse = lastMessage.content[0].text.value;
+            
+            // Safe cleanup of citations
+            const citationRegex = new RegExp('【.*?】', 'g');
+            const sourceRegex = new RegExp('\\', 'g');
+            
+            textResponse = textResponse.replace(citationRegex, '');
+            textResponse = textResponse.replace(sourceRegex, '');
+        }
 
-        textResponse = textResponse.replace(citationRegex, '');
-        textResponse = textResponse.replace(sourceRegex, '');
-        textResponse = textResponse.replace(citeRegex, '');
+        return NextResponse.json({ 
+            response: textResponse,
+            threadId: thread.id 
+        });
+    } else {
+        return NextResponse.json({ response: "RyanOS is thinking too hard. Try again." });
     }
-
-    return NextResponse.json({ 
-        response: textResponse,
-        threadId: thread.id 
-    });
 
   } catch (error) {
     console.error("OpenAI Assistant Error:", error);
