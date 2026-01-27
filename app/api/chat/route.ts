@@ -5,7 +5,6 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// Pull the Assistant ID from Vercel Environment Variables
 const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
 
 export async function POST(req: Request) {
@@ -35,7 +34,7 @@ export async function POST(req: Request) {
       assistant_id: ASSISTANT_ID,
     });
 
-    // 4. Poll for Completion (Wait for it to think)
+    // 4. Poll for Completion
     let runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
 
     while (runStatus.status !== 'completed') {
@@ -56,10 +55,10 @@ export async function POST(req: Request) {
         textResponse = lastMessage.content[0].text.value;
         
         // --- CLEANER: REMOVE CITATIONS & SOURCE TAGS ---
-        textResponse = textResponse
-            .replace(/【.*?】/g, '')  // Remove standard OpenAI citations
-            .replace(/\/g, '') // Remove specific source tags
-            .replace(/\/g, ''); // Remove cite tags if any
+        // We use safe regex patterns here to avoid build errors
+        textResponse = textResponse.replace(/【.*?】/g, ''); 
+        textResponse = textResponse.replace(/\/g, '');
+        textResponse = textResponse.replace(/\/g, '');
     }
 
     return NextResponse.json({ 
