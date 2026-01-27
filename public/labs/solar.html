@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Solar Dashboard with Leaflet & Sun Diagram</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <style>
+    /* Global Styles & Neomorphism */
+    body {
+      background: #e0e5ec;
+      font-family: Avenir, 'Helvetica Neue', Helvetica, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    /* Top Controls */
+    .top-controls {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-radius: 20px;
+      background: #e0e5ec;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+    .left-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .right-control {
+      margin-left: auto;
+    }
+    .left-control label {
+      font-size: 16px;
+      font-weight: 400;
+    }
+    input[type="date"], select {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #e0e5ec;
+      box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+    }
+    .toggle-button {
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      background: #e0e5ec;
+      cursor: pointer;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+      transition: background 0.3s;
+    }
+    .toggle-button:hover {
+      background: #d0d7de;
+    }
+    /* Diagram Containers */
+    .diagram {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #e0e5ec;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+      height: 680px;
+    }
+    /* House view (SVG) */
+    #houseView { display: block; }
+    /* World view (Leaflet) */
+    #worldView { display: none; }
+    /* Leaflet map styling */
+    #leafletMap {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+    }
+    /* Stats Panel */
+    .stats-panel {
+      display: flex;
+      justify-content: space-evenly;
+      gap: 20px;
+      flex-wrap: nowrap;
+    }
+    .stat-card {
+      background: #e0e5ec;
+      border-radius: 20px;
+      box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+      padding: 20px;
+      width: 320px;
+      font-size: 16px;
+    }
+    /* Increase the font size of city names in the stat cards */
+    .stat-card h3 {
+      font-size: 20px; /* adjust as needed */
+      margin-top: 0;
+    }
+    /* New inset style for each data section */
+    .stat-section {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #e0e5ec;
+      box-shadow: inset 4px 4px 8px #a3b1c6, inset -4px -4px 8px #ffffff;
+    }
+    .stat-section h4 {
+      margin: 0 0 8px;
+      font-weight: 600;
+    }
+  </style>
+  <!-- Leaflet CSS from CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Top Controls -->
+    <div class="top-controls">
+      <div class="left-control">
+        <label for="dateInput">Select Date:</label>
+        <input type="date" id="dateInput" />
+        <label for="citySelect">Compare with:</label>
+        <select id="citySelect">
+          <option value="">--Select City--</option>
+          <!-- Dropdown Options -->
+          <option value="Florence, Italy">Florence, Italy</option>
+          <option value="New York, NY, USA">New York, NY, USA</option>
+          <option value="Los Angeles, CA, USA">Los Angeles, CA, USA</option>
+          <option value="Chicago, IL, USA">Chicago, IL, USA</option>
+          <option value="Miami, FL, USA">Miami, FL, USA</option>
+          <option value="Denver, CO, USA">Denver, CO, USA</option>
+          <option value="Seattle, WA, USA">Seattle, WA, USA</option>
+          <option value="Austin, TX, USA">Austin, TX, USA</option>
+          <option value="Anchorage, AK, USA">Anchorage, AK, USA</option>
+          <option value="Honolulu, HI, USA">Honolulu, HI, USA</option>
+          <option value="Mexico City, Mexico">Mexico City, Mexico</option>
+          <option value="Toronto, Canada">Toronto, Canada</option>
+          <option value="San Juan, Puerto Rico">San Juan, Puerto Rico</option>
+          <option value="Fairbanks, AK, USA">Fairbanks, AK, USA</option>
+          <option value="Phoenix, AZ, USA">Phoenix, AZ, USA</option>
+          <option value="London, UK">London, UK</option>
+          <option value="Paris, France">Paris, France</option>
+          <option value="Berlin, Germany">Berlin, Germany</option>
+          <option value="Madrid, Spain">Madrid, Spain</option>
+          <option value="Oslo, Norway">Oslo, Norway</option>
+          <option value="Athens, Greece">Athens, Greece</option>
+          <option value="Lisbon, Portugal">Lisbon, Portugal</option>
+          <option value="Tokyo, Japan">Tokyo, Japan</option>
+          <option value="Seoul, South Korea">Seoul, South Korea</option>
+          <option value="Bangkok, Thailand">Bangkok, Thailand</option>
+          <option value="Mumbai, India">Mumbai, India</option>
+          <option value="Shanghai, China">Shanghai, China</option>
+          <option value="Buenos Aires, Argentina">Buenos Aires, Argentina</option>
+          <option value="Santiago, Chile">Santiago, Chile</option>
+          <option value="Quito, Ecuador">Quito, Ecuador</option>
+          <option value="Sydney, Australia">Sydney, Australia</option>
+          <option value="Brisbane, Australia">Brisbane, Australia</option>
+          <option value="Auckland, New Zealand">Auckland, New Zealand</option>
+        </select>
+        <div id="oppositeSeasonDisplay" style="font-size:16px; font-weight:600; margin-left:20px;">
+          Opposite Season Date:
+          <span id="oppositeSeasonValue" style="font-weight:400; margin-left:5px;"></span>
+        </div>
+      </div>
+      <div class="right-control">
+        <button id="toggleView" class="toggle-button">Switch to World Map</button>
+      </div>
+    </div>
+    
+    <!-- Diagram Containers -->
+    <!-- House Diagram (SVG) -->
+    <div id="houseView" class="diagram">
+      <svg id="solarDiagram" viewBox="0 0 1200 640"></svg>
+    </div>
+    <!-- World Map (Leaflet) -->
+    <div id="worldView" class="diagram">
+      <div id="leafletMap"></div>
+    </div>
+    
+    <!-- Stats Panel -->
+    <div class="stats-panel" id="statsPanel"></div>
+  </div>
+  
+  <!-- Leaflet JS from CDN -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- SunCalc for solar calculations -->
+  <script src="https://unpkg.com/suncalc/suncalc.js"></script>
+  <script>
+    // Global variables
+    let viewMode = "house"; // "house" or "world"
+    let globalWeatherData = {};
+    let solarArray = [];
+    
+    // OpenWeather API key (replace with your own key if needed)
+    const openWeatherKey = "17364df3ed1f2e5a2570f1ce687cd671";
+    
+    // Base locations (always displayed)
+    const baseLocations = [
+      { name:"Milwaukee, WI", lat:43.0411, lng:-87.9094, timeZone:"America/Chicago", houseOffset:0 },
+      { name:"Santa Cruz, CA", lat:36.9741, lng:-122.0308, timeZone:"America/Los_Angeles", houseOffset:50 },
+      { name:"Helsinki, Finland", lat:60.1699, lng:24.9384, timeZone:"Europe/Helsinki", houseOffset:-100 }
+    ];
+    
+    // Custom cities from dropdown
+    const customCities = {
+      "Florence, Italy": { name:"Florence, Italy", lat:43.7696, lng:11.2558, timeZone:"Europe/Rome", houseOffset:0, custom:true },
+      "New York, NY, USA": { name:"New York, NY, USA", lat:40.7128, lng:-74.0060, timeZone:"America/New_York", houseOffset:0, custom:true },
+      "Los Angeles, CA, USA": { name:"Los Angeles, CA, USA", lat:34.0522, lng:-118.2437, timeZone:"America/Los_Angeles", houseOffset:0, custom:true },
+      "Chicago, IL, USA": { name:"Chicago, IL, USA", lat:41.8781, lng:-87.6298, timeZone:"America/Chicago", houseOffset:0, custom:true },
+      "Miami, FL, USA": { name:"Miami, FL, USA", lat:25.7617, lng:-80.1918, timeZone:"America/New_York", houseOffset:0, custom:true },
+      "Toronto, Canada": { name:"Toronto, Canada", lat:43.6532, lng:-79.3832, timeZone:"America/Toronto", houseOffset:0, custom:true },
+      "Denver, CO, USA": { name:"Denver, CO, USA", lat:39.7392, lng:-104.9903, timeZone:"America/Denver", houseOffset:0, custom:true },
+      "Seattle, WA, USA": { name:"Seattle, WA, USA", lat:47.6062, lng:-122.3321, timeZone:"America/Los_Angeles", houseOffset:0, custom:true },
+      "Austin, TX, USA": { name:"Austin, TX, USA", lat:30.2672, lng:-97.7431, timeZone:"America/Chicago", houseOffset:0, custom:true },
+      "Anchorage, AK, USA": { name:"Anchorage, AK, USA", lat:61.2181, lng:-149.9003, timeZone:"America/Anchorage", houseOffset:0, custom:true },
+      "Honolulu, HI, USA": { name:"Honolulu, HI, USA", lat:21.3069, lng:-157.8583, timeZone:"Pacific/Honolulu", houseOffset:0, custom:true },
+      "Mexico City, Mexico": { name:"Mexico City, Mexico", lat:19.4326, lng:-99.1332, timeZone:"America/Mexico_City", houseOffset:0, custom:true },
+      "San Juan, Puerto Rico": { name:"San Juan, Puerto Rico", lat:18.4655, lng:-66.1057, timeZone:"America/Puerto_Rico", houseOffset:0, custom:true },
+      "Fairbanks, AK, USA": { name:"Fairbanks, AK, USA", lat:64.8378, lng:-147.7164, timeZone:"America/Anchorage", houseOffset:0, custom:true },
+      "Phoenix, AZ, USA": { name:"Phoenix, AZ, USA", lat:33.4484, lng:-112.0740, timeZone:"America/Phoenix", houseOffset:0, custom:true },
+      "London, UK": { name:"London, UK", lat:51.5074, lng:-0.1278, timeZone:"Europe/London", houseOffset:0, custom:true },
+      "Paris, France": { name:"Paris, France", lat:48.8566, lng:2.3522, timeZone:"Europe/Paris", houseOffset:0, custom:true },
+      "Berlin, Germany": { name:"Berlin, Germany", lat:52.5200, lng:13.4050, timeZone:"Europe/Berlin", houseOffset:0, custom:true },
+      "Madrid, Spain": { name:"Madrid, Spain", lat:40.4168, lng:-3.7038, timeZone:"Europe/Madrid", houseOffset:0, custom:true },
+      "Oslo, Norway": { name:"Oslo, Norway", lat:59.9139, lng:10.7522, timeZone:"Europe/Oslo", houseOffset:0, custom:true },
+      "Athens, Greece": { name:"Athens, Greece", lat:37.9838, lng:23.7275, timeZone:"Europe/Athens", houseOffset:0, custom:true },
+      "Lisbon, Portugal": { name:"Lisbon, Portugal", lat:38.7223, lng:-9.1393, timeZone:"Europe/Lisbon", houseOffset:0, custom:true },
+      "Tokyo, Japan": { name:"Tokyo, Japan", lat:35.6895, lng:139.6917, timeZone:"Asia/Tokyo", houseOffset:0, custom:true },
+      "Seoul, South Korea": { name:"Seoul, South Korea", lat:37.5665, lng:126.9780, timeZone:"Asia/Seoul", houseOffset:0, custom:true },
+      "Bangkok, Thailand": { name:"Bangkok, Thailand", lat:13.7563, lng:100.5018, timeZone:"Asia/Bangkok", houseOffset:0, custom:true },
+      "Mumbai, India": { name:"Mumbai, India", lat:19.0760, lng:72.8777, timeZone:"Asia/Kolkata", houseOffset:0, custom:true },
+      "Shanghai, China": { name:"Shanghai, China", lat:31.2304, lng:121.4737, timeZone:"Asia/Shanghai", houseOffset:0, custom:true },
+      "Buenos Aires, Argentina": { name:"Buenos Aires, Argentina", lat:-34.6037, lng:-58.3816, timeZone:"America/Argentina/Buenos_Aires", houseOffset:0, custom:true },
+      "Santiago, Chile": { name:"Santiago, Chile", lat:-33.4489, lng:-70.6693, timeZone:"America/Santiago", houseOffset:0, custom:true },
+      "Quito, Ecuador": { name:"Quito, Ecuador", lat:-0.1807, lng:-78.4678, timeZone:"America/Guayaquil", houseOffset:0, custom:true },
+      "Sydney, Australia": { name:"Sydney, Australia", lat:-33.8688, lng:151.2093, timeZone:"Australia/Sydney", houseOffset:0, custom:true },
+      "Brisbane, Australia": { name:"Brisbane, Australia", lat:-27.4698, lng:153.0251, timeZone:"Australia/Brisbane", houseOffset:0, custom:true },
+      "Auckland, New Zealand": { name:"Auckland, New Zealand", lat:-36.8485, lng:174.7633, timeZone:"Pacific/Auckland", houseOffset:0, custom:true }
+    };
+    
+    // Colors for cities
+    const colors = {
+      "Milwaukee, WI": "#FFA000",
+      "Santa Cruz, CA": "#FFCA28",
+      "Helsinki, Finland": "#FFB74D",
+      "Florence, Italy": "#FFE082",
+      "New York, NY, USA": "#90CAF9",
+      "Los Angeles, CA, USA": "#F48FB1",
+      "Chicago, IL, USA": "#CE93D8",
+      "Miami, FL, USA": "#80DEEA",
+      "Toronto, Canada": "#4FC3F7"
+      // All others default to red (#F44336) in the code
+    };
+    
+    // House diagram constants
+    const svgWidth = 1200, svgHeight = 640;
+    const houseImageURL = "https://static.wixstatic.com/media/b0561c_e02f93b9db8b4f2fb60149422de6ee71~mv2.png";
+    const houseIconWidth = 300;
+    const houseIconHeight = 300 * (374 / 526);
+    const houseIconX = 50;
+    const houseIconY = svgHeight - 20 - houseIconHeight;
+    const pivotX = houseIconX + houseIconWidth;
+    const pivotY = houseIconY + houseIconHeight;
+    
+    // Solar calculation functions
+    function getOppositeSeasonDate(selectedDate) {
+      const day = getDayOfYearNoLeap(selectedDate);
+      const summerDay = 172;
+      const winterDay = 355;
+      let revolve, opp;
+      if(day < summerDay){
+        revolve = winterDay;
+        opp = summerDay;
+      } else {
+        revolve = summerDay;
+        opp = winterDay;
+      }
+      let difference = day - revolve;
+      let newDay = revolve - difference;
+      newDay = ((newDay-1) % 365) + 1;
+      if(newDay <= 0) newDay += 365;
+      return dayOfYearToStringNoLeap(newDay);
+    }
+    function getDayOfYearNoLeap(date) {
+      const monthDays = [0,31,59,90,120,151,181,212,243,273,304,334];
+      return monthDays[date.getMonth()] + date.getDate();
+    }
+    function dayOfYearToStringNoLeap(day) {
+      const monthDays = [31,28,31,30,31,30,31,31,30,31,30,31];
+      const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      let m = 0;
+      while(m < 12 && day > monthDays[m]) {
+        day -= monthDays[m];
+        m++;
+      }
+      return monthNames[m] + " " + day;
+    }
+    
+    // Get solar data using SunCalc
+    function getSolarData(date, lat, lng) {
+      const times = SunCalc.getTimes(date, lat, lng);
+      const noon = times.solarNoon;
+      const pos = SunCalc.getPosition(noon, lat, lng);
+      const altDeg = pos.altitude * (180 / Math.PI);
+      return {
+        solarNoonAltitude: Math.round(altDeg),
+        solarNoonTime: formatTime(noon, lat, lng),
+        sunrise: formatTime(times.sunrise, lat, lng),
+        sunset: formatTime(times.sunset, lat, lng),
+        dawn: formatTime(times.dawn, lat, lng),
+        dusk: formatTime(times.dusk, lat, lng),
+        daylightDuration: (function(){
+          const diff = times.sunset - times.sunrise;
+          const hrs = Math.floor(diff / 3600000);
+          const min = Math.floor((diff % 3600000) / 60000);
+          return hrs + "h " + min + "m";
+        })()
+      };
+    }
+    function formatTime(date, lat, lng) {
+      // Each location has a timeZone field, so let's identify it from the location:
+      let loc = locations.find(city => city.lat === lat && city.lng === lng);
+      let tz = loc && loc.timeZone ? loc.timeZone : "UTC"; // Fallback to UTC if not found
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: tz,
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    }
+    
+    // Calculate sun position on house diagram
+    function getSunPositionHouse(altDeg, offsetX) {
+      const altRad = altDeg * (Math.PI / 180);
+      const R = 600;
+      const sunX = pivotX + (R + offsetX) * Math.cos(altRad);
+      const sunY = pivotY - R * Math.sin(altRad);
+      return { x: sunX, y: sunY };
+    }
+    
+    // Update dashboard: fetch weather, solar data, update diagram and stats
+    async function updateDashboard(selectedDate) {
+      document.getElementById("oppositeSeasonValue").textContent = getOppositeSeasonDate(selectedDate);
+      // Start with base locations
+      locations = baseLocations.slice();
+      // Check if a custom city is selected from the dropdown
+      const citySelect = document.getElementById("citySelect");
+      const selectedCityValue = citySelect.value;
+      if (selectedCityValue && customCities[selectedCityValue]) {
+        locations.push(customCities[selectedCityValue]);
+      }
+      
+      globalWeatherData = {};
+      solarArray = [];
+      
+      // Fetch weather data for each city (using OpenWeather)
+      for(let loc of locations) {
+        globalWeatherData[loc.name] = await getWeatherData(loc);
+      }
+      // Gather solar data for each city
+      for(let loc of locations) {
+        let s = getSolarData(selectedDate, loc.lat, loc.lng);
+        solarArray.push({ name: loc.name, alt: s.solarNoonAltitude, data: s });
+      }
+      solarArray.sort((a, b) => b.alt - a.alt);
+      
+      updateDiagram(selectedDate, solarArray);
+      updateStats(selectedDate);
+    }
+    
+    // Fetch weather data from OpenWeather API
+    async function getWeatherData(city) {
+      try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lng}&units=imperial&appid=${openWeatherKey}`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        if(data.cod !== 200) throw new Error("OpenWeather error: " + data.message);
+        const tempF = Math.round(data.main.temp) + "°F";
+        const cond = data.weather[0].main;
+        const iconId = data.weather[0].icon;
+        return { temperature: tempF, condition: cond, iconId: iconId };
+      } catch(e) {
+        console.error("OpenWeather fetch error for", city.name, e);
+        return { temperature: "N/A", condition: "N/A", iconId: "01d" };
+      }
+    }
+    function getOpenWeatherIconUrl(iconId) {
+      return `https://openweathermap.org/img/wn/${iconId}@2x.png`;
+    }
+    
+    // Update diagram based on view mode
+    function updateDiagram(selectedDate, solarArray) {
+      if(viewMode === "house") {
+        // Show house view; hide world view
+        document.getElementById("houseView").style.display = "block";
+        document.getElementById("worldView").style.display = "none";
+        const svg = document.getElementById("solarDiagram");
+        svg.innerHTML = "";
+        
+        // Draw house image
+        const houseImage = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        houseImage.setAttributeNS("http://www.w3.org/1999/xlink", "href", houseImageURL);
+        houseImage.setAttribute("x", houseIconX);
+        houseImage.setAttribute("y", houseIconY);
+        houseImage.setAttribute("width", houseIconWidth);
+        houseImage.setAttribute("height", houseIconHeight);
+        houseImage.style.filter = "drop-shadow(8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff)";
+        svg.appendChild(houseImage);
+        
+        // Draw an arc for Milwaukee’s solar altitude
+        let milw = solarArray.find(e => e.name === "Milwaukee, WI");
+        if(milw) {
+          let steps = 20;
+          let pathD = "M";
+          for(let i = 0; i <= steps; i++){
+            let frac = i / steps;
+            let partialAlt = frac * milw.alt;
+            let pos = getSunPositionHouse(partialAlt, 0);
+            pathD += (i === 0) ? `${pos.x},${pos.y}` : ` L ${pos.x},${pos.y}`;
+          }
+          pathD += ` L ${pivotX},${pivotY} Z`;
+          let arc = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          arc.setAttribute("d", pathD);
+          arc.setAttribute("fill", "grey");
+          arc.setAttribute("fill-opacity", "0.2");
+          svg.appendChild(arc);
+        }
+        
+        // Draw markers (sun circles) for each city on the SVG diagram
+        let sunPositions = {};
+        locations.forEach(loc => {
+          let s = getSolarData(selectedDate, loc.lat, loc.lng);
+          let alt = s.solarNoonAltitude;
+          // If city color doesn't exist, default to red
+          let color = colors[loc.name] || "#F44336";
+          let pos = getSunPositionHouse(alt, loc.houseOffset);
+          
+          // Draw dashed line from pivot to sun
+          let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", pivotX);
+          line.setAttribute("y1", pivotY);
+          line.setAttribute("x2", pos.x);
+          line.setAttribute("y2", pos.y);
+          line.setAttribute("stroke", color);
+          line.setAttribute("stroke-width", "10");
+          line.setAttribute("stroke-dasharray", "10,10");
+          line.setAttribute("stroke-opacity", "0.5");
+          svg.appendChild(line);
+          
+          // Draw sun circle
+          let circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          circle.setAttribute("cx", pos.x);
+          circle.setAttribute("cy", pos.y);
+          circle.setAttribute("r", "30");
+          circle.setAttribute("fill", color);
+          circle.setAttribute("fill-opacity", "0.5");
+          svg.appendChild(circle);
+          
+          sunPositions[loc.name] = pos;
+        });
+        
+        // Draw labels (top-right) connecting to each sun marker
+        let labelStartX = 1000, labelStartY = 60;
+        let labelSpacing = 40, labelFontSize = 16;
+        solarArray.forEach((entry, index) => {
+          let locName = entry.name;
+          let alt = entry.alt;
+          let color = colors[locName] || "#F44336";
+          let labelTxt = locName + " (" + alt + "°)";
+          let pos = sunPositions[locName];
+          if(!pos) return;
+          
+          let leader = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          leader.setAttribute("x1", pos.x);
+          leader.setAttribute("y1", pos.y);
+          let labelX = labelStartX;
+          let labelY = labelStartY + index * labelSpacing;
+          leader.setAttribute("x2", labelX);
+          leader.setAttribute("y2", labelY);
+          leader.setAttribute("stroke", "#000");
+          leader.setAttribute("stroke-width", "1");
+          leader.setAttribute("stroke-dasharray", "2,2");
+          leader.setAttribute("stroke-opacity", "0.5");
+          svg.appendChild(leader);
+          
+          let textWidth = labelTxt.length * labelFontSize * 0.65;
+          let textHeight = labelFontSize + 6;
+          let bgRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          bgRect.setAttribute("x", labelX - 4);
+          bgRect.setAttribute("y", labelY - labelFontSize);
+          bgRect.setAttribute("width", textWidth + 16);
+          bgRect.setAttribute("height", textHeight + 6);
+          bgRect.setAttribute("fill", color);
+          bgRect.setAttribute("fill-opacity", "0.3");
+          bgRect.setAttribute("rx", "4");
+          bgRect.setAttribute("ry", "4");
+          svg.appendChild(bgRect);
+          
+          let txt = document.createElementNS("http://www.w3.org/2000/svg", "text");
+          txt.setAttribute("x", labelX);
+          txt.setAttribute("y", labelY);
+          txt.setAttribute("fill", "#000");
+          txt.setAttribute("font-size", labelFontSize.toString());
+          txt.setAttribute("font-weight", "700");
+          txt.setAttribute("dominant-baseline", "middle");
+          txt.textContent = labelTxt;
+          svg.appendChild(txt);
+        });
+        
+        // Draw Milwaukee's min/max suns (dashed)
+        drawMilwaukeeMinMax(svg, selectedDate);
+      } else {
+        // World view using Leaflet
+        document.getElementById("houseView").style.display = "none";
+        document.getElementById("worldView").style.display = "block";
+        
+        // Create or update the Leaflet map instance to show the full world
+        if(window.leafletMapInstance) {
+          window.leafletMapInstance.setView([20, 0], 2);
+          window.leafletMapInstance.eachLayer(layer => {
+            if(layer instanceof L.Marker) {
+              window.leafletMapInstance.removeLayer(layer);
+            }
+          });
+        } else {
+          window.leafletMapInstance = L.map('leafletMap').setView([20, 0], 2);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(window.leafletMapInstance);
+        }
+        
+        // Add markers for each location on the Leaflet map
+        locations.forEach(loc => {
+          let color = colors[loc.name] || "#F44336";
+          L.marker([loc.lat, loc.lng]).addTo(window.leafletMapInstance)
+            .bindPopup(`<strong>${loc.name}</strong><br>Lat: ${loc.lat}<br>Lng: ${loc.lng}`);
+        });
+      }
+    }
+    
+    // Draw Milwaukee's min/max suns (dashed) on the house diagram
+    function drawMilwaukeeMinMax(svg, selectedDate) {
+      const year = selectedDate.getFullYear();
+      const dec21 = new Date(year, 11, 21);
+      const decData = getSolarData(dec21, 43.0411, -87.9094);
+      const decAlt = decData.solarNoonAltitude;
+      const jun21 = new Date(year, 5, 21);
+      const junData = getSolarData(jun21, 43.0411, -87.9094);
+      const junAlt = junData.solarNoonAltitude;
+      
+      function drawDashedSun(altDeg) {
+        const pos = getSunPositionHouse(altDeg, 0);
+        let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", pivotX);
+        line.setAttribute("y1", pivotY);
+        line.setAttribute("x2", pos.x);
+        line.setAttribute("y2", pos.y);
+        line.setAttribute("stroke", "grey");
+        line.setAttribute("stroke-width", "1");
+        line.setAttribute("stroke-dasharray", "4,4");
+        svg.appendChild(line);
+        
+        let circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", pos.x);
+        circle.setAttribute("cy", pos.y);
+        circle.setAttribute("r", "30");
+        circle.setAttribute("fill", "none");
+        circle.setAttribute("stroke", "grey");
+        circle.setAttribute("stroke-width", "1");
+        circle.setAttribute("stroke-dasharray", "4,4");
+        svg.appendChild(circle);
+      }
+      
+      drawDashedSun(decAlt);
+      drawDashedSun(junAlt);
+    }
+    
+    // Update stats panel with data for each city
+    function updateStats(selectedDate) {
+      const statsPanel = document.getElementById("statsPanel");
+      statsPanel.innerHTML = "";
+      locations.forEach(loc => {
+        let sData = getSolarData(selectedDate, loc.lat, loc.lng);
+        let w = globalWeatherData[loc.name] || { temperature:"N/A", condition:"N/A", iconId:"01d" };
+        let iconUrl = getOpenWeatherIconUrl(w.iconId);
+        
+        // For a “pushed in” style, each stat-section is enclosed with .stat-section
+        // and has a small heading (h4) to label the section.
+        
+        let color = colors[loc.name] || "#F44336"; // Default red
+        let card = document.createElement("div");
+        card.className = "stat-card";
+        card.style.borderLeft = "8px solid " + color;
+        card.innerHTML = `
+          <h3>${loc.name}</h3>
+          
+          <div class="stat-section">
+            <h4>Solar Data</h4>
+            <p>Altitude: ${sData.solarNoonAltitude}°</p>
+            <p>Noon: ${sData.solarNoonTime}</p>
+            <p>Sunrise: ${sData.sunrise}</p>
+            <p>Sunset: ${sData.sunset}</p>
+            <p>Daylight: ${sData.daylightDuration}</p>
+            <p>Dawn: ${sData.dawn}</p>
+            <p>Dusk: ${sData.dusk}</p>
+          </div>
+          
+          <div class="stat-section">
+            <h4>Weather</h4>
+            <p>
+              <img src="${iconUrl}" class="weather-icon" style="vertical-align:middle;" />
+              ${w.temperature}, ${w.condition}
+            </p>
+          </div>
+          
+          <div class="stat-section">
+            <h4>Location</h4>
+            <p>Lat / Lng: ${loc.lat.toFixed(4)} / ${loc.lng.toFixed(4)}</p>
+          </div>
+        `;
+        statsPanel.appendChild(card);
+      });
+    }
+    
+    // On page load and set up event listeners
+    window.addEventListener("DOMContentLoaded", async function(){
+      const dateInput = document.getElementById("dateInput");
+      const toggleBtn = document.getElementById("toggleView");
+      // Set date input to today's date
+      const today = new Date();
+      dateInput.value = today.toISOString().split("T")[0];
+      await updateDashboard(new Date(dateInput.value));
+      
+      dateInput.addEventListener("change", async function(){
+        await updateDashboard(new Date(this.value));
+      });
+      
+      document.getElementById("citySelect").addEventListener("change", async function(){
+        await updateDashboard(new Date(dateInput.value));
+      });
+      
+      toggleBtn.addEventListener("click", function(){
+        // Toggle between house (SVG) and world (Leaflet) view
+        viewMode = (viewMode === "house") ? "world" : "house";
+        this.textContent = (viewMode === "house") ? "Switch to World Map" : "Switch to House Diagram";
+        updateDiagram(new Date(dateInput.value), solarArray);
+      });
+    });
+  </script>
+</body>
+</html>

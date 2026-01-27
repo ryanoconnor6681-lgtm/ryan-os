@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon or IKEA?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .dragon-gradient {
+            background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 100%);
+        }
+        
+        .ikea-gradient {
+            background: linear-gradient(135deg, #0051ba 0%, #003f91 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+
+    <!-- Header / Stats -->
+    <div class="w-full max-w-md flex justify-between items-center mb-6 text-gray-700 font-bold">
+        <div class="flex flex-col items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+            <span class="text-xs uppercase tracking-wider text-gray-400">Score</span>
+            <span id="score" class="text-xl">0</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-center tracking-tighter">DRAGON <span class="text-gray-400 font-light">VS</span> IKEA</h1>
+        <div class="flex flex-col items-center bg-white px-4 py-2 rounded-lg shadow-sm">
+            <span class="text-xs uppercase tracking-wider text-gray-400">Streak</span>
+            <span id="streak" class="text-xl text-orange-500">0</span>
+        </div>
+    </div>
+
+    <!-- Main Game Card -->
+    <div class="w-full max-w-md bg-white rounded-2xl card-shadow overflow-hidden relative min-h-[400px] flex flex-col">
+        
+        <!-- Question Area -->
+        <div class="flex-grow flex flex-col items-center justify-center p-8 text-center z-10">
+            <p class="text-gray-400 font-semibold uppercase tracking-widest text-sm mb-4">Is this a Dragon or Furniture?</p>
+            <h2 id="game-word" class="text-4xl md:text-5xl font-black text-gray-800 break-words fade-in">
+                Loading...
+            </h2>
+        </div>
+
+        <!-- Result Overlay (Hidden by default) -->
+        <div id="result-overlay" class="absolute inset-0 bg-white/95 z-20 hidden flex flex-col items-center justify-center p-6 text-center fade-in">
+            <div id="result-icon" class="text-6xl mb-4"></div>
+            <h3 id="result-title" class="text-3xl font-bold mb-2"></h3>
+            <p id="result-desc" class="text-gray-600 text-lg mb-8"></p>
+            <button onclick="nextRound()" class="bg-gray-800 text-white px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-700 transition transform hover:scale-105 shadow-lg">
+                Next Challenge <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- Controls -->
+        <div class="p-4 grid grid-cols-2 gap-4 bg-gray-50 border-t border-gray-100">
+            <button onclick="makeGuess('dragon')" class="dragon-gradient text-white py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center group">
+                <i class="fas fa-dragon text-2xl mb-1 group-hover:animate-pulse"></i>
+                <span>DRAGON</span>
+            </button>
+            
+            <button onclick="makeGuess('ikea')" class="ikea-gradient text-white py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transform hover:-translate-y-1 transition active:scale-95 flex flex-col items-center justify-center group">
+                <span class="text-yellow-400 text-2xl mb-1 group-hover:rotate-12 transition block font-black">IKEA</span>
+                <span>IKEA</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 text-gray-400 text-sm text-center">
+        <p>A game of Swedish furniture and Mythical beasts.</p>
+    </div>
+
+    <script>
+        // Data Source
+        const data = [
+            // DRAGONS
+            { name: "Smaug", type: "dragon", desc: "The Golden Dragon from The Hobbit." },
+            { name: "Alduin", type: "dragon", desc: "The World Eater from Skyrim." },
+            { name: "Paarthurnax", type: "dragon", desc: "Leader of the Greybeards from Skyrim." },
+            { name: "Balerion", type: "dragon", desc: "The Black Dread from Game of Thrones." },
+            { name: "Drogon", type: "dragon", desc: "Daenerys's mount from Game of Thrones." },
+            { name: "Viserion", type: "dragon", desc: "One of the three dragons from Game of Thrones." },
+            { name: "Rhaegal", type: "dragon", desc: "Named after Rhaegar Targaryen." },
+            { name: "Glaurung", type: "dragon", desc: "The first dragon in Tolkien's Middle-earth." },
+            { name: "Ancalagon", type: "dragon", desc: "The greatest dragon of Middle-earth." },
+            { name: "Falkor", type: "dragon", desc: "The Luck Dragon from The NeverEnding Story." },
+            { name: "Haku", type: "dragon", desc: "River Spirit from Spirited Away." },
+            { name: "Toothless", type: "dragon", desc: "Night Fury from How to Train Your Dragon." },
+            { name: "Mushu", type: "dragon", desc: "Guardian spirit from Mulan." },
+            { name: "Saphira", type: "dragon", desc: "Blue dragon from Eragon." },
+            { name: "Spyro", type: "dragon", desc: "Purple dragon from the video game series." },
+            { name: "Tiamat", type: "dragon", desc: "Five-headed dragon goddess from D&D." },
+            { name: "Bahamut", type: "dragon", desc: "Platinum Dragon from D&D / Final Fantasy." },
+            { name: "Nicol Bolas", type: "dragon", desc: "Elder Dragon from Magic: The Gathering." },
+            { name: "Deathwing", type: "dragon", desc: "The Destroyer from World of Warcraft." },
+            { name: "Onyxia", type: "dragon", desc: "Broodmother from World of Warcraft." },
+            { name: "Ridley", type: "dragon", desc: "Space Pirate leader from Metroid." },
+            { name: "Volvagia", type: "dragon", desc: "Subterranean Lava Dragon from Zelda." },
+            { name: "Grigori", type: "dragon", desc: "The Great Red Dragon from Dragon's Dogma." },
+            { name: "Kalameet", type: "dragon", desc: "Black Dragon from Dark Souls." },
+            { name: "Midir", type: "dragon", desc: "Darkeater Midir from Dark Souls 3." },
+            { name: "Villentretenmerth", type: "dragon", desc: "Golden dragon from The Witcher." },
+            { name: "Norberta", type: "dragon", desc: "Norwegian Ridgeback from Harry Potter." },
+            { name: "Vermithrax", type: "dragon", desc: "From the movie Dragonslayer." },
+            { name: "Chrysophylax", type: "dragon", desc: "From Farmer Giles of Ham." },
+            { name: "Katla", type: "dragon", desc: "From The Brothers Lionheart." },
+
+            // IKEA
+            { name: "Billy", type: "ikea", desc: "The world's most popular bookcase." },
+            { name: "Ektorp", type: "ikea", desc: "A classic sofa series." },
+            { name: "Malm", type: "ikea", desc: "Bed frames and dressers." },
+            { name: "Kallax", type: "ikea", desc: "Square shelving units." },
+            { name: "Poäng", type: "ikea", desc: "Curved wooden armchair." },
+            { name: "Rens", type: "ikea", desc: "Sheepskin rug." },
+            { name: "Lack", type: "ikea", desc: "Cheap side tables." },
+            { name: "Hemnes", type: "ikea", desc: "Traditional bedroom furniture." },
+            { name: "Frakta", type: "ikea", desc: "The iconic blue bag." },
+            { name: "Ribba", type: "ikea", desc: "Picture frames." },
+            { name: "Renberget", type: "ikea", desc: "Swivel desk chair." },
+            { name: "Dokument", type: "ikea", desc: "Wire wastebasket." },
+            { name: "Klippan", type: "ikea", desc: "Compact loveseat." },
+            { name: "Grundtal", type: "ikea", desc: "Stainless steel kitchen series." },
+            { name: "Vuku", type: "ikea", desc: "Portable wardrobe." },
+            { name: "Lurvig", type: "ikea", desc: "Pet furniture collection." },
+            { name: "Voxnan", type: "ikea", desc: "Bathroom accessories." },
+            { name: "Hektar", type: "ikea", desc: "Industrial style lamps." },
+            { name: "Ingatorp", type: "ikea", desc: "Extendable table." },
+            { name: "Fjällbo", type: "ikea", desc: "Rustic metal and wood shelf." },
+            { name: "Ypperlig", type: "ikea", desc: "Modern sofa table." },
+            { name: "Vintergata", type: "ikea", desc: "Pendant lamp." },
+            { name: "Knutstorp", type: "ikea", desc: "Lounge chair." },
+            { name: "Dagstorp", type: "ikea", desc: "Sofa series." },
+            { name: "Smörgås", type: "ikea", desc: "Tray (actually means sandwich)." },
+            { name: "Godmorgon", type: "ikea", desc: "Bathroom vanity." },
+            { name: "Bestå", type: "ikea", desc: "TV storage combination." },
+            { name: "Markus", type: "ikea", desc: "Office chair." },
+            { name: "Jokkmokk", type: "ikea", desc: "Dining table and chairs." },
+            { name: "Strandmon", type: "ikea", desc: "Wing chair." }
+        ];
+
+        // Game State
+        let currentItem = null;
+        let score = 0;
+        let streak = 0;
+        let seenIndices = [];
+
+        // Audio Context (Optional sound effects could go here, keeping it silent for now)
+
+        function initGame() {
+            loadNewWord();
+        }
+
+        function getRandomIndex() {
+            if (seenIndices.length >= data.length) {
+                // Reset if we've seen everything
+                seenIndices = [];
+                alert("Wow! You've cycled through every item in the database! Reseting the pool, but keeping your score.");
+            }
+            
+            let idx;
+            do {
+                idx = Math.floor(Math.random() * data.length);
+            } while (seenIndices.includes(idx));
+            
+            return idx;
+        }
+
+        function loadNewWord() {
+            // Hide overlay
+            document.getElementById('result-overlay').classList.add('hidden');
+            
+            // Get new word
+            const idx = getRandomIndex();
+            seenIndices.push(idx);
+            currentItem = data[idx];
+
+            // Animate text
+            const wordEl = document.getElementById('game-word');
+            wordEl.classList.remove('fade-in');
+            void wordEl.offsetWidth; // Trigger reflow
+            wordEl.classList.add('fade-in');
+            wordEl.innerText = currentItem.name;
+        }
+
+        function makeGuess(guessType) {
+            const isCorrect = guessType === currentItem.type;
+            
+            // Update Stats
+            if (isCorrect) {
+                score++;
+                streak++;
+                showResult(true);
+            } else {
+                streak = 0;
+                showResult(false);
+            }
+
+            updateStatsUI();
+        }
+
+        function showResult(isCorrect) {
+            const overlay = document.getElementById('result-overlay');
+            const title = document.getElementById('result-title');
+            const icon = document.getElementById('result-icon');
+            const desc = document.getElementById('result-desc');
+
+            overlay.classList.remove('hidden');
+
+            if (isCorrect) {
+                title.innerText = "Correct!";
+                title.className = "text-3xl font-bold mb-2 text-green-600";
+                icon.innerHTML = '<i class="fas fa-check-circle text-green-500"></i>';
+            } else {
+                title.innerText = "Wrong!";
+                title.className = "text-3xl font-bold mb-2 text-red-600";
+                icon.innerHTML = '<i class="fas fa-times-circle text-red-500"></i>';
+            }
+
+            // Determine icon for the actual item
+            const itemIcon = currentItem.type === 'dragon' 
+                ? '<i class="fas fa-dragon text-red-700"></i>' 
+                : '<span class="text-blue-700 font-bold">IKEA</span>';
+
+            desc.innerHTML = `<span class="font-bold text-gray-800">${currentItem.name}</span> is ${currentItem.type === 'dragon' ? 'a Dragon' : 'Furniture'}.<br><br><span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">${currentItem.desc}</span>`;
+        }
+
+        function updateStatsUI() {
+            document.getElementById('score').innerText = score;
+            document.getElementById('streak').innerText = streak;
+        }
+
+        function nextRound() {
+            loadNewWord();
+        }
+
+        // Start the game
+        initGame();
+
+    </script>
+</body>
+</html>
