@@ -5,7 +5,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// HARDCODED ID: Stability override
+// HARDCODED ID: Stability override to bypass environment check
 const ASSISTANT_ID = 'asst_lDBeuMQlca4yjadkBue3xVcW'; 
 
 export async function POST(req: Request) {
@@ -21,20 +21,20 @@ export async function POST(req: Request) {
     }
 
     // 2. Add the User's Message
-    // @ts-ignore - Suppress TS warning for classic method
+    // @ts-ignore
     await openai.beta.threads.messages.create(String(thread.id), {
       role: "user",
       content: message
     });
 
-    // 3. Run the Assistant (Classic Method)
-    // @ts-ignore - Suppress TS warning for classic method
+    // 3. Run the Assistant (Classic Method for compatibility)
+    // @ts-ignore
     const run = await openai.beta.threads.runs.create(String(thread.id), {
       assistant_id: ASSISTANT_ID,
     });
 
-    // 4. Poll for Completion
-    // @ts-ignore - Suppress deprecation warning
+    // 4. Poll for Completion (The "Old School" Loop)
+    // @ts-ignore
     let runStatus = await openai.beta.threads.runs.retrieve(
         String(thread.id), 
         String(run.id)
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       // Wait 1 second
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // @ts-ignore - Suppress deprecation warning
+      // @ts-ignore
       runStatus = await openai.beta.threads.runs.retrieve(
           String(thread.id), 
           String(run.id)
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
     }
 
     // 5. Get the Final Response
-    // @ts-ignore - Suppress warning
+    // @ts-ignore
     const messages = await openai.beta.threads.messages.list(String(thread.id));
     const lastMessage = messages.data[0];
     
@@ -67,11 +67,15 @@ export async function POST(req: Request) {
         // @ts-ignore
         textResponse = lastMessage.content[0].text.value;
         
-        // Clean citations
-        textResponse = textResponse
-            .replace(/【.*?】/g, '')
-            .replace(/\/g, '')
-            .replace(/\/g, '');
+        // --- SAFE REGEX CLEANUP ---
+        // We use string constructors to prevent Turbopack build errors
+        const citationRegex = new RegExp('【.*?】', 'g');
+        const sourceRegex = new RegExp('\\', 'g');
+        const citeRegex = new RegExp('\\', 'g');
+
+        textResponse = textResponse.replace(citationRegex, '');
+        textResponse = textResponse.replace(sourceRegex, '');
+        textResponse = textResponse.replace(citeRegex, '');
     }
 
     return NextResponse.json({ 
