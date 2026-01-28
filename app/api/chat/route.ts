@@ -5,19 +5,19 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// HARDCODED ID: Stability override
+// HARDCODED ID: We know this is correct
 const ASSISTANT_ID = 'asst_lDBeuMQlca4yjadkBue3xVcW'; 
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    // 1. DIAGNOSTIC: Check if API Key exists
-    if (!process.env.OPENAI_API_KEY) {
-        return NextResponse.json({ response: "[SYSTEM ERROR] API Key is missing from Vercel Environment." });
-    }
+    // --- DIAGNOSTIC: GET KEY SIGNATURE ---
+    // We reveal only the first 7 chars to verify which key Vercel is using.
+    const currentKey = process.env.OPENAI_API_KEY || '';
+    const keySignature = currentKey.length > 10 ? currentKey.substring(0, 7) + '...' : 'MISSING';
 
-    // 2. Create or Retrieve a Thread
+    // 1. Create or Retrieve a Thread
     let thread;
     if (threadId) {
       thread = { id: threadId };
@@ -26,11 +26,11 @@ export async function POST(req: Request) {
         // Cast to 'any' to bypass TS check
         thread = await (openai as any).beta.threads.create();
       } catch (e: any) {
-        throw new Error(`Failed to create thread: ${e.message}`);
+        throw new Error(`Failed to create thread. Key Used: [${keySignature}]. Error: ${e.message}`);
       }
     }
 
-    // 3. Add the User's Message
+    // 2. Add the User's Message
     try {
         // Cast to 'any'
         await (openai as any).beta.threads.messages.create(String(thread.id), {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
         throw new Error(`Failed to send message: ${e.message}`);
     }
 
-    // 4. Run the Assistant
+    // 3. Run the Assistant
     let run;
     try {
         // Cast to 'any'
@@ -49,12 +49,13 @@ export async function POST(req: Request) {
         assistant_id: ASSISTANT_ID,
         });
     } catch (e: any) {
-        throw new Error(`Failed to start run. Verify Assistant ID. Error: ${e.message}`);
+        // REPORT THE KEY SIGNATURE IN THE ERROR
+        throw new Error(`Failed to start run. Key Used: [${keySignature}]. Error: ${e.message}`);
     }
 
-    // 5. Poll for Completion (Manual Loop)
+    // 4. Poll for Completion (Manual Loop)
     // Cast to 'any'
-    let runStatus = await (openai as any).beta.threads.runs.retrieve(
+    let runStatus = await (openai.beta.threads.runs as any).retrieve(
         String(thread.id), 
         String(run.id)
     );
@@ -67,15 +68,15 @@ export async function POST(req: Request) {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Cast to 'any'
-      runStatus = await (openai as any).beta.threads.runs.retrieve(
+      runStatus = await (openai.beta.threads.runs as any).retrieve(
           String(thread.id), 
           String(run.id)
       );
     }
 
-    // 6. Get the Final Response
+    // 5. Get the Final Response
     // Cast to 'any'
-    const messages = await (openai as any).beta.threads.messages.list(String(thread.id));
+    const messages = await (openai.beta.threads.messages as any).list(String(thread.id));
     const lastMessage = messages.data[0];
     
     let textResponse = "I'm having trouble retrieving the answer.";
@@ -83,7 +84,7 @@ export async function POST(req: Request) {
     if (lastMessage?.content?.[0]?.type === 'text') {
         textResponse = lastMessage.content[0].text.value;
         
-        // Clean citations with safe regex
+        // Clean citations
         const citationRegex = new RegExp('【.*?】', 'g');
         const sourceRegex = new RegExp('\\', 'g');
         const citeRegex = new RegExp('\\', 'g');
