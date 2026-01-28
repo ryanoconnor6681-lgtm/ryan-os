@@ -6,8 +6,7 @@ const openai = new OpenAI({
 });
 
 // --- HARDCODED ID ---
-// We are bypassing the environment variable for the ID.
-// PASTE YOUR NEW ASSISTANT ID BELOW (Keep the quotes!)
+// I grabbed this from your error log. It is correct.
 const ASSISTANT_ID = 'asst_xwVWPu6dfrdVFozzdCm5104j'; 
 
 export async function POST(req: Request) {
@@ -17,11 +16,6 @@ export async function POST(req: Request) {
     // 1. DIAGNOSTIC: Check if API Key exists
     if (!process.env.OPENAI_API_KEY) {
         throw new Error("CRITICAL: OPENAI_API_KEY is missing from env.");
-    }
-    
-    // Check if you forgot to paste the ID
-    if (ASSISTANT_ID === 'PASTE_YOUR_NEW_ASSISTANT_ID_HERE') {
-        throw new Error("You forgot to paste your Assistant ID into route.ts!");
     }
 
     // 2. Create or Retrieve a Thread
