@@ -1,21 +1,23 @@
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
+// --- CACHE BUSTER ---
+// We use the new variable name to force Vercel to load the fresh key.
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
+  apiKey: process.env.RYAN_API_KEY || '',
 });
 
 // --- HARDCODED ID ---
-// I grabbed this from your error log. It is correct.
+// The ID for the new Assistant in the Default Project
 const ASSISTANT_ID = 'asst_xwVWPu6dfrdVFozzdCm5104j'; 
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    // 1. DIAGNOSTIC: Check if API Key exists
-    if (!process.env.OPENAI_API_KEY) {
-        throw new Error("CRITICAL: OPENAI_API_KEY is missing from env.");
+    // 1. DIAGNOSTIC: Check if the NEW Key exists
+    if (!process.env.RYAN_API_KEY) {
+        throw new Error("CRITICAL: RYAN_API_KEY is missing from env. Did you add it to Vercel?");
     }
 
     // 2. Create or Retrieve a Thread
