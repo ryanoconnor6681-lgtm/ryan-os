@@ -1,3 +1,4 @@
+// FORCE REBUILD: v100.4 - Timestamp 2026-01-28
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
