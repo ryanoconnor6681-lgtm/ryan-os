@@ -2,18 +2,19 @@ import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
+  apiKey: process.env.OPENAI_API_KEY || '', // Keep this secure!
 });
 
-const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
+// HARDCODED BYPASS: We are putting the ID directly here.
+const ASSISTANT_ID = 'asst_lDBeuMQlca4yjadkBue3xVcW'; 
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    if (!ASSISTANT_ID) {
-        return NextResponse.json({ response: "System Error: Assistant ID not found in environment." }, { status: 500 });
-    }
+    // Debug Log to prove it's loaded
+    console.log("--- RyanOS Hardline Debug ---");
+    console.log("Assistant ID Target:", ASSISTANT_ID);
 
     // 1. Create or Retrieve a Thread
     let thread;
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
       content: message
     });
 
-    // 3. THE MAGIC FIX: Create and Poll (Modern Method)
+    // 3. Create and Poll
     const run = await openai.beta.threads.runs.createAndPoll(thread.id, {
       assistant_id: ASSISTANT_ID,
     });
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
         if (lastMessage.content[0].type === 'text') {
             textResponse = lastMessage.content[0].text.value;
             
-            // Safe cleanup of citations
+            // Safe cleanup
             const citationRegex = new RegExp('【.*?】', 'g');
             const sourceRegex = new RegExp('\\', 'g');
             const citeRegex = new RegExp('\\', 'g');
