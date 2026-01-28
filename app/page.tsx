@@ -665,10 +665,22 @@ export default function Home() {
             </div>
         </motion.div>
 
-        {/* ROW 3: IDENTITY & CHAT */}
-        <motion.div layout variants={identityRowVariants} initial="hidden" animate="visible" className="grid grid-cols-1 md:grid-cols-3 border-b border-neutral-100 h-auto md:h-[450px] max-h-[450px] overflow-hidden">
+      {/* ROW 3: IDENTITY & CHAT */}
+        {/* FIX: Changed to md:grid-cols-2 and lg:grid-cols-3 to handle tablet size. 
+            Removed fixed height on mobile/tablet (h-auto) so content doesn't get cut off. */}
+        <motion.div 
+            layout 
+            variants={identityRowVariants} 
+            initial="hidden" 
+            animate="visible" 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-b border-neutral-100 h-auto lg:h-[450px] lg:max-h-[450px] overflow-hidden"
+        >
             {!hasInteracted && (
-                <motion.div initial={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="p-8 md:p-16 border-r border-neutral-100 flex flex-col justify-center bg-white col-span-1 h-full">
+                <motion.div 
+                    initial={{ opacity: 1, width: 'auto' }} 
+                    exit={{ opacity: 0, width: 0 }} 
+                    className="p-8 md:p-16 border-r border-neutral-100 flex flex-col justify-center bg-white col-span-1 h-full min-h-[300px]"
+                >
                     <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-4">HI,<br/>I'M RYAN.</h1>
                     <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">Creative Exec | Brand Systems | AI Workflows</p>
                     <div className="prose prose-sm text-neutral-600 font-medium leading-relaxed">
@@ -677,14 +689,28 @@ export default function Home() {
                     </div>
                 </motion.div>
             )}
-            <motion.div layout className={`p-0 flex items-end justify-center bg-white border-r border-neutral-100 relative overflow-hidden h-full ${hasInteracted ? 'col-span-1' : 'col-span-1'}`}>
+
+            {/* HEADSHOT CONTAINER */}
+            {/* FIX: Added min-h-[400px] so the image has space on mobile. Added lg:min-h-0 to reset on desktop. */}
+            <motion.div 
+                layout 
+                className={`p-0 flex items-end justify-center bg-white border-r border-neutral-100 relative overflow-hidden min-h-[400px] lg:min-h-0 h-full col-span-1`}
+            >
                 <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
                 <div className="w-full h-full relative z-10 flex items-end justify-center overflow-hidden group">
                     <img src="/images/ryan_headshot.png" className="h-auto max-h-[85%] w-auto object-contain transition-opacity duration-300 group-hover:opacity-0 absolute bottom-0 drop-shadow-2xl" alt="Ryan O'Connor" />
                     <img src="/images/ryan_headshot_hover.png" className="h-auto max-h-[85%] w-auto object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100 absolute bottom-0 drop-shadow-2xl" alt="Ryan O'Connor Hover" />
                 </div>
             </motion.div>
-            <motion.div layout className={`p-8 md:p-8 flex flex-col bg-white h-full max-h-full ${hasInteracted ? 'col-span-2' : 'col-span-1'}`}>
+
+            {/* CHAT CONTAINER */}
+            {/* FIX: Smart col-span logic. 
+                On Tablet (md): If interacting, it shares row (col-span-1). If not, it fills bottom row (col-span-2).
+                On Desktop (lg): It behaves as before. */}
+            <motion.div 
+                layout 
+                className={`p-8 md:p-8 flex flex-col bg-white h-full max-h-full min-h-[500px] lg:min-h-0 ${hasInteracted ? 'md:col-span-1 lg:col-span-2' : 'md:col-span-2 lg:col-span-1'}`}
+            >
                 <div className="flex items-center justify-between mb-4 shrink-0">
                     <div className="flex items-center gap-2">
                         {mainLoading ? (
@@ -699,7 +725,7 @@ export default function Home() {
                     </div>
                 </div>
                 
-                {/* CHAT HISTORY AREA - SINGLE TURN */}
+                {/* CHAT HISTORY AREA */}
                 <div className="h-[280px] overflow-y-auto mb-4 pr-2 scrollbar-hide shrink-0 space-y-4">
                     {mainHistory.length === 0 ? (
                         <div className="h-full flex items-center justify-center text-neutral-400 text-lg font-medium">
