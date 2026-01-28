@@ -5,20 +5,23 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// WE ARE BACK TO USING THE ENVIRONMENT VARIABLE
-// (Make sure you updated this in Vercel Step 2!)
-const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
+// --- HARDCODED ID ---
+// We are bypassing the environment variable for the ID.
+// PASTE YOUR NEW ASSISTANT ID BELOW (Keep the quotes!)
+const ASSISTANT_ID = 'asst_xwVWPu6dfrdVFozzdCm5104j'; 
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    // 1. DIAGNOSTIC: Verify Environment Variables are Loaded
+    // 1. DIAGNOSTIC: Check if API Key exists
     if (!process.env.OPENAI_API_KEY) {
         throw new Error("CRITICAL: OPENAI_API_KEY is missing from env.");
     }
-    if (!ASSISTANT_ID) {
-        throw new Error("CRITICAL: OPENAI_ASSISTANT_ID is missing from env.");
+    
+    // Check if you forgot to paste the ID
+    if (ASSISTANT_ID === 'PASTE_YOUR_NEW_ASSISTANT_ID_HERE') {
+        throw new Error("You forgot to paste your Assistant ID into route.ts!");
     }
 
     // 2. Create or Retrieve a Thread
@@ -53,7 +56,7 @@ export async function POST(req: Request) {
         assistant_id: ASSISTANT_ID,
         });
     } catch (e: any) {
-        throw new Error(`Failed to start run. 404 means Key/Project mismatch. Error: ${e.message}`);
+        throw new Error(`Failed to start run. Error: ${e.message}`);
     }
 
     // 5. Poll for Completion (Manual Loop)
