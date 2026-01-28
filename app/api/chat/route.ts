@@ -2,19 +2,15 @@ import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '', // Keep this secure!
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// HARDCODED BYPASS: We are putting the ID directly here.
+// HARDCODED ID: Stability override
 const ASSISTANT_ID = 'asst_lDBeuMQlca4yjadkBue3xVcW'; 
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
-
-    // Debug Log to prove it's loaded
-    console.log("--- RyanOS Hardline Debug ---");
-    console.log("Assistant ID Target:", ASSISTANT_ID);
 
     // 1. Create or Retrieve a Thread
     let thread;
@@ -25,43 +21,63 @@ export async function POST(req: Request) {
     }
 
     // 2. Add the User's Message
-    await openai.beta.threads.messages.create(thread.id, {
+    // @ts-ignore - Suppress TS warning for classic method
+    await openai.beta.threads.messages.create(String(thread.id), {
       role: "user",
       content: message
     });
 
-    // 3. Create and Poll
-    const run = await openai.beta.threads.runs.createAndPoll(thread.id, {
+    // 3. Run the Assistant (Classic Method)
+    // @ts-ignore - Suppress TS warning for classic method
+    const run = await openai.beta.threads.runs.create(String(thread.id), {
       assistant_id: ASSISTANT_ID,
     });
 
-    // 4. Handle Result
-    if (run.status === 'completed') {
-        const messages = await openai.beta.threads.messages.list(run.thread_id);
-        const lastMessage = messages.data[0];
-        
-        let textResponse = "I'm having trouble retrieving the answer.";
-        
-        if (lastMessage.content[0].type === 'text') {
-            textResponse = lastMessage.content[0].text.value;
-            
-            // Safe cleanup
-            const citationRegex = new RegExp('【.*?】', 'g');
-            const sourceRegex = new RegExp('\\', 'g');
-            const citeRegex = new RegExp('\\', 'g');
-            
-            textResponse = textResponse.replace(citationRegex, '');
-            textResponse = textResponse.replace(sourceRegex, '');
-            textResponse = textResponse.replace(citeRegex, '');
-        }
+    // 4. Poll for Completion
+    // @ts-ignore - Suppress deprecation warning
+    let runStatus = await openai.beta.threads.runs.retrieve(
+        String(thread.id), 
+        String(run.id)
+    );
 
-        return NextResponse.json({ 
-            response: textResponse,
-            threadId: thread.id 
-        });
-    } else {
-        return NextResponse.json({ response: "RyanOS is thinking too hard. Try again." });
+    // Loop until finished
+    while (runStatus.status !== 'completed') {
+      if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
+          return NextResponse.json({ response: "I encountered an error processing that request." });
+      }
+      // Wait 1 second
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // @ts-ignore - Suppress deprecation warning
+      runStatus = await openai.beta.threads.runs.retrieve(
+          String(thread.id), 
+          String(run.id)
+      );
     }
+
+    // 5. Get the Final Response
+    // @ts-ignore - Suppress warning
+    const messages = await openai.beta.threads.messages.list(String(thread.id));
+    const lastMessage = messages.data[0];
+    
+    let textResponse = "I'm having trouble retrieving the answer.";
+    
+    // @ts-ignore
+    if (lastMessage.content[0].type === 'text') {
+        // @ts-ignore
+        textResponse = lastMessage.content[0].text.value;
+        
+        // Clean citations
+        textResponse = textResponse
+            .replace(/【.*?】/g, '')
+            .replace(/\/g, '')
+            .replace(/\/g, '');
+    }
+
+    return NextResponse.json({ 
+        response: textResponse,
+        threadId: thread.id 
+    });
 
   } catch (error) {
     console.error("OpenAI Assistant Error:", error);
