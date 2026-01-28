@@ -12,30 +12,49 @@ export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    // 1. Create or Retrieve a Thread
+    // 1. DIAGNOSTIC: Check if API Key exists
+    if (!process.env.OPENAI_API_KEY) {
+        return NextResponse.json({ response: "[SYSTEM ERROR] API Key is missing from Vercel Environment." });
+    }
+
+    // 2. Create or Retrieve a Thread
     let thread;
     if (threadId) {
       thread = { id: threadId };
     } else {
-      thread = await openai.beta.threads.create();
+      try {
+        // Cast to 'any' to bypass TS check
+        thread = await (openai as any).beta.threads.create();
+      } catch (e: any) {
+        throw new Error(`Failed to create thread: ${e.message}`);
+      }
     }
 
-    // 2. Add the User's Message
-    // Cast to 'any' to bypass strict type checking on arguments
-    await (openai.beta.threads.messages as any).create(String(thread.id), {
-      role: "user",
-      content: message
-    });
+    // 3. Add the User's Message
+    try {
+        // Cast to 'any'
+        await (openai as any).beta.threads.messages.create(String(thread.id), {
+        role: "user",
+        content: message
+        });
+    } catch (e: any) {
+        throw new Error(`Failed to send message: ${e.message}`);
+    }
 
-    // 3. Run the Assistant (Classic Method)
-    // Cast to 'any' to force it through
-    const run = await (openai.beta.threads.runs as any).create(String(thread.id), {
-      assistant_id: ASSISTANT_ID,
-    });
+    // 4. Run the Assistant
+    let run;
+    try {
+        // Cast to 'any'
+        run = await (openai as any).beta.threads.runs.create(String(thread.id), {
+        assistant_id: ASSISTANT_ID,
+        });
+    } catch (e: any) {
+        throw new Error(`Failed to start run. Verify Assistant ID. Error: ${e.message}`);
+    }
 
-    // 4. Poll for Completion (Classic Loop)
-    // We cast to 'any' so TypeScript doesn't care if the arguments match the interface
-    let runStatus = await (openai.beta.threads.runs as any).retrieve(
+    // 5. Poll for Completion (Manual Loop)
+    // Cast to 'any'
+    let runStatus = await (openai as any).beta.threads.runs.retrieve(
         String(thread.id), 
         String(run.id)
     );
@@ -43,32 +62,32 @@ export async function POST(req: Request) {
     // Loop until finished
     while (runStatus.status !== 'completed') {
       if (runStatus.status === 'failed' || runStatus.status === 'cancelled') {
-          return NextResponse.json({ response: "I encountered an error processing that request." });
+          throw new Error(`Run failed with status: ${runStatus.status}`);
       }
-      // Wait 1 second
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      runStatus = await (openai.beta.threads.runs as any).retrieve(
+      // Cast to 'any'
+      runStatus = await (openai as any).beta.threads.runs.retrieve(
           String(thread.id), 
           String(run.id)
       );
     }
 
-    // 5. Get the Final Response
-    const messages = await (openai.beta.threads.messages as any).list(String(thread.id));
+    // 6. Get the Final Response
+    // Cast to 'any'
+    const messages = await (openai as any).beta.threads.messages.list(String(thread.id));
     const lastMessage = messages.data[0];
     
     let textResponse = "I'm having trouble retrieving the answer.";
     
-    // Safety check for content type
     if (lastMessage?.content?.[0]?.type === 'text') {
         textResponse = lastMessage.content[0].text.value;
         
-        // --- SAFE REGEX CLEANUP ---
+        // Clean citations with safe regex
         const citationRegex = new RegExp('【.*?】', 'g');
         const sourceRegex = new RegExp('\\', 'g');
         const citeRegex = new RegExp('\\', 'g');
-
+        
         textResponse = textResponse.replace(citationRegex, '');
         textResponse = textResponse.replace(sourceRegex, '');
         textResponse = textResponse.replace(citeRegex, '');
@@ -79,8 +98,11 @@ export async function POST(req: Request) {
         threadId: thread.id 
     });
 
-  } catch (error) {
-    console.error("OpenAI Assistant Error:", error);
-    return NextResponse.json({ response: "System offline. Deep search failed." }, { status: 500 });
+  } catch (error: any) {
+    console.error("RyanOS Error Log:", error);
+    // RETURN THE ACTUAL ERROR TO THE USER UI
+    return NextResponse.json({ 
+        response: `[SYSTEM ERROR] ${error.message || "Unknown error occurred."}` 
+    });
   }
 }
