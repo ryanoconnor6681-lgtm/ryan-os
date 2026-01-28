@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const { message, threadId } = await req.json();
 
     if (!ASSISTANT_ID) {
-        return NextResponse.json({ response: "System Error: Assistant ID not found." }, { status: 500 });
+        return NextResponse.json({ response: "System Error: Assistant ID not found in environment." }, { status: 500 });
     }
 
     // 1. Create or Retrieve a Thread
@@ -29,13 +29,12 @@ export async function POST(req: Request) {
       content: message
     });
 
-    // 3. THE MAGIC FIX: Create and Poll in one step
-    // This replaces the old "while loop" that was breaking
+    // 3. THE MAGIC FIX: Create and Poll (Modern Method)
     const run = await openai.beta.threads.runs.createAndPoll(thread.id, {
       assistant_id: ASSISTANT_ID,
     });
 
-    // 4. Handle the Result
+    // 4. Handle Result
     if (run.status === 'completed') {
         const messages = await openai.beta.threads.messages.list(run.thread_id);
         const lastMessage = messages.data[0];
@@ -48,9 +47,11 @@ export async function POST(req: Request) {
             // Safe cleanup of citations
             const citationRegex = new RegExp('【.*?】', 'g');
             const sourceRegex = new RegExp('\\', 'g');
+            const citeRegex = new RegExp('\\', 'g');
             
             textResponse = textResponse.replace(citationRegex, '');
             textResponse = textResponse.replace(sourceRegex, '');
+            textResponse = textResponse.replace(citeRegex, '');
         }
 
         return NextResponse.json({ 
