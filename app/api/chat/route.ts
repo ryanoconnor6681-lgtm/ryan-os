@@ -5,19 +5,23 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// HARDCODED ID: We know this is correct
-const ASSISTANT_ID = 'asst_lDBeuMQlca4yjadkBue3xVcW'; 
+// WE ARE BACK TO USING THE ENVIRONMENT VARIABLE
+// (Make sure you updated this in Vercel Step 2!)
+const ASSISTANT_ID = process.env.OPENAI_ASSISTANT_ID || '';
 
 export async function POST(req: Request) {
   try {
     const { message, threadId } = await req.json();
 
-    // --- DIAGNOSTIC: GET KEY SIGNATURE ---
-    // We reveal only the first 7 chars to verify which key Vercel is using.
-    const currentKey = process.env.OPENAI_API_KEY || '';
-    const keySignature = currentKey.length > 10 ? currentKey.substring(0, 7) + '...' : 'MISSING';
+    // 1. DIAGNOSTIC: Verify Environment Variables are Loaded
+    if (!process.env.OPENAI_API_KEY) {
+        throw new Error("CRITICAL: OPENAI_API_KEY is missing from env.");
+    }
+    if (!ASSISTANT_ID) {
+        throw new Error("CRITICAL: OPENAI_ASSISTANT_ID is missing from env.");
+    }
 
-    // 1. Create or Retrieve a Thread
+    // 2. Create or Retrieve a Thread
     let thread;
     if (threadId) {
       thread = { id: threadId };
@@ -26,11 +30,11 @@ export async function POST(req: Request) {
         // Cast to 'any' to bypass TS check
         thread = await (openai as any).beta.threads.create();
       } catch (e: any) {
-        throw new Error(`Failed to create thread. Key Used: [${keySignature}]. Error: ${e.message}`);
+        throw new Error(`Failed to create thread: ${e.message}`);
       }
     }
 
-    // 2. Add the User's Message
+    // 3. Add the User's Message
     try {
         // Cast to 'any'
         await (openai as any).beta.threads.messages.create(String(thread.id), {
@@ -41,7 +45,7 @@ export async function POST(req: Request) {
         throw new Error(`Failed to send message: ${e.message}`);
     }
 
-    // 3. Run the Assistant
+    // 4. Run the Assistant
     let run;
     try {
         // Cast to 'any'
@@ -49,11 +53,10 @@ export async function POST(req: Request) {
         assistant_id: ASSISTANT_ID,
         });
     } catch (e: any) {
-        // REPORT THE KEY SIGNATURE IN THE ERROR
-        throw new Error(`Failed to start run. Key Used: [${keySignature}]. Error: ${e.message}`);
+        throw new Error(`Failed to start run. 404 means Key/Project mismatch. Error: ${e.message}`);
     }
 
-    // 4. Poll for Completion (Manual Loop)
+    // 5. Poll for Completion (Manual Loop)
     // Cast to 'any'
     let runStatus = await (openai.beta.threads.runs as any).retrieve(
         String(thread.id), 
@@ -74,7 +77,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // 5. Get the Final Response
+    // 6. Get the Final Response
     // Cast to 'any'
     const messages = await (openai.beta.threads.messages as any).list(String(thread.id));
     const lastMessage = messages.data[0];
@@ -101,7 +104,6 @@ export async function POST(req: Request) {
 
   } catch (error: any) {
     console.error("RyanOS Error Log:", error);
-    // RETURN THE ACTUAL ERROR TO THE USER UI
     return NextResponse.json({ 
         response: `[SYSTEM ERROR] ${error.message || "Unknown error occurred."}` 
     });
