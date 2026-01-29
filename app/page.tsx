@@ -64,6 +64,7 @@ const generateImages = (projectId: string, count: number) => {
     });
 };
 
+// --- DATA SOURCE ---
 const allProjects = [
   { 
     id: 'curio', 
@@ -100,6 +101,28 @@ const allProjects = [
     context: 'The challenge was high: Nike needed to align 400 VPs on a new future vision without it feeling like just another corporate event. My intervention was to model the revenue logic of the experience itself. The "secret detail" was the sculptural installation called "We Are One" using 400 individual rods. Each VP physically placed their own rod into the structure to complete it—a tangible, silence-inducing metaphor for alignment. This wasn\'t just design; it was a strategic pivot point for the company.',
   },
   { 
+    id: 'thought', 
+    tags: ['future', 'writing', 'ai', 'leadership', 'strategy'],
+    type: 'whitepaper',
+    title: 'Thinking at the Edges', 
+    client: 'WRITING',
+    role: 'Author',
+    date: 'Ongoing',
+    category: 'Future',
+    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070', 
+    // UPDATED: Now uses 'papers' array for PDFs
+    papers: [
+        { title: 'The New Moore\'s Law', url: '/papers/The_New_Moores_Law.pdf', desc: 'AI capacity is doubling every 4 months. A breakdown of the math.' },
+        { title: 'AI 2025: Navigating the Transformative Decade', url: '/papers/AI_2025_Report.pdf', desc: 'A strategic roadmap for the AI transition.' },
+        { title: 'The End of the Blank Page', url: '/papers/End_of_the_Blank_Page.pdf', desc: 'How AI is reshaping creation & higher-order thinking.' },
+        { title: 'Gift Script (Back Cover)', url: '/papers/Gift_Script_Back_Cover.pdf', desc: 'A novel about purpose in the age of intelligent machines.' }
+    ],
+    stats: ['Strategy Essay', 'AI Impact', 'Agency Ops'],
+    desc: 'Thinking at the Edges of Creative Practice.',
+    fullDesc: 'I believe speculative design isn’t just about what’s possible—it’s about what’s preferable. The future is a brief; we get to shape it.',
+    context: 'My writing explores the shift from designer as "generator" to designer as "editor." In essays like "The End of the Blank Page," I argue that AI is a co-creator that requires us to ask better questions. "Navigating the Transformative Decade" provides a roadmap for creative agencies to survive the AI transition by moving up the value chain from production to strategy.',
+  },
+  { 
     id: 'meta', 
     tags: ['innovation', 'digital', 'meta', 'experience', 'branding'],
     type: 'case_study',
@@ -114,26 +137,6 @@ const allProjects = [
     desc: 'The Metaverse as a layer, not a place. AR hospitality.',
     fullDesc: 'We transformed a suite at Capital One Arena into a "Phygital" hospitality lab. The challenge: selling the Metaverse in a physical hockey arena.',
     context: 'Selling "The Metaverse" in a hockey arena is tough. You can\'t isolate VIPs in headsets. Our solution was "Phygital" hospitality—using AR mirrors and pass-through VR to layer digital content onto the physical game below. The hardest technical hurdle was the lighting: VR tracking cameras fail in dark suites, but VIPs hate bright "hospital" lighting. We engineered a custom ambient rail system that satisfied the computer vision algorithms while maintaining a premium, moody atmosphere.',
-  },
-  { 
-    id: 'thought', 
-    tags: ['future', 'writing', 'ai', 'leadership', 'strategy'],
-    type: 'whitepaper',
-    title: 'Thinking at the Edges', 
-    client: 'WRITING',
-    role: 'Author',
-    date: 'Ongoing',
-    category: 'Future',
-    img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070', 
-    images: generateImages('thought', 6),
-    stats: ['Strategy Essay', 'AI Impact', 'Agency Ops'],
-    desc: 'Thinking at the Edges of Creative Practice.',
-    fullDesc: 'I believe speculative design isn’t just about what’s possible—it’s about what’s preferable. The future is a brief; we get to shape it.',
-    context: 'My writing explores the shift from designer as "generator" to designer as "editor." In essays like "The End of the Blank Page," I argue that AI is a co-creator that requires us to ask better questions. "Navigating the Transformative Decade" provides a roadmap for creative agencies to survive the AI transition by moving up the value chain from production to strategy.',
-    papers: [
-        { title: 'The End of the Blank Page.pdf', url: '/papers/blank.pdf' },
-        { title: 'Navigating the Transformative Decade.pdf', url: '/papers/blank.pdf' }
-    ]
   },
   { 
     id: 'faraday', 
@@ -365,7 +368,7 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
                     </p>
                 </div>
                 <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">
-                    Build: RyanOS v89.2 // Powered by Vercel & OpenAI
+                    Build: RyanOS v106.1 // Powered by Vercel & OpenAI
                 </div>
             </motion.div>
         </motion.div>
@@ -462,8 +465,10 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                     <X size={24} />
                 </button>
 
-                {/* Left Side: Visuals */}
+                {/* Left Side: Visuals (Video/Image OR Papers) */}
                 <div className="w-full md:w-2/3 h-1/2 md:h-full bg-neutral-100 overflow-y-auto relative scrollbar-hide border-r border-neutral-200">
+                    
+                    {/* VIDEO RENDERER */}
                     {project.videos && project.videos.map((vid: string, i: number) => (
                         <div key={i} className="aspect-video w-full">
                             <iframe 
@@ -473,6 +478,26 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                             />
                         </div>
                     ))}
+
+                    {/* PDF RENDERER (New Feature) */}
+                    {project.papers && (
+                        <div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-8 bg-neutral-100 min-h-full">
+                            {project.papers.map((paper: any, i: number) => (
+                                <a key={i} href={paper.url} target="_blank" rel="noopener noreferrer" className="group bg-white p-8 border border-neutral-200 hover:border-black transition-all flex flex-col justify-between aspect-[3/4] shadow-sm hover:shadow-xl">
+                                    <div className="flex flex-col items-center justify-center flex-1">
+                                        <FileText size={64} className="text-neutral-200 group-hover:text-blue-600 transition-colors mb-6" />
+                                        <h4 className="font-bold text-center uppercase leading-tight mb-2">{paper.title}</h4>
+                                        <p className="text-xs text-neutral-400 text-center">{paper.desc}</p>
+                                    </div>
+                                    <div className="mt-6 pt-6 border-t border-neutral-100 text-[10px] font-mono font-bold uppercase tracking-widest text-center group-hover:bg-black group-hover:text-white py-3 transition-colors">
+                                        View Protocol
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* IMAGE RENDERER */}
                     {project.images && project.images.map((img: string, i: number) => (
                         <img key={i} src={img} className="w-full h-auto object-cover" />
                     ))}
@@ -607,8 +632,11 @@ export default function Home() {
     }
   };
 
+  // SCROLL FIX: Only scroll if we actually have history (i.e., user sent a message)
   useEffect(() => {
-    mainChatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (mainHistory.length > 0) {
+        mainChatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   }, [mainHistory, mainLoading]);
 
   const handleLoadMore = () => {
@@ -638,7 +666,7 @@ export default function Home() {
         {/* ROW 1: STATUS BAR */}
         <div className="bg-black text-white px-8 py-2 flex justify-between items-center text-[10px] font-mono tracking-widest border-b border-neutral-800">
             <div className="flex gap-4 items-center">
-                <span>RYAN_OS v89.2 // ONLINE</span>
+                <span>RYAN_OS v106.1 // ONLINE</span>
                 <button onClick={() => setIsAboutOpen(true)} className="hover:text-neutral-400 transition-colors flex items-center gap-1 border-l border-neutral-700 pl-4"><Info size={10} /> SYSTEM_INFO</button>
             </div>
             <div>MILWAUKEE, WI</div>
@@ -665,9 +693,7 @@ export default function Home() {
             </div>
         </motion.div>
 
-      {/* ROW 3: IDENTITY & CHAT */}
-        {/* FIX: Changed to md:grid-cols-2 and lg:grid-cols-3 to handle tablet size. 
-            Removed fixed height on mobile/tablet (h-auto) so content doesn't get cut off. */}
+        {/* ROW 3: IDENTITY & CHAT */}
         <motion.div 
             layout 
             variants={identityRowVariants} 
@@ -691,7 +717,6 @@ export default function Home() {
             )}
 
             {/* HEADSHOT CONTAINER */}
-            {/* FIX: Added min-h-[400px] so the image has space on mobile. Added lg:min-h-0 to reset on desktop. */}
             <motion.div 
                 layout 
                 className={`p-0 flex items-end justify-center bg-white border-r border-neutral-100 relative overflow-hidden min-h-[400px] lg:min-h-0 h-full col-span-1`}
@@ -702,11 +727,8 @@ export default function Home() {
                     <img src="/images/ryan_headshot_hover.png" className="h-auto max-h-[85%] w-auto object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100 absolute bottom-0 drop-shadow-2xl" alt="Ryan O'Connor Hover" />
                 </div>
             </motion.div>
-
+            
             {/* CHAT CONTAINER */}
-            {/* FIX: Smart col-span logic. 
-                On Tablet (md): If interacting, it shares row (col-span-1). If not, it fills bottom row (col-span-2).
-                On Desktop (lg): It behaves as before. */}
             <motion.div 
                 layout 
                 className={`p-8 md:p-8 flex flex-col bg-white h-full max-h-full min-h-[500px] lg:min-h-0 ${hasInteracted ? 'md:col-span-1 lg:col-span-2' : 'md:col-span-2 lg:col-span-1'}`}
