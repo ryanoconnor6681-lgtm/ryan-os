@@ -100,6 +100,30 @@ const allProjects = [
     fullDesc: 'I designed and shipped a complete AI onboarding system for RedPeg Marketing\u2014a custom Claude skill, a guided onboarding website, and a PDF playbook called "Your First Hour with Claude" that gets team members building with AI in their first session.',
     context: 'The challenge was moving a 50-person experiential agency from zero AI adoption to daily usage. I built three interlocking pieces: a custom Claude skill that runs a guided intake conversation\u2014learning who you are, what you do, and what drains your time\u2014then builds something useful on the spot. A standalone onboarding website that serves as an interactive launchpad. And a PDF playbook that walks through setup, explains Projects, Skills, and Connectors, and gives role-specific use cases. The system was designed to be replicable across any creative organization. The skill file alone is a distributable .skill package that any Claude user can install.',
   },
+  // --- NEW PROJECT - COST SAVINGS ANALYSIS ---
+  {
+    id: 'costsavings',
+    tags: ['ai', 'innovation', 'strategy', 'leadership'],
+    type: 'case_study',
+    title: '$433K Cost Analysis',
+    client: 'REDPEG AI',
+    role: 'AI Lead / CFO Partner',
+    date: '2026',
+    category: 'Innovation',
+    img: '/images/costsavings/hero.jpg',
+    papers: [
+      {
+        title: 'Redacted Case Study',
+        url: '/papers/RedPeg_AI_Cost_Savings_Analysis_Redacted.pdf',
+        desc: 'The full AI-driven financial analysis. Names redacted, all numbers real.'
+      }
+    ],
+    images: generateImages('costsavings', 6),
+    stats: ['$433K Identified', '48-Hour Sprint', 'NetSuite + Claude'],
+    desc: 'AI-driven financial audit that surfaced $433K in waste in 2 days.',
+    fullDesc: 'Partnered with the CFO to run an AI-driven financial audit using Claude. In a 2-day sprint, we ingested NetSuite data and operational spreadsheets, cross-referenced hours against contracted scope, and identified ~$433,000 in financial waste and lost revenue.',
+    context: 'Claude analyzed NetSuite actuals vs. scoped hours for every employee and client engagement YTD 2026. It surfaced three categories of waste: $193K in over-delivery on signed work (hours delivered beyond scope but never billed), $165K in unsigned exposure (hours burned on clients without signed contracts), and $113K in wasted admin capacity. Combined, that\u2019s ~2,887 hours\u2014the equivalent of 1.4 FTEs working full-time for a year. The analysis included root cause diagnosis and strategic recommendations. A traditional consulting engagement covering this scope would take 2-4 weeks and cost $30K-$80K. Claude did it in 48 hours. I also built two operational dashboards with Claude: a Morning Briefing that pulls live data from Asana, Slack, and calendars for a VP-level daily standup, and a Utilization Report that visualizes employee billable/non-billable/admin time with drill-down filtering.',
+  },
   // --- CHANGE 3: NEW PROJECT - GIFT SCRIPT (NOVEL) ---
   {
     id: 'giftscript',
