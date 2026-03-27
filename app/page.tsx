@@ -179,6 +179,11 @@ const allProjects = [
     papers: [
       // --- CHANGE 4: FRONTIERS ESSAY ADDED ---
       {
+        title: 'The Contract You Didn\'t Know You Signed',
+        url: '/papers/The_Contract_You_Didnt_Know_You_Signed.pdf',
+        desc: 'Why 30 years of software conditioning is the real barrier to AI adoption.'
+      },
+      {
         title: 'Frontiers',
         url: '/papers/Frontiers.pdf',
         desc: 'An essay on what\u2019s ahead at the frontier of AI and creative practice.'
