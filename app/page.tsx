@@ -516,17 +516,17 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               <iframe src={`https://www.youtube.com/embed/${vid}?rel=0&modestbranding=1`} className="w-full h-full" frameBorder="0" allowFullScreen />
             </div>
           ))}
-          {/* PDF RENDERER (New Feature) */}
+          {/* PDF RENDERER (Compact) */}
           {project.papers && (
-            <div className="p-12 grid grid-cols-1 md:grid-cols-2 gap-8 bg-neutral-100 min-h-full">
+            <div className="px-6 py-4 flex flex-wrap gap-3 bg-neutral-100">
               {project.papers.map((paper: any, i: number) => (
-                <a key={i} href={paper.url} target="_blank" rel="noopener noreferrer" className="group bg-white p-8 border border-neutral-200 hover:border-black transition-all flex flex-col justify-between aspect-[3/4] shadow-sm hover:shadow-xl">
-                  <div className="flex flex-col items-center justify-center flex-1">
-                    <FileText size={64} className="text-neutral-200 group-hover:text-blue-600 transition-colors mb-6" />
-                    <h4 className="font-bold text-center uppercase leading-tight mb-2">{paper.title}</h4>
-                    <p className="text-xs text-neutral-400 text-center">{paper.desc}</p>
+                <a key={i} href={paper.url} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 bg-white px-4 py-3 border border-neutral-200 hover:border-black transition-all shadow-sm hover:shadow-md rounded-sm">
+                  <FileText size={20} className="text-neutral-300 group-hover:text-blue-600 transition-colors flex-shrink-0" />
+                  <div className="min-w-0">
+                    <h4 className="font-bold text-xs uppercase leading-tight truncate">{paper.title}</h4>
+                    <p className="text-[10px] text-neutral-400 truncate">{paper.desc}</p>
                   </div>
-                  <div className="mt-6 pt-6 border-t border-neutral-100 text-[10px] font-mono font-bold uppercase tracking-widest text-center group-hover:bg-black group-hover:text-white py-3 transition-colors">View Protocol</div>
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors flex-shrink-0 ml-2">PDF</span>
                 </a>
               ))}
             </div>
