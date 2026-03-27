@@ -551,6 +551,11 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
             <div className="flex-1 flex flex-col p-8 overflow-y-auto">
               <h3 className="text-2xl font-black uppercase mb-2">{project.role}</h3>
               <p className="text-neutral-600 mb-8 font-medium">{project.fullDesc}</p>
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mb-8 px-4 py-3 bg-blue-50 border border-blue-200 hover:bg-blue-600 hover:text-white hover:border-blue-600 text-blue-600 font-bold text-xs uppercase tracking-widest transition-all">
+                  <ExternalLink size={14} /> View Live Project
+                </a>
+              )}
               <div className="mb-8 p-4 bg-neutral-50 border border-neutral-100 text-xs text-neutral-500 leading-relaxed italic">&quot;{project.context}&quot;</div>
               <div className="space-y-4 mb-8">
                 <h4 className="font-bold text-xs uppercase text-neutral-400 border-b border-neutral-100 pb-2">Project Data</h4>
