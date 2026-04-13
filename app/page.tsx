@@ -697,7 +697,7 @@ export default function Home() {
           {!hasInteracted && (
             <motion.div initial={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="p-8 md:p-16 border-r border-neutral-100 flex flex-col justify-center bg-white col-span-1 h-full min-h-[300px]">
               <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-4">HI,<br/>I&apos;M RYAN.</h1>
-              <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">AI Enablement &middot; Creative Systems &middot; Architect by Training</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">AI Enablement &middot; Creative Systems &middot; Experiential Leadership</p>
               <div className="prose prose-sm text-neutral-600 font-medium leading-relaxed">
                 <p>I translate emerging technology into systems organizations can adopt.</p>
                 <p className="mt-4">Architecture trained the systems thinking. Teaching trained the translation. Experiential trained the craft. AI is the medium that lets all three run at once.</p>
