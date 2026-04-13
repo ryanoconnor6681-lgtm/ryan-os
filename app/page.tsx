@@ -205,7 +205,7 @@ const allProjects = [
     role: 'Author',
     date: 'Ongoing',
     category: 'Future',
-    img: 'img: '/images/thinking/hero.jpg',
+    img: '/images/thinking/hero.jpg',
     papers: [
       {
         title: 'The Contract You Didn\'t Know You Signed',
