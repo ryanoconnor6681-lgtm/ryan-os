@@ -16,7 +16,7 @@ const identityRowVariants: Variants = {
   visible: { y: 0, opacity: 1, transition: { type: "spring" as const, stiffness: 120, damping: 12, mass: 1.5, delay: 0.5 } }
 };
 
-// --- CHANGE 1: DISCIPLINE SWAP --- AI becomes 01, Immersive becomes 02
+// --- DISCIPLINES: rewritten in a single consistent voice, each closing with a proof point ---
 const focusAreas = [
   {
     id: 'innovation',
@@ -25,7 +25,7 @@ const focusAreas = [
     subtitle: 'Co-Creation & Scale',
     icon: <Cpu size={24} className="text-white" />,
     img: '/images/emerging_tech.png',
-    desc: 'I deploy AI as a co-creator\u2014unlocking scale, speed, and new forms of creative intelligence. I move agencies from \u201cpixel pushing\u201d to strategic problem solving.',
+    desc: 'I build AI systems organizations actually adopt\u2014custom skills, onboarding programs, agentic workflows. Not demos. Operational tools that move teams from curiosity to daily use.',
     prompt: "I want to talk about Innovation. How are you using AI to change agency workflows? Keep it brief."
   },
   {
@@ -35,7 +35,7 @@ const focusAreas = [
     subtitle: 'Space, Screen, & Story',
     icon: <Layers size={24} className="text-white" />,
     img: '/images/Immersive_experience.png',
-    desc: 'I design brand systems that live across space, screen, and story. From Super Bowl builds to Nike Executive Summits, I translate brand strategy into spatial reality.',
+    desc: 'I design brand systems that live across space, screen, and story. Nike executive summits. Super Bowl builds. Meta arena suites. Strategy translated into environments people walk through.',
     prompt: "I want to talk about Experience. How do you lead large-scale physical builds and teams? Keep it brief."
   },
   {
@@ -45,7 +45,7 @@ const focusAreas = [
     subtitle: 'Clarity & Alignment',
     icon: <Globe size={24} className="text-white" />,
     img: '/images/Creative_leadership.png',
-    desc: 'I direct cross-disciplinary teams with clarity, alignment, and creative confidence. I design for 2050, spanning Vertical Urbanism, Web 4.0, and speculative fiction.',
+    desc: 'I lead cross-disciplinary teams with clarity and creative conviction. Trained as an architect, published through MIT Press, teaching at the graduate level\u2014the thinking runs through everything I direct.',
     prompt: "I want to talk about Leadership. What is your philosophy on directing cross-disciplinary teams?"
   }
 ];
@@ -58,6 +58,8 @@ const generateImages = (projectId: string, count: number) => {
 };
 
 // --- DATA SOURCE ---
+// Top 9 reordered to alternate AI and experiential:
+// curio, nike, onboarding, meta, costsavings, faraday, giftscript, thought, skycar
 const allProjects = [
   {
     id: 'curio',
@@ -76,7 +78,23 @@ const allProjects = [
     fullDesc: 'Curio is my independent research label and speculative design engine. It operates on a central thesis: "To move is human\u2014using computer code."',
     context: 'Curio is the "Room, Ritual, and Runbook" company. I don\'t just do events; I productize culture. The philosophy is simple: if I can\'t diagnose the problem via a paid sprint, I won\'t prescribe the solution. This studio is where I test the edges of AI, "vibe coding," and custom GPT architectures before applying them to enterprise scale. It houses my experimental projects\u2014from the Solar Calculator to the Dragon/IKEA game\u2014serving as the R&D lab for my broader creative practice.',
   },
-  // --- CHANGE 2: NEW PROJECT - REDPEG AI ONBOARDING ---
+  {
+    id: 'nike',
+    tags: ['experience', 'leadership', 'strategy', 'nike', 'branding'],
+    type: 'case_study',
+    title: 'Leading Nike',
+    client: 'NIKE',
+    role: 'VP Creative / Creative Director',
+    date: '2023',
+    category: 'Experience',
+    img: '/images/nike/hero.jpg',
+    videos: ['tG6yageDylc', 'A_sVqA4RBH0'],
+    images: generateImages('nike', 20),
+    stats: ['400+ VPs', '$2M+ Budget', 'Global Summit'],
+    desc: 'Aligning 400 VPs on a future vision. 4 days. 1 Strategy.',
+    fullDesc: 'We needed to align 400 VPs on a 50-year strategic roadmap. Instead of a conference, we built a "Future-Casting" simulator.',
+    context: 'The challenge was high: Nike needed to align 400 VPs on a new future vision without it feeling like just another corporate event. My intervention was to model the revenue logic of the experience itself. The "secret detail" was the sculptural installation called "We Are One" using 400 individual rods. Each VP physically placed their own rod into the structure to complete it\u2014a tangible, silence-inducing metaphor for alignment. This wasn\'t just design; it was a strategic pivot point for the company.',
+  },
   {
     id: 'onboarding',
     tags: ['ai', 'innovation', 'leadership', 'strategy'],
@@ -101,7 +119,22 @@ const allProjects = [
     fullDesc: 'I designed and shipped a complete AI onboarding system for RedPeg Marketing\u2014a custom Claude skill, a guided onboarding website, and a PDF playbook called "Your First Hour with Claude" that gets team members building with AI in their first session. Explore the live onboarding site at red-peg-curiosity-catalog.vercel.app.',
     context: 'The challenge was moving a 50-person experiential agency from zero AI adoption to daily usage. I built three interlocking pieces: a custom Claude skill that runs a guided intake conversation\u2014learning who you are, what you do, and what drains your time\u2014then builds something useful on the spot. A standalone onboarding website (red-peg-curiosity-catalog.vercel.app) that serves as an interactive launchpad with role-specific entry points. And a PDF playbook that walks through setup, explains Projects, Skills, and Connectors, and gives role-specific use cases. The system was designed to be replicable across any creative organization. The skill file alone is a distributable .skill package that any Claude user can install.',
   },
-  // --- NEW PROJECT - COST SAVINGS ANALYSIS ---
+  {
+    id: 'meta',
+    tags: ['innovation', 'digital', 'meta', 'experience', 'branding'],
+    type: 'case_study',
+    title: 'Meta Arena Suite',
+    client: 'META',
+    role: 'Design Lead',
+    date: '2023',
+    category: 'Innovation',
+    img: '/images/meta/hero.jpg',
+    images: generateImages('meta', 12),
+    stats: ['$3M Budget', 'AR/VR Integration', 'Phygital'],
+    desc: 'The Metaverse as a layer, not a place. AR hospitality.',
+    fullDesc: 'We transformed a suite at Capital One Arena into a "Phygital" hospitality lab. The challenge: selling the Metaverse in a physical hockey arena.',
+    context: 'Selling "The Metaverse" in a hockey arena is tough. You can\'t isolate VIPs in headsets. Our solution was "Phygital" hospitality\u2014using AR mirrors and pass-through VR to layer digital content onto the physical game below. The hardest technical hurdle was the lighting: VR tracking cameras fail in dark suites, but VIPs hate bright "hospital" lighting. We engineered a custom ambient rail system that satisfied the computer vision algorithms while maintaining a premium, moody atmosphere.',
+  },
   {
     id: 'costsavings',
     tags: ['ai', 'innovation', 'strategy', 'leadership'],
@@ -131,7 +164,22 @@ const allProjects = [
     fullDesc: 'Partnered with the CFO to run an AI-driven financial audit using Claude. In a 2-day sprint, we ingested NetSuite data and operational spreadsheets, cross-referenced hours against contracted scope, and identified ~$433,000 in financial waste and lost revenue. The findings didn\u2019t stop at diagnosis\u2014they became the foundation for a new strategic vision for how the agency operates, prices, and allocates resources.',
     context: 'Claude analyzed NetSuite actuals vs. scoped hours for every employee and client engagement YTD 2026. It surfaced three categories of waste: $193K in over-delivery on signed work (hours delivered beyond scope but never billed), $165K in unsigned exposure (hours burned on clients without signed contracts), and $113K in wasted admin capacity. Combined, that\u2019s ~2,887 hours\u2014the equivalent of 1.4 FTEs working full-time for a year. The analysis went beyond a financial audit into a strategic inflection point: it gave leadership the data to restructure how the agency scopes work, qualifies clients, and protects margins. A new strategic vision emerged from the findings, redefining the operating model around specialization, value-based pricing, and diagnostic-first engagement. A traditional consulting engagement covering this scope would take 2-4 weeks and cost $30K-$80K. Claude did it in 48 hours. The interactive analysis site is live at redpeg-test-site.vercel.app. I also built two operational dashboards with Claude: a Morning Briefing that pulls live data from Asana, Slack, and calendars for a VP-level daily standup, and a Utilization Report that visualizes employee billable/non-billable/admin time with drill-down filtering.',
   },
-  // --- CHANGE 3: NEW PROJECT - GIFT SCRIPT (NOVEL) ---
+  {
+    id: 'faraday',
+    tags: ['experience', 'automotive', 'architecture', 'branding'],
+    type: 'case_study',
+    title: 'Faraday Future',
+    client: 'FARADAY',
+    role: 'Creative Director',
+    date: '2022',
+    category: 'Experience',
+    img: '/images/faraday/hero.jpg',
+    images: generateImages('faraday', 9),
+    stats: ['$1M+ Budget', 'Flagship Retail', 'Digital UX'],
+    desc: 'A "Living Brand Lab" for the future of mobility.',
+    fullDesc: 'We merged digital UX with physical architecture to create a "Living Brand Lab" in Los Angeles.',
+    context: 'How do you sell a luxury EV that doesn\'t fully exist yet? You build a simulator. We integrated motion, lighting, and fabrication into a single narrative loop where the architecture itself "breathed" in sync with the car\'s digital interface. It wasn\'t a showroom for parking cars; it was an immersive environment designed to sell the *feeling* of the future.',
+  },
   {
     id: 'giftscript',
     tags: ['ai', 'future', 'writing', 'innovation', 'strategy'],
@@ -149,23 +197,6 @@ const allProjects = [
     context: 'This project goes beyond writing a book. I built a constellation of AI tools around the narrative itself: a custom voice skill for the main character Maya that writes in her tone and cadence, a personalized calendar tool that delivers story-world content on a schedule, and a fictional company website (ocelus.co) that exists as both a plot device and a marketing surface. The thesis: if AI can help write the story, it can also help distribute it in ways traditional publishing never could. Every tool I built is a proof of concept for AI-native content marketing\u2014applied to fiction instead of a brand.',
   },
   {
-    id: 'nike',
-    tags: ['experience', 'leadership', 'strategy', 'nike', 'branding'],
-    type: 'case_study',
-    title: 'Leading Nike',
-    client: 'NIKE',
-    role: 'VP Creative / Creative Director',
-    date: '2023',
-    category: 'Experience',
-    img: '/images/nike/hero.jpg',
-    videos: ['tG6yageDylc', 'A_sVqA4RBH0'],
-    images: generateImages('nike', 20),
-    stats: ['400+ VPs', '$2M+ Budget', 'Global Summit'],
-    desc: 'Aligning 400 VPs on a future vision. 4 days. 1 Strategy.',
-    fullDesc: 'We needed to align 400 VPs on a 50-year strategic roadmap. Instead of a conference, we built a "Future-Casting" simulator.',
-    context: 'The challenge was high: Nike needed to align 400 VPs on a new future vision without it feeling like just another corporate event. My intervention was to model the revenue logic of the experience itself. The "secret detail" was the sculptural installation called "We Are One" using 400 individual rods. Each VP physically placed their own rod into the structure to complete it\u2014a tangible, silence-inducing metaphor for alignment. This wasn\'t just design; it was a strategic pivot point for the company.',
-  },
-  {
     id: 'thought',
     tags: ['future', 'writing', 'ai', 'leadership', 'strategy'],
     type: 'whitepaper',
@@ -175,9 +206,7 @@ const allProjects = [
     date: 'Ongoing',
     category: 'Future',
     img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070',
-    // UPDATED: Now uses 'papers' array for PDFs
     papers: [
-      // --- CHANGE 4: FRONTIERS ESSAY ADDED ---
       {
         title: 'The Contract You Didn\'t Know You Signed',
         url: '/papers/The_Contract_You_Didnt_Know_You_Signed.pdf',
@@ -213,38 +242,6 @@ const allProjects = [
     desc: 'Thinking at the Edges of Creative Practice.',
     fullDesc: 'I believe speculative design isn\u2019t just about what\u2019s possible\u2014it\u2019s about what\u2019s preferable. The future is a brief; we get to shape it.',
     context: 'My writing explores the shift from designer as "generator" to designer as "editor." In essays like "The End of the Blank Page," I argue that AI is a co-creator that requires us to ask better questions. "Navigating the Transformative Decade" provides a roadmap for creative agencies to survive the AI transition by moving up the value chain from production to strategy.',
-  },
-  {
-    id: 'meta',
-    tags: ['innovation', 'digital', 'meta', 'experience', 'branding'],
-    type: 'case_study',
-    title: 'Meta Arena Suite',
-    client: 'META',
-    role: 'Design Lead',
-    date: '2023',
-    category: 'Innovation',
-    img: '/images/meta/hero.jpg',
-    images: generateImages('meta', 12),
-    stats: ['$3M Budget', 'AR/VR Integration', 'Phygital'],
-    desc: 'The Metaverse as a layer, not a place. AR hospitality.',
-    fullDesc: 'We transformed a suite at Capital One Arena into a "Phygital" hospitality lab. The challenge: selling the Metaverse in a physical hockey arena.',
-    context: 'Selling "The Metaverse" in a hockey arena is tough. You can\'t isolate VIPs in headsets. Our solution was "Phygital" hospitality\u2014using AR mirrors and pass-through VR to layer digital content onto the physical game below. The hardest technical hurdle was the lighting: VR tracking cameras fail in dark suites, but VIPs hate bright "hospital" lighting. We engineered a custom ambient rail system that satisfied the computer vision algorithms while maintaining a premium, moody atmosphere.',
-  },
-  {
-    id: 'faraday',
-    tags: ['experience', 'automotive', 'architecture', 'branding'],
-    type: 'case_study',
-    title: 'Faraday Future',
-    client: 'FARADAY',
-    role: 'Creative Director',
-    date: '2022',
-    category: 'Experience',
-    img: '/images/faraday/hero.jpg',
-    images: generateImages('faraday', 9),
-    stats: ['$1M+ Budget', 'Flagship Retail', 'Digital UX'],
-    desc: 'A "Living Brand Lab" for the future of mobility.',
-    fullDesc: 'We merged digital UX with physical architecture to create a "Living Brand Lab" in Los Angeles.',
-    context: 'How do you sell a luxury EV that doesn\'t fully exist yet? You build a simulator. We integrated motion, lighting, and fabrication into a single narrative loop where the architecture itself "breathed" in sync with the car\'s digital interface. It wasn\'t a showroom for parking cars; it was an immersive environment designed to sell the *feeling* of the future.',
   },
   {
     id: 'skycar',
@@ -443,9 +440,9 @@ const AboutModal = ({ onClose }: { onClose: () => void }) => {
         <button onClick={onClose} className="absolute top-4 right-4 p-2 bg-neutral-100 hover:bg-black hover:text-white transition-colors"><X size={20} /></button>
         <h2 className="text-4xl font-black uppercase mb-8 tracking-tighter">System Info</h2>
         <div className="prose prose-lg text-neutral-600 font-medium leading-relaxed space-y-6">
-          <p>This site is the future of the web. In the age of AI, information isn&apos;t just searched or browsed&mdash;it is generated on demand.</p>
-          <p>This entire platform was <strong>&quot;vibe coded&quot;</strong> by Google Gemini, iterating 42 times in under 24 hours. A complex system architected by a novice, powered by one of the world&apos;s best coding AIs.</p>
-          <p>No templates. No static pages. Just a living interface that thinks with you.</p>
+          <p>This site is a working proof of concept for what I do.</p>
+          <p>In the age of AI, information isn&apos;t searched or browsed&mdash;it&apos;s generated on demand against a specific question. This interface is built that way end to end: an architected system on top of Claude and OpenAI, connected to my actual work, answering in my voice.</p>
+          <p>No templates. No static pages. A living interface that thinks with you&mdash;and a live example of how I approach AI-native product design.</p>
         </div>
         <div className="mt-12 pt-8 border-t border-neutral-100 text-xs font-mono text-neutral-400 uppercase tracking-widest">Build: RyanOS v106.1 // Powered by Vercel & OpenAI</div>
       </motion.div>
@@ -700,10 +697,11 @@ export default function Home() {
           {!hasInteracted && (
             <motion.div initial={{ opacity: 1, width: 'auto' }} exit={{ opacity: 0, width: 0 }} className="p-8 md:p-16 border-r border-neutral-100 flex flex-col justify-center bg-white col-span-1 h-full min-h-[300px]">
               <h1 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-4">HI,<br/>I&apos;M RYAN.</h1>
-              <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">Creative Exec | Brand Systems | AI Workflows</p>
+              <p className="text-xs font-bold uppercase tracking-widest text-neutral-400 mb-8">AI Enablement &middot; Creative Systems &middot; Architect by Training</p>
               <div className="prose prose-sm text-neutral-600 font-medium leading-relaxed">
-                <p>I lead creative teams that architect immersive brand systems&mdash;built for scale, designed to connect.</p>
-                <p className="mt-4">Instead of searching through static pages, <strong>just ask.</strong></p>
+                <p>I translate emerging technology into systems organizations can adopt.</p>
+                <p className="mt-4">Architecture trained the systems thinking. Teaching trained the translation. Experiential trained the craft. AI is the medium that lets all three run at once.</p>
+                <p className="mt-4">Instead of scrolling, <strong>just ask.</strong></p>
               </div>
             </motion.div>
           )}
@@ -786,7 +784,7 @@ export default function Home() {
         {/* LOAD MORE */}
         {!activeFilter && visibleCount < allProjects.length && (
           <div className="flex justify-center p-12 bg-white border-t border-neutral-100">
-            <button onClick={handleLoadMore} className="px-8 py-4 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"><Plus size={16} /> Access Archives ({allProjects.length - visibleCount} Remaining)</button>
+            <button onClick={handleLoadMore} className="px-8 py-4 bg-black text-white font-bold uppercase text-xs tracking-widest hover:bg-neutral-800 transition-all flex items-center gap-2"><Plus size={16} /> More Work ({allProjects.length - visibleCount} Projects)</button>
           </div>
         )}
       </div>
