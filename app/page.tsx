@@ -70,13 +70,40 @@ const allProjects = [
     role: 'Founder / Lead Researcher',
     date: 'Ongoing',
     category: 'Future',
-    img: '/images/curio/hero.jpg',
+    img: '/images/curio/hero_collab.png',
     videos: ['A5s6nDzhhqc'],
-    images: generateImages('curio', 9),
+    images: [
+      '/images/curio/ladder1.png',
+      '/images/curio/ladder4.png',
+      '/images/curio/trender1.png',
+      '/images/curio/trender2.png',
+      '/images/curio/trender6.png',
+      '/images/curio/laundromat.jpg',
+      '/images/curio/career0.png',
+      '/images/curio/career1.png',
+      '/images/curio/redpeg_pricing1.png',
+    ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
-    desc: 'My independent research label. AI, Code, & Culture.',
-    fullDesc: 'Curio is my independent research label and speculative design engine. It operates on a central thesis: "To move is human\u2014using computer code."',
-    context: 'Curio is the "Room, Ritual, and Runbook" company. I don\'t just do events; I productize culture. The philosophy is simple: if I can\'t diagnose the problem via a paid sprint, I won\'t prescribe the solution. This studio is where I test the edges of AI, "vibe coding," and custom GPT architectures before applying them to enterprise scale. It houses my experimental projects\u2014from the Solar Calculator to the Dragon/IKEA game\u2014serving as the R&D lab for my broader creative practice.',
+    link: 'https://ladder-mu.vercel.app/',
+    desc: 'My independent research label. Live tools that test the edges of AI, code, and culture.',
+    fullDesc: 'Curio is my independent research label and speculative design engine. It operates on a central thesis: "To move is human\u2014using computer code." The studio ships small, opinionated tools that each test a different hypothesis about how AI changes creative and operational work\u2014career structure, trend research, agency pricing, daily operations.',
+    context: 'Curio is the lab where I prove patterns before bringing them into client work. Each tool is a working hypothesis about a different seam where AI changes how creative and operational work gets done. They\u2019re not demos\u2014they\u2019re live, opinionated, and built end-to-end. The R&D loop: identify a friction point, build the thinnest tool that tests a thesis about it, ship it, watch what it teaches. Together they form the practical body of work behind everything I publish on AI\u2014vibe coding, custom Claude skills, AI-native product patterns, and the operating layer that makes any of it real at scale.',
+    subProjects: [
+      {
+        name: "The Ladder That Isn't",
+        link: 'https://ladder-mu.vercel.app/',
+        desc: 'An interactive editorial dashboard about American wealth, built in response to the April 2026 $887M Warner Bros. Discovery CEO golden parachute. Six tabs of scaled-area visualizations, sims, and policy framing\u2014a single-file React build that argues most Americans defending the current system are defending a club they will never be invited into. Single HTML file, no build step, deployed static.',
+      },
+      {
+        name: 'Style Sync (a.k.a. Trender)',
+        link: 'https://style-sync-eight.vercel.app/dashboard',
+        desc: 'AI moodboard + visual trend tool for agency creative work. Pick a category, drop in a brief or reference images, and it generates a moodboard with Unsplash references in 60 seconds\u2014locked to a specific client so the output stays consistent board to board. Replaces hours of hand-pulling Pinterest references. Next.js + Supabase + OpenAI + Unsplash, live on Vercel.',
+      },
+      {
+        name: 'RedPeg Creative Pricing & Scoping Tool',
+        desc: 'An internal scoping calculator built to fix a margin leak: RedPeg\u2019s account team was under-scoping creative time and the creative team was over-delivering without billing for it. Three program tiers, 57 tasks across 12 categories, live hour/cost calculator with editable rates, and scope-risk toggles for new clients, heavy feedback, and front-end load. Built from industry benchmarking against Jack Morton, GPJ, Geometry, and Inspira\u2014roughly eleven tasks RedPeg was performing but not scoping made it into the tool.',
+      },
+    ],
   },
   {
     id: 'nike',
@@ -190,11 +217,51 @@ const allProjects = [
     date: 'Ongoing',
     category: 'Future',
     img: '/images/giftscript/hero.jpg',
-    images: generateImages('giftscript', 6),
+    images: [
+      '/images/giftscript/post2_01.jpg',
+      '/images/giftscript/post2_02.jpg',
+      '/images/giftscript/post2_03.jpg',
+      '/images/giftscript/post2_04.jpg',
+      '/images/giftscript/post2_05.jpg',
+      '/images/giftscript/post2_06.jpg',
+      '/images/giftscript/detail_01.jpg',
+      '/images/giftscript/detail_02.jpg',
+      '/images/giftscript/detail_03.jpg',
+      '/images/giftscript/detail_04.jpg',
+      '/images/giftscript/detail_05.jpg',
+      '/images/giftscript/detail_06.jpg',
+      '/images/giftscript/detail_07.jpg',
+    ],
     stats: ['Novel', 'AI Voice Skill', 'Ocelus.co'],
+    link: 'https://ocelus.co',
     desc: 'A novel with an AI-powered marketing engine. Non-traditional publishing meets custom tooling.',
     fullDesc: 'Gift Script is a novel about purpose in the age of intelligent machines\u2014and a live case study in AI-augmented creative distribution. The marketing isn\'t separate from the product; it\'s built with the same AI tools the book is about.',
     context: 'This project goes beyond writing a book. I built a constellation of AI tools around the narrative itself: a custom voice skill for the main character Maya that writes in her tone and cadence, a personalized calendar tool that delivers story-world content on a schedule, and a fictional company website (ocelus.co) that exists as both a plot device and a marketing surface. The thesis: if AI can help write the story, it can also help distribute it in ways traditional publishing never could. Every tool I built is a proof of concept for AI-native content marketing\u2014applied to fiction instead of a brand.',
+  },
+  {
+    id: 'lanternfox',
+    tags: ['future', 'innovation', 'branding', 'ai', 'strategy'],
+    type: 'case_study',
+    title: 'Lantern & Fox',
+    client: 'INDEPENDENT',
+    role: 'Founder / Creative Director',
+    date: 'Ongoing',
+    category: 'Future',
+    img: '/images/lanternfox/hero.jpg',
+    images: [
+      '/images/lanternfox/detail_01.jpg',
+      '/images/lanternfox/detail_02.jpg',
+      '/images/lanternfox/detail_03.jpg',
+      '/images/lanternfox/detail_04.jpg',
+      '/images/lanternfox/detail_05.jpg',
+      '/images/lanternfox/detail_06.jpg',
+      '/images/lanternfox/detail_07.jpg',
+    ],
+    stats: ['Heirloom Kit', 'AI Story Engine', 'D2C Brand'],
+    link: 'https://lanternandfox.com',
+    desc: 'A heirloom story-kit for kids, paired with an AI engine that writes the next chapter.',
+    fullDesc: 'Lantern & Fox is a direct-to-consumer brand I founded around a single idea: family imagination should be tangible. The product is a beautifully made physical kit\u2014tokens, prompts, a lantern\u2014paired with an AI story engine that turns a child\u2019s name, choices, and the night\u2019s prompt into a fresh chapter at bedtime.',
+    context: 'The goal is to prove that AI can serve handmade, human rituals instead of replacing them. The kit is the anchor: a wooden lantern, a fox token, and a deck of prompt cards designed to be passed down, not used up. The AI engine sits behind the experience, generating short, illustrated chapters that adapt to the family\u2014never a chatbot, always a story. It\u2019s also a live test of an AI-native consumer brand operating system: I\u2019m running everything from supply chain and email to Instagram templates and analytics through a single Brain-driven workflow. Live at lanternandfox.com.',
   },
   {
     id: 'thought',
@@ -211,6 +278,16 @@ const allProjects = [
         title: 'The Contract You Didn\'t Know You Signed',
         url: '/papers/The_Contract_You_Didnt_Know_You_Signed.pdf',
         desc: 'Why 30 years of software conditioning is the real barrier to AI adoption.'
+      },
+      {
+        title: 'The Employee Is the Audience Nobody Is Building For',
+        url: '/papers/The_Employee_Is_The_Audience.pdf',
+        desc: 'A LinkedIn essay on B2E \u2014 the empty lane in experiential marketing where the internal audience deserves a builder, not a vendor.'
+      },
+      {
+        title: 'The Ladder That Isn\'t',
+        url: 'https://ladder-mu.vercel.app/',
+        desc: 'An interactive essay on what happens to career structure when the corporate ladder dissolves.'
       },
       {
         title: 'Frontiers',
@@ -286,15 +363,22 @@ const allProjects = [
     title: 'RedPeg Rebrand',
     client: 'REDPEG',
     role: 'VP Creative',
-    date: '2023',
+    date: '2026',
     category: 'Innovation',
     img: '/images/redpeg/hero.jpg',
     videos: ['N0lCtCKBILc'],
     images: generateImages('redpeg', 6),
-    stats: ['Transformation', 'Visual Identity', 'Positioning'],
-    desc: 'From Vendor to Vision Partner. A complete overhaul.',
-    fullDesc: 'I led the complete overhaul of the agency\'s visual identity, voice, and positioning to move us from "executing events" to "building brand systems."',
-    context: 'The challenge was moving a legacy agency up the value chain to compete for Agency-of-Record work. We shifted the narrative from "we execute events" to "we build brand systems." I implemented AI-driven workflows across the creative team, increasing concept velocity by 30%, which allowed our lean team to punch way above its weight class.',
+    papers: [
+      {
+        title: 'RedPeg Brand Bible 2026',
+        url: '/papers/RedPeg_Brand_Bible_2026.pdf',
+        desc: 'The full internal brand bible. Positioning, three lanes, voice, visual system, and nine operating commitments.'
+      }
+    ],
+    stats: ['Brand Bible 2026', 'Execution Engine Thesis', 'Visual System'],
+    desc: 'Where ideas become real. A new brand system built around physical execution as durable advantage.',
+    fullDesc: 'I led the 2026 rebrand and authored the RedPeg Brand Bible \u2014 a full internal system covering positioning, narrative, three service lanes, voice, visual identity, and nine operating commitments. The thesis: as AI commoditizes creative strategy, RedPeg\u2019s durable advantage is the physical execution layer between the brief and the real world. \u201CAI thinks it. We build it.\u201D',
+    context: 'The brand bible reframes a 30-year-old experiential shop around what AI can\u2019t do. Three named lanes: Live Event Production, Employee Experience (B2E), and Music Partnerships through in-house subsidiary Deep Cuts Entertainment. The visual system is cream-dominant with red as accent and black for weight \u2014 bold, typographic, confident, never decorative. The operating commitments are the harder half: paid diagnostics, no free pitching, $1M minimum engagement floor, transparent money conversations on day one. The bible lives at /papers/RedPeg_Brand_Bible_2026.pdf as a 24-page internal document. Alongside it, I implemented AI-driven workflows across the creative team that increased concept velocity by ~30%, letting a lean 37-person team punch above weight against agencies five times the size.',
   },
   {
     id: 'xgames',
@@ -520,15 +604,15 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
           ))}
           {/* PDF RENDERER (Compact) */}
           {project.papers && (
-            <div className="px-6 py-4 flex flex-wrap gap-3 bg-neutral-100">
+            <div className="px-6 py-4 flex flex-col gap-3 bg-neutral-100">
               {project.papers.map((paper: any, i: number) => (
-                <a key={i} href={paper.url} target="_blank" rel="noopener noreferrer" className="group flex items-center gap-3 bg-white px-4 py-3 border border-neutral-200 hover:border-black transition-all shadow-sm hover:shadow-md rounded-sm">
+                <a key={i} href={paper.url} target="_blank" rel="noopener noreferrer" className="group w-full flex items-center gap-4 bg-white px-5 py-4 border border-neutral-200 hover:border-black transition-all shadow-sm hover:shadow-md rounded-sm">
                   <FileText size={20} className="text-neutral-300 group-hover:text-blue-600 transition-colors flex-shrink-0" />
-                  <div className="min-w-0">
-                    <h4 className="font-bold text-xs uppercase leading-tight truncate">{paper.title}</h4>
-                    <p className="text-[10px] text-neutral-400 truncate">{paper.desc}</p>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-bold text-xs uppercase leading-tight">{paper.title}</h4>
+                    <p className="text-[10px] text-neutral-400 mt-0.5 truncate">{paper.desc}</p>
                   </div>
-                  <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors flex-shrink-0 ml-2">PDF</span>
+                  <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors flex-shrink-0">PDF</span>
                 </a>
               ))}
             </div>
@@ -559,6 +643,24 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                 </a>
               )}
               <div className="mb-8 p-4 bg-neutral-50 border border-neutral-100 text-xs text-neutral-500 leading-relaxed italic">&quot;{project.context}&quot;</div>
+              {project.subProjects && project.subProjects.length > 0 && (
+                <div className="mb-8 space-y-3">
+                  <h4 className="font-bold text-xs uppercase text-neutral-400 border-b border-neutral-100 pb-2">Inside the Lab</h4>
+                  {project.subProjects.map((sp: { name: string; link?: string; desc: string }, i: number) => (
+                    <div key={i} className="p-4 border border-neutral-200 hover:border-black transition-colors">
+                      <div className="flex items-start justify-between gap-3 mb-2">
+                        <h5 className="font-bold text-sm uppercase tracking-wide">{sp.name}</h5>
+                        {sp.link && (
+                          <a href={sp.link} target="_blank" rel="noopener noreferrer" className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest">
+                            <ExternalLink size={12} /> Live
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-xs text-neutral-600 leading-relaxed">{sp.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
               <div className="space-y-4 mb-8">
                 <h4 className="font-bold text-xs uppercase text-neutral-400 border-b border-neutral-100 pb-2">Project Data</h4>
                 {project.stats.map((stat: string, i: number) => (
