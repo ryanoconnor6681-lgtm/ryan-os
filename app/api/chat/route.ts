@@ -231,7 +231,7 @@ Agency creative scope is usually quoted ad-hoc by senior creatives. That under-c
 - Live total + breakdown by phase
 
 ## Status
-Internal RedPeg tool. Lives in `RedPeg/Projects/Creative Pricing Guide/creative-scope-calculator-v5.html`. Linked from Ryan's Brain Launcher under "Tools."`,
+Internal RedPeg tool. Lives at RedPeg/Projects/Creative Pricing Guide/creative-scope-calculator-v5.html. Linked from Ryan's Brain Launcher under "Tools."`,
 
   'career-manager': `# Currently viewing: Career Manager
 
