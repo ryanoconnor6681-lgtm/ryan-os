@@ -575,7 +575,11 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
     setChatHistory(newHistory);
     setLoading(true);
     try {
-      const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) });
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, project: project.id }),
+      });
       const data = await res.json();
       setChatHistory([...newHistory, { role: 'ai', content: data.response }]);
     } catch (e) {

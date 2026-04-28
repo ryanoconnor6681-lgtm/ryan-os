@@ -323,28 +323,39 @@ The umbrella for Ryan's personal writing — essays, thought leadership, strateg
 - Medium: AI authorship essay destination (when ready)`,
 };
 
-// Slug aliases — accept variants the frontend might send
+// Slug aliases — accept variants the frontend might send.
+// The portfolio's project IDs (from app/page.tsx) are also mapped here
+// so the frontend can pass `project.id` verbatim.
 const SLUG_ALIASES: Record<string, string> = {
+  // Lantern & Fox
   lantern: 'lantern-fox',
+  lanternfox: 'lantern-fox',
   'lantern-and-fox': 'lantern-fox',
+  // Gift.Script / Ocelus / Maya
   giftscript: 'gift-script',
   'gift.script': 'gift-script',
   ocelus: 'gift-script',
   maya: 'gift-script',
+  // The Ladder That Isn't
   'the-ladder': 'ladder',
   'the-ladder-that-isnt': 'ladder',
+  // Style Sync / Trender
   trender: 'style-sync',
   stylesync: 'style-sync',
+  // RedPeg Pricing Tool
   pricing: 'redpeg-pricing',
   'creative-pricing': 'redpeg-pricing',
   'scope-calculator': 'redpeg-pricing',
+  // Career Manager
   career: 'career-manager',
+  // AI-Assisted Modeling
   'ai-assisted-modeling': 'ai-modeling',
   'hard-drive-case': 'ai-modeling',
   harddrive: 'ai-modeling',
-  redpeg: 'redpeg',
+  // RedPeg
   'red-peg': 'redpeg',
   'brand-bible': 'redpeg',
+  // Frontiers
   essays: 'frontiers',
   writing: 'frontiers',
 };
