@@ -71,17 +71,47 @@ const allProjects = [
     date: 'Active',
     category: 'Future',
     img: '/images/curio/hero_collab.png',
-    videos: ['A5s6nDzhhqc'],
-    images: [
-      '/images/curio/ladder1.png',
-      '/images/curio/ladder4.png',
-      '/images/curio/trender1.png',
-      '/images/curio/trender2.png',
-      '/images/curio/trender6.png',
-      '/images/curio/laundromat.jpg',
-      '/images/curio/career0.png',
-      '/images/curio/career1.png',
-      '/images/curio/redpeg_pricing1.png',
+    images: [],
+    groups: [
+      {
+        name: 'Lantern & Fox',
+        size: 'large',
+        link: 'https://lanternandfox.com',
+        images: ['/images/curio/Lantern1.png', '/images/curio/Lantern2.png', '/images/curio/Lantern3.png', '/images/curio/Lantern4.png'],
+      },
+      {
+        name: "The Ladder That Isn't",
+        size: 'large',
+        link: 'https://ladder-mu.vercel.app/',
+        images: ['/images/curio/ladder1.png', '/images/curio/ladder2.png', '/images/curio/ladder3.png', '/images/curio/ladder4.png'],
+      },
+      {
+        name: 'RedPeg Brand Bible',
+        size: 'large',
+        images: ['/images/curio/brand1.png', '/images/curio/brand2.png', '/images/curio/brand3.png', '/images/curio/brand4.png'],
+      },
+      {
+        name: 'Style Sync (Trender)',
+        size: 'small',
+        link: 'https://style-sync-eight.vercel.app/dashboard',
+        images: ['/images/curio/trender1.png', '/images/curio/trender2.png'],
+      },
+      {
+        name: 'Career Manager',
+        size: 'small',
+        images: ['/images/curio/career1.png', '/images/curio/career2.png'],
+      },
+      {
+        name: 'RedPeg Creative Pricing',
+        size: 'small',
+        images: ['/images/curio/pricing1.png', '/images/curio/pricing2.png'],
+      },
+      {
+        name: 'Curiosity Catalog',
+        size: 'small',
+        link: 'https://red-peg-curiosity-catalog.vercel.app/',
+        images: ['/images/curio/curiosity1.png', '/images/curio/curiosity2.png'],
+      },
     ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
     link: 'https://ladder-mu.vercel.app/',
@@ -90,31 +120,40 @@ const allProjects = [
     context: 'The studio\u2019s first product is The Curio Primer \u2014 a bespoke onboarding artifact for ChatGPT-fluent executives moving to Claude. Built as a navigable HTML primer + a starter Brain vault + 2\u20133 custom Claude skills tuned to your work. Two tiers: self-serve ($249) or done-for-you ($2,500).',
     subProjects: [
       {
-        name: "The Ladder That Isn't",
-        link: 'https://ladder-mu.vercel.app/',
-        desc: 'An editorial dashboard on American wealth. Cited by working journalists.',
-      },
-      {
         name: 'Lantern & Fox',
         link: 'https://lanternandfox.com',
-        desc: 'An AI-native D2C heirloom brand for screen-conscious parents.',
+        desc: 'An AI-native D2C heirloom brand for screen-conscious parents. Storybooks, kits, and a story system co-created with parents and kids.',
+      },
+      {
+        name: "The Ladder That Isn't",
+        link: 'https://ladder-mu.vercel.app/',
+        desc: 'An editorial dashboard on American wealth. Six tabs of scaled visualizations, sims, and policy framing. Cited by working journalists.',
+      },
+      {
+        name: 'RedPeg Brand Bible',
+        desc: 'A 24-page navigable HTML brand system. The Actualization Thesis, three lanes (Live Event, B2E, Music), nine commitments.',
       },
       {
         name: 'Style Sync (Trender)',
         link: 'https://style-sync-eight.vercel.app/dashboard',
-        desc: 'An AI moodboard tool for agency creative work.',
-      },
-      {
-        name: 'RedPeg Brand Bible',
-        desc: 'A 24-page navigable HTML brand system.',
+        desc: 'An AI moodboard tool for agency creative work. 60-second moodboard generation locked to a client \u2014 replaces hours of Pinterest-pulling.',
       },
       {
         name: 'Career Manager',
-        desc: 'A personal OS for non-linear job search.',
+        desc: 'A personal OS for non-linear job search. Tracks applications and builds tailored resumes from a master knowledge base.',
+      },
+      {
+        name: 'RedPeg Creative Pricing',
+        desc: 'An internal scoping calculator. Three program tiers, 57 tasks across 12 categories, live hour/cost math. Built to close a real margin leak.',
+      },
+      {
+        name: 'Curiosity Catalog',
+        link: 'https://red-peg-curiosity-catalog.vercel.app/',
+        desc: 'RedPeg\u2019s AI onboarding system. Custom Claude skill + interactive launchpad + PDF playbook that gets a non-technical team building on day one.',
       },
       {
         name: 'The Curio Primer',
-        desc: 'The studio\u2019s first commercial product.',
+        desc: 'The studio\u2019s first commercial product. Bespoke ChatGPT\u2192Claude onboarding for senior operators. Self-serve $249 / done-for-you $2,500.',
         isNew: true,
       },
     ],
@@ -635,8 +674,32 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               ))}
             </div>
           )}
-          {/* IMAGE RENDERER */}
-          {project.images && project.images.map((img: string, i: number) => (
+          {/* GROUPED GALLERY (used by Curio) */}
+          {project.groups && project.groups.length > 0 && (
+            <div className="p-4 md:p-6 space-y-8">
+              {project.groups.map((group: { name: string; size: 'large' | 'small'; link?: string; images: string[] }, gi: number) => (
+                <div key={gi}>
+                  <div className="flex items-center justify-between mb-3 pb-2 border-b border-neutral-200">
+                    <h4 className="font-bold text-xs uppercase tracking-widest">{group.name}</h4>
+                    {group.link && (
+                      <a href={group.link} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest inline-flex items-center gap-1">
+                        <ExternalLink size={10} /> Live
+                      </a>
+                    )}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    {group.images.map((img: string, ii: number) => (
+                      <div key={ii} className="aspect-[4/3] overflow-hidden bg-neutral-200">
+                        <img src={img} alt={`${group.name} ${ii + 1}`} className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          {/* IMAGE RENDERER (flat list, used by other projects) */}
+          {(!project.groups || project.groups.length === 0) && project.images && project.images.map((img: string, i: number) => (
             <img key={i} src={img} className="w-full h-auto object-cover" />
           ))}
         </div>
