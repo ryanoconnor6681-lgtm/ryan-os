@@ -66,9 +66,9 @@ const allProjects = [
     tags: ['innovation', 'future', 'ai', 'leadership', 'strategy'],
     type: 'case_study',
     title: 'Curio Studio',
-    client: 'INTERNAL LAB',
+    client: 'STUDIO',
     role: 'Founder / Lead Researcher',
-    date: 'Ongoing',
+    date: 'Active',
     category: 'Future',
     img: '/images/curio/hero_collab.png',
     videos: ['A5s6nDzhhqc'],
@@ -85,23 +85,37 @@ const allProjects = [
     ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
     link: 'https://ladder-mu.vercel.app/',
-    desc: 'My independent research label. Live tools that test the edges of AI, code, and culture.',
-    fullDesc: 'Curio is my independent research label and speculative design engine. It operates on a central thesis: "To move is human\u2014using computer code." The studio ships small, opinionated tools that each test a different hypothesis about how AI changes creative and operational work\u2014career structure, trend research, agency pricing, daily operations.',
-    context: 'Curio is the lab where I prove patterns before bringing them into client work. Each tool is a working hypothesis about a different seam where AI changes how creative and operational work gets done. They\u2019re not demos\u2014they\u2019re live, opinionated, and built end-to-end. The R&D loop: identify a friction point, build the thinnest tool that tests a thesis about it, ship it, watch what it teaches. Together they form the practical body of work behind everything I publish on AI\u2014vibe coding, custom Claude skills, AI-native product patterns, and the operating layer that makes any of it real at scale.',
+    desc: 'A studio for senior operators catching up on AI without the slop.',
+    fullDesc: 'Curio is the studio behind a stack of AI-native artifacts \u2014 The Ladder That Isn\u2019t, the RedPeg Brand Bible, Style Sync, Lantern & Fox, and a body of essays on what AI actually changes for senior operators.',
+    context: 'The studio\u2019s first product is The Curio Primer \u2014 a bespoke onboarding artifact for ChatGPT-fluent executives moving to Claude. Built as a navigable HTML primer + a starter Brain vault + 2\u20133 custom Claude skills tuned to your work. Two tiers: self-serve ($249) or done-for-you ($2,500).',
     subProjects: [
       {
         name: "The Ladder That Isn't",
         link: 'https://ladder-mu.vercel.app/',
-        desc: 'An interactive editorial dashboard about American wealth, built in response to the April 2026 $887M Warner Bros. Discovery CEO golden parachute. Six tabs of scaled-area visualizations, sims, and policy framing\u2014a single-file React build that argues most Americans defending the current system are defending a club they will never be invited into. Single HTML file, no build step, deployed static.',
+        desc: 'An editorial dashboard on American wealth. Cited by working journalists.',
       },
       {
-        name: 'Style Sync (a.k.a. Trender)',
+        name: 'Lantern & Fox',
+        link: 'https://lanternandfox.com',
+        desc: 'An AI-native D2C heirloom brand for screen-conscious parents.',
+      },
+      {
+        name: 'Style Sync (Trender)',
         link: 'https://style-sync-eight.vercel.app/dashboard',
-        desc: 'AI moodboard + visual trend tool for agency creative work. Pick a category, drop in a brief or reference images, and it generates a moodboard with Unsplash references in 60 seconds\u2014locked to a specific client so the output stays consistent board to board. Replaces hours of hand-pulling Pinterest references. Next.js + Supabase + OpenAI + Unsplash, live on Vercel.',
+        desc: 'An AI moodboard tool for agency creative work.',
       },
       {
-        name: 'RedPeg Creative Pricing & Scoping Tool',
-        desc: 'An internal scoping calculator built to fix a margin leak: RedPeg\u2019s account team was under-scoping creative time and the creative team was over-delivering without billing for it. Three program tiers, 57 tasks across 12 categories, live hour/cost calculator with editable rates, and scope-risk toggles for new clients, heavy feedback, and front-end load. Built from industry benchmarking against Jack Morton, GPJ, Geometry, and Inspira\u2014roughly eleven tasks RedPeg was performing but not scoping made it into the tool.',
+        name: 'RedPeg Brand Bible',
+        desc: 'A 24-page navigable HTML brand system.',
+      },
+      {
+        name: 'Career Manager',
+        desc: 'A personal OS for non-linear job search.',
+      },
+      {
+        name: 'The Curio Primer',
+        desc: 'The studio\u2019s first commercial product.',
+        isNew: true,
       },
     ],
   },
@@ -650,10 +664,15 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               {project.subProjects && project.subProjects.length > 0 && (
                 <div className="mb-8 space-y-3">
                   <h4 className="font-bold text-xs uppercase text-neutral-400 border-b border-neutral-100 pb-2">Inside the Lab</h4>
-                  {project.subProjects.map((sp: { name: string; link?: string; desc: string }, i: number) => (
+                  {project.subProjects.map((sp: { name: string; link?: string; desc: string; isNew?: boolean }, i: number) => (
                     <div key={i} className="p-4 border border-neutral-200 hover:border-black transition-colors">
                       <div className="flex items-start justify-between gap-3 mb-2">
-                        <h5 className="font-bold text-sm uppercase tracking-wide">{sp.name}</h5>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <h5 className="font-bold text-sm uppercase tracking-wide">{sp.name}</h5>
+                          {sp.isNew && (
+                            <span className="text-[9px] font-bold uppercase tracking-widest bg-black text-white px-1.5 py-0.5">NEW</span>
+                          )}
+                        </div>
                         {sp.link && (
                           <a href={sp.link} target="_blank" rel="noopener noreferrer" className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold text-blue-600 hover:text-blue-800 uppercase tracking-widest">
                             <ExternalLink size={12} /> Live
