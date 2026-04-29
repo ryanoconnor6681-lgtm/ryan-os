@@ -185,7 +185,38 @@ const allProjects = [
     category: 'Experience',
     img: '/images/nike/hero.jpg',
     videos: ['tG6yageDylc', 'A_sVqA4RBH0'],
-    images: generateImages('nike', 20),
+    images: [
+      '/images/nike/detail_01.jpg',
+      '/images/nike/detail_01_1.png',
+      '/images/nike/detail_01_2.png',
+      '/images/nike/detail_01_3.png',
+    ],
+    groups: [
+      {
+        name: 'More from the build',
+        size: 'small',
+        images: [
+          '/images/nike/detail_02.jpg',
+          '/images/nike/detail_03.jpg',
+          '/images/nike/detail_04.jpg',
+          '/images/nike/detail_05.jpg',
+          '/images/nike/detail_06.jpg',
+          '/images/nike/detail_07.jpg',
+          '/images/nike/detail_09.jpg',
+          '/images/nike/detail_10.jpg',
+          '/images/nike/detail_11.jpg',
+          '/images/nike/detail_12.jpg',
+          '/images/nike/detail_13.jpg',
+          '/images/nike/detail_14.jpg',
+          '/images/nike/detail_15.jpg',
+          '/images/nike/detail_16.jpg',
+          '/images/nike/detail_17.jpg',
+          '/images/nike/detail_18.jpg',
+          '/images/nike/detail_19.jpg',
+          '/images/nike/detail_20.jpg',
+        ],
+      },
+    ],
     stats: ['400+ VPs', '$2M+ Budget', 'Global Summit'],
     desc: 'Aligning 400 VPs on a future vision. 4 days. 1 Strategy.',
     fullDesc: 'We needed to align 400 VPs on a 50-year strategic roadmap. Instead of a conference, we built a "Future-Casting" simulator.',
@@ -690,7 +721,11 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               ))}
             </div>
           )}
-          {/* GROUPED GALLERY (used by Curio) */}
+          {/* IMAGE RENDERER (flat full-width images — render first if present) */}
+          {project.images && project.images.map((img: string, i: number) => (
+            <img key={i} src={img} className="w-full h-auto object-cover" />
+          ))}
+          {/* GROUPED GALLERY (Curio + Nike continuation grid) */}
           {project.groups && project.groups.length > 0 && (
             <div className="p-4 md:p-6 space-y-8">
               {project.groups.map((group: { name: string; size: 'large' | 'small'; link?: string; images: string[] }, gi: number) => (
@@ -714,10 +749,6 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               ))}
             </div>
           )}
-          {/* IMAGE RENDERER (flat list, used by other projects) */}
-          {(!project.groups || project.groups.length === 0) && project.images && project.images.map((img: string, i: number) => (
-            <img key={i} src={img} className="w-full h-auto object-cover" />
-          ))}
         </div>
 
         {/* Right Side: Details/Chat */}
