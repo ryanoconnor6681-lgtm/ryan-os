@@ -70,7 +70,7 @@ const allProjects = [
     role: 'Founder / Lead Researcher',
     date: 'Active',
     category: 'Future',
-    img: '/images/curio/hero_collab.png',
+    img: '/images/curio/frontiers/curio_hero.jpeg',
     images: [],
     groups: [
       {
