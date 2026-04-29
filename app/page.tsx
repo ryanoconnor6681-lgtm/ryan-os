@@ -121,38 +121,54 @@ const allProjects = [
     subProjects: [
       {
         name: 'Lantern & Fox',
+        type: 'Product',
+        audience: 'Businesses',
         link: 'https://lanternandfox.com',
         desc: 'An AI-native D2C heirloom brand for screen-conscious parents. Storybooks, kits, and a story system co-created with parents and kids.',
       },
       {
         name: "The Ladder That Isn't",
+        type: 'Visualization',
+        audience: 'Journalists',
         link: 'https://ladder-mu.vercel.app/',
         desc: 'An editorial dashboard on American wealth. Six tabs of scaled visualizations, sims, and policy framing. Cited by working journalists.',
       },
       {
         name: 'RedPeg Brand Bible',
+        type: 'System',
+        audience: 'Agencies',
         desc: 'A 24-page navigable HTML brand system. The Actualization Thesis, three lanes (Live Event, B2E, Music), nine commitments.',
       },
       {
         name: 'Style Sync (Trender)',
+        type: 'Tool',
+        audience: 'Creatives',
         link: 'https://style-sync-eight.vercel.app/dashboard',
         desc: 'An AI moodboard tool for agency creative work. 60-second moodboard generation locked to a client \u2014 replaces hours of Pinterest-pulling.',
       },
       {
         name: 'Career Manager',
+        type: 'System',
+        audience: 'Operators',
         desc: 'A personal OS for non-linear job search. Tracks applications and builds tailored resumes from a master knowledge base.',
       },
       {
         name: 'RedPeg Creative Pricing',
+        type: 'Tool',
+        audience: 'Agencies',
         desc: 'An internal scoping calculator. Three program tiers, 57 tasks across 12 categories, live hour/cost math. Built to close a real margin leak.',
       },
       {
         name: 'Curiosity Catalog',
+        type: 'System',
+        audience: 'Teams',
         link: 'https://red-peg-curiosity-catalog.vercel.app/',
         desc: 'RedPeg\u2019s AI onboarding system. Custom Claude skill + interactive launchpad + PDF playbook that gets a non-technical team building on day one.',
       },
       {
         name: 'The Curio Primer',
+        type: 'Service',
+        audience: 'Operators',
         desc: 'The studio\u2019s first commercial product. Bespoke ChatGPT\u2192Claude onboarding for senior operators. Self-serve $249 / done-for-you $2,500.',
         isNew: true,
       },
@@ -727,9 +743,9 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
               {project.subProjects && project.subProjects.length > 0 && (
                 <div className="mb-8 space-y-3">
                   <h4 className="font-bold text-xs uppercase text-neutral-400 border-b border-neutral-100 pb-2">Inside the Lab</h4>
-                  {project.subProjects.map((sp: { name: string; link?: string; desc: string; isNew?: boolean }, i: number) => (
+                  {project.subProjects.map((sp: { name: string; type?: string; audience?: string; link?: string; desc: string; isNew?: boolean }, i: number) => (
                     <div key={i} className="p-4 border border-neutral-200 hover:border-black transition-colors">
-                      <div className="flex items-start justify-between gap-3 mb-2">
+                      <div className="flex items-start justify-between gap-3 mb-1">
                         <div className="flex items-center gap-2 flex-wrap">
                           <h5 className="font-bold text-sm uppercase tracking-wide">{sp.name}</h5>
                           {sp.isNew && (
@@ -742,6 +758,13 @@ const ProjectModal = ({ project, onClose, initialChatMsg }: { project: any, onCl
                           </a>
                         )}
                       </div>
+                      {(sp.type || sp.audience) && (
+                        <div className="flex items-center gap-1.5 mb-2 text-[9px] font-mono font-bold uppercase tracking-widest text-neutral-400">
+                          {sp.type && <span>{sp.type}</span>}
+                          {sp.type && sp.audience && <span className="text-neutral-300">·</span>}
+                          {sp.audience && <span>For {sp.audience}</span>}
+                        </div>
+                      )}
                       <p className="text-xs text-neutral-600 leading-relaxed">{sp.desc}</p>
                     </div>
                   ))}
