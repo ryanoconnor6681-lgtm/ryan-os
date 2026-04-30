@@ -187,31 +187,59 @@ Next.js 16 (App Router) + TypeScript + Tailwind v4. Supabase (auth + storage). O
 ## Status
 Live and functional. Real APIs wired. Auth working. Pairs with Curio as Ryan's two "what I actually built" AI products.`,
 
-  curio: `# Currently viewing: Curio
+  curio: `# Currently viewing: Curio Studio
 
-Ryan's **AI brand and thinking brand**. Substack live now; growing into an umbrella for writing, essays, design prototypes, and eventual products. All the AI work under a single name.
+**Ryan's guide for the AI uncertain.** A thinking brand and shelf for everyone moving through the murky middle of the AI shift — essays, prototypes, and a four-focus primer for senior operators catching up on AI without the slop.
 
-**Substack:** https://substack.com/@ryanoconnor618637
+**One running idea:** *Speculative thinking pulls you forward while most people are still being pushed.*
 
-## What Curio is right now
-- Substack — launching under the Curio name
-- Essays + thinking — shares DNA with Frontiers (which lives under Curio as the writing track)
-- Design prototypes — conversational-interface explorations from v0
+**Substack:** curioco.substack.com · **Site:** ryanoconnor.design/curio-site/
 
-## What Curio is over time
-- **Year 1:** Substack + essay publishing. Voice + POV established. Small audience, quality subscribers.
-- **Year 2+:** Thinking brand in the AI space. Speaking, writing, small products.
-- **Someday:** Full AI studio / company. Frontiers is the writing track. Prototypes evolve into products.
+## What it is, right now (April 2026)
 
-## Why Curio
-The name signals what the brand does — curiosity as the method. Not pitch, not prediction. Asking better questions about AI, creativity, and how humans work with both. The aesthetic — minimal, confident, slightly cold, never over-explained — carries from the original studio blueprint into the Substack and beyond.
+A live five-page static site (HTML/CSS/vanilla JS, no framework) deployed inside the portfolio. Curio is the lead "case study" — Ryan is Founder / Lead Researcher of the studio. Three discipline tags: **Speculative Design, AI R&D, Vibe Coding.**
 
-## Design fingerprints
-- Radial chat / conversational architecture — the whole interface IS the conversation, not a widget
-- Stacked-card z-depth UI
-- Institutional, confident, slightly cold brand tone
-- Sparse typography, generous whitespace
-- No over-explaining
+## The four ways through (each its own page, each with a halftone illustration)
+
+1. **Inspiration** — sun glyph. North-star framing. *"Stop asking what to learn. Ask what to become."*
+2. **Filter** — hourglass. Hierarchy of attention. The car-analogy: *"I don't have time to learn to drive — I have to keep walking everywhere."*
+3. **Mindset** — hand-and-brain (full-page navy theme). Food analogy. *"You've been using a colleague like a calculator. Claude is the smartest person in your room."*
+4. **Solutions** — robot-and-human. *"Hand me the task."* Kitchen-sink page with the full body-of-work.
+
+## The four fallacies (flippable cards: front = trap, back = reframe)
+
+1. **Exhaustion** — there's too much; I can't catch up
+2. **Guilt** — I should already know this
+3. **Identity** — this isn't who I am
+4. **Muscle memory** — I keep doing it the old way
+
+Each fallacy maps to one of the four ways through. The home wheel makes the architecture explicit: "blocked by one of four fallacies → answered by one of four shifts."
+
+## Visual + UX language
+
+Mid-century cognitive futurism on cream paper. Navy stage. Amber accent. Rust as the punch color. The home page is a fortune-teller's compass framed by tarot cards. Decorative motifs from the toolkit of someone offering you a way through the uncertain — magnifier, pocketwatch, compass, matches, red thread, bell, fortune teller. **Persona toggle** (*For myself / For my team*) tunes copy across all five pages. **"Wishes and hates"** as the prompt frame. Editorial / magazine-spread typography (Anton display + Fraunces serif + Inter body + DM Mono labels).
+
+## Body of work organized under Curio (positioned as receipts, not aspirations)
+
+| Sub-project | Type | Audience |
+|---|---|---|
+| Lantern & Fox (lanternandfox.com) | Product | Businesses |
+| The Ladder That Isn't (ladder-mu.vercel.app) — *cited by working journalists* | Visualization | Journalists |
+| RedPeg Brand Bible 2026 — 24-page navigable HTML | System | Agencies |
+| Style Sync / Trender (style-sync-eight.vercel.app) | Tool | Creatives |
+| Career Manager — non-linear job-search OS | System | Operators |
+| RedPeg Creative Pricing — scoping calculator | Tool | Agencies |
+| Curiosity Catalog (red-peg-curiosity-catalog.vercel.app) — **75% utilization across 40-person agency in 4 weeks; ~$433K in cost-recovery questions surfaced** | System | Teams |
+
+## What Curio is NOT (decided 2026-04-30)
+
+Curio is **not a paid business**. It's a holder. A shelf. The answer to *"you do AI right — what's this all about?"* — point them at curioco.substack.com or the site, and let them decide if they want more. **No sales push, no funnel, no tier ladder.** Inbound only — if someone wants to talk, they reach out.
+
+The voice is the teacher: *direct, no pacification, the authority — but offered, not sold.* Not consulting. Not a course. Not a Discord. Not RedPeg-adjacent.
+
+## Why Curio exists
+
+The name signals the method: **curiosity, not pitch.** Not prediction. Senior operators in the murky middle of the AI shift don't need another tool list — they need a way to *be* in the shift without being crushed by it. That's what the four-focus primer teaches.
 
 Overlaps with Ocelus (Gift.Script's in-world brand) — same design lineage, same voice philosophy, both run "AI as authorship tool, not editing tool."`,
 
