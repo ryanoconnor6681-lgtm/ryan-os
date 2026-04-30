@@ -1288,10 +1288,18 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   border-color: #d49d3a;
   transform: translateY(-1px);
 }
-/* On focus-page mastheads, .persona-pill sits to the left of the chip;
-   give it a small left margin to breathe. */
-.masthead .persona-pill + .masthead-more {
-  margin-left: 14px;
+/* On focus-page mastheads, .persona-pill + .masthead-more share one
+   grid cell via the .masthead-right wrapper. The masthead grid is
+   1fr auto 1fr — the wrapper occupies the rightmost cell so the
+   chip sits flush next to the For Myself / For my team toggle. */
+.masthead .masthead-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  justify-self: end;
+}
+.masthead .masthead-right .masthead-more {
+  margin-left: 0;
 }
 @media (max-width: 720px) {
   .masthead-more {
@@ -1311,8 +1319,11 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   background: transparent; /* sits on the same navy stage as the acts */
 }
 
-/* Cream parchment panel */
+/* Cream parchment panel — defensively forces visibility in case
+   landing.css's global .reveal { opacity: 0 } somehow propagates. */
 .offer-panel {
+  opacity: 1 !important;
+  transform: none !important;
   position: relative;
   width: 100%;
   max-width: 720px;
