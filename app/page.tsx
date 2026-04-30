@@ -114,7 +114,7 @@ const allProjects = [
       },
     ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
-    link: 'https://ladder-mu.vercel.app/',
+    link: '/curio-site/',
     desc: 'A studio for senior operators catching up on AI without the slop.',
     fullDesc: 'Curio is the studio behind a stack of AI-native artifacts \u2014 The Ladder That Isn\u2019t, the RedPeg Brand Bible, Style Sync, Lantern & Fox, and a body of essays on what AI actually changes for senior operators.',
     context: 'The studio\u2019s first product is The Curio Primer \u2014 a bespoke onboarding artifact for ChatGPT-fluent executives moving to Claude. Built as a navigable HTML primer + a starter Brain vault + 2\u20133 custom Claude skills tuned to your work. Two tiers: self-serve ($249) or done-for-you ($2,500).',
@@ -992,6 +992,9 @@ export default function Home() {
             <div className={`relative group border-b-2 border-neutral-200 focus-within:border-black transition-colors shrink-0 mt-auto ${mainLoading ? 'opacity-50 pointer-events-none' : ''}`}>
               <input value={mainInput} onChange={(e) => setMainInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && !mainLoading && sendMainMessage()} placeholder="Type to talk to Ryan..." disabled={mainLoading} className="w-full bg-transparent py-4 pr-12 text-lg font-bold placeholder:text-neutral-300 text-black outline-none disabled:cursor-not-allowed" />
               <button onClick={() => !mainLoading && sendMainMessage()} disabled={mainLoading} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-neutral-400 hover:text-black transition-colors disabled:cursor-not-allowed"><Send size={20} /></button>
+            </div>
+            <div className="mt-3 text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+              or <a href="/curio-site/" className="text-neutral-600 hover:text-black underline underline-offset-2 transition-colors">visit Curio →</a>
             </div>
           </motion.div>
         </motion.div>

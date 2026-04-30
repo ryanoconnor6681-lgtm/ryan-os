@@ -1,0 +1,478 @@
+/* =========================================================================
+   Curio — Colors, Type & Foundations
+   Mid-Century Cognitive Futurism · halftone print · editorial register
+   ========================================================================= */
+
+/* ---------- Webfonts ----------
+   Retro-futurist editorial register. Brand body face is Outfit (uploaded,
+   served from /fonts). Display + serif + mono are loaded from Google Fonts.
+   - Display CONDENSED:  Antonio (geometric grotesque condensed, science-poster)
+                         + fallback to Anton for institutional moments
+   - Editorial SERIF:    Newsreader (warm, optical-sized editorial serif with
+                         wide weight range and a strong italic — closer to
+                         GT Sectra / Tiempos than Fraunces ever gets)
+   - Body SANS:          Outfit (geometric, slightly rounded, warm — uploaded
+                         locally as a single variable font file)
+   - Mono:               JetBrains Mono (clean editorial mono)
+   ------------------------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600;700&family=Antonio:wght@400;500;600;700&family=Anton&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+/* Local brand font — Outfit variable */
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/Outfit-VariableFont_wght.ttf') format('truetype-variations'),
+       url('fonts/Outfit-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ============================================================
+     COLOR · The Curio Palette
+     Cream paper, near-black ink, navy depth, rust warmth, amber sun.
+     Halftone shading uses muted tan + pale grey.
+     ============================================================ */
+
+  /* Surfaces (light) */
+  --curio-cream:        #f3ede1;   /* primary background */
+  --curio-cream-2:      #ece4d4;   /* secondary surface, halftone shade */
+  --curio-paper:        #faf6ec;   /* card / lifted paper */
+  --curio-paper-warm:   #f7efde;   /* warm paper, between cream + paper */
+
+  /* Ink (foreground on light) */
+  --curio-ink:          #16140f;   /* near-black, body text */
+  --curio-navy:         #2c3a5e;   /* lighter slate-navy — primary navy surface */
+  --curio-navy-deep:    #1a2238;   /* deeper navy, was the original primary */
+  --curio-navy-darkest: #11192c;   /* deepest navy, reserved for shadow / vignette */
+
+  /* Warm accents */
+  --curio-rust:         #a8453a;   /* warm accent, italic emphasis on light */
+  --curio-rust-deep:    #8a3830;
+  --curio-amber:        #d49d3a;   /* sun disc, accent on dark */
+  --curio-amber-warm:   #e08a2b;   /* warmer amber, hover/press */
+  --curio-ochre:        #c08628;   /* mustard ochre, deeper tone */
+
+  /* Halftone neutrals */
+  --curio-tan:          #c9b894;   /* muted tan halftone */
+  --curio-tan-soft:     #d9cdb1;
+  --curio-grey-pale:    #c8c2b3;   /* pale halftone grey */
+  --curio-grey-mid:     #8a8678;
+  --curio-grey-soft:    #b9b3a4;
+
+  /* Dotted / dashed line stock */
+  --curio-rule:         #16140f;
+  --curio-rule-soft:    rgba(22, 20, 15, 0.18);
+  --curio-rule-dashed:  rgba(22, 20, 15, 0.32);
+
+  /* Semantic foreground/background tokens */
+  --bg:                 var(--curio-cream);
+  --bg-2:               var(--curio-cream-2);
+  --bg-card:            var(--curio-paper);
+
+  --fg:                 var(--curio-ink);
+  --fg-1:               var(--curio-ink);
+  --fg-2:               #3d3a31;          /* secondary text */
+  --fg-3:               #6a665a;          /* tertiary / metadata */
+  --fg-mute:            #8a8678;
+
+  --accent-warm:        var(--curio-rust);
+  --accent-sun:         var(--curio-amber);
+  --accent-deep:        var(--curio-navy);
+
+  --border:             rgba(22, 20, 15, 0.16);
+  --border-strong:      rgba(22, 20, 15, 0.4);
+
+  /* Dark mirror tokens (for navy theme) */
+  --bg-dark:            var(--curio-navy);
+  --bg-dark-2:          var(--curio-navy-deep);
+  --fg-on-dark:         #f3ede1;
+  --fg-on-dark-2:       #cfc8b8;
+  --accent-on-dark:     var(--curio-amber);
+
+  /* ============================================================
+     TYPE · Curio editorial system
+     Display: Anton (institutional), Fraunces (editorial italic)
+     Body: Inter / Outfit
+     Eyebrow / mono: DM Mono / JetBrains Mono
+     ============================================================ */
+
+  /* Families */
+  --font-display-cond:  'Antonio', 'Anton', 'Oswald', sans-serif;
+  --font-display-geo:   'Jost', 'Futura', 'Avenir Next', 'ITC Avant Garde', sans-serif;
+  --track-wordmark:     0.18em;       /* mid-century wide lockup */
+  --font-display-serif: 'Newsreader', 'Source Serif 4', 'Tiempos Text', Georgia, serif;
+  --font-body:          'Outfit', 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body-alt:      'Newsreader', Georgia, serif;
+  --font-mono:          'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Editorial scale — type-set, not "design tokens" */
+  --t-eyebrow:    11px;     /* mono caps, letter-spaced */
+  --t-label:      13px;
+  --t-meta:       14px;
+  --t-body-sm:    15px;
+  --t-body:       17px;     /* default reading size */
+  --t-body-lg:    19px;
+  --t-lead:       22px;     /* lede, intro paragraph */
+  --t-h6:         18px;
+  --t-h5:         22px;
+  --t-h4:         28px;
+  --t-h3:         36px;
+  --t-h2:         clamp(36px, 4.4vw, 56px);
+  --t-h1:         clamp(56px, 7.6vw, 104px);
+  --t-display:    clamp(72px, 10vw, 156px);
+
+  /* Tracking */
+  --track-eyebrow: 0.24em;
+  --track-label:   0.12em;
+  --track-tight:  -0.02em;
+  --track-tighter:-0.035em;
+
+  /* Leading */
+  --lh-display:    0.94;
+  --lh-tight:      1.04;
+  --lh-heading:    1.12;
+  --lh-body:       1.6;
+  --lh-prose:      1.65;
+
+  /* ============================================================
+     SPACING · slow editorial rhythm
+     ============================================================ */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  88px;
+  --sp-10: 128px;       /* section padding default */
+  --sp-11: 160px;
+
+  /* Editorial measure */
+  --measure-narrow: 38ch;
+  --measure:        62ch;
+  --measure-wide:   78ch;
+
+  /* ============================================================
+     RADII — Curio avoids hard boxes. Surfaces bleed.
+     Default for editorial UI: hairline rules + paper bleeds, NOT cards.
+     When a contained shape is necessary, lean to medium-soft (10-18px)
+     or to full discs (illustration). Sharp 0px reserved for typography.
+     ============================================================ */
+  --r-0:   0;
+  --r-xs:  6px;
+  --r-sm:  10px;
+  --r-md:  14px;
+  --r-lg:  20px;
+  --r-xl:  28px;
+  --r-disc: 9999px;
+
+  /* ============================================================
+     SHADOWS — soft paper lift OR halftone vignette. Never crisp.
+     The brand prefers radial-gradient vignettes that bleed edges out
+     into the cream over hard drop-shadows.
+     ============================================================ */
+  --shadow-paper:    0 1px 0 rgba(22,20,15,0.03),
+                     0 30px 50px -40px rgba(22,20,15,0.18);
+  --shadow-card:     0 40px 80px -48px rgba(22,20,15,0.22);
+  --shadow-floating: 0 60px 90px -40px rgba(22,20,15,0.18);
+  --shadow-press:    inset 0 1px 0 rgba(22,20,15,0.08);
+
+  /* Halftone vignette — bleed edges into cream */
+  --vignette-paper:  radial-gradient(120% 100% at 50% 0%,
+                       rgba(255,255,255,0.6) 0%,
+                       rgba(255,255,255,0) 60%);
+  --vignette-edge:   radial-gradient(80% 100% at 50% 50%,
+                       var(--curio-paper) 0%,
+                       var(--curio-paper) 55%,
+                       transparent 100%);
+
+  /* ============================================================
+     MOTION — almost none. Editorial, not animated.
+     ============================================================ */
+  --ease-quiet:    cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast:      120ms;
+  --dur-base:      220ms;
+  --dur-slow:      420ms;
+  --dur-parallax:  900ms;
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT STYLES
+   Use these directly, or as a reference for component CSS.
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Eyebrow — mono caps, letter-spaced, ALWAYS lowercase content */
+.curio-eyebrow,
+[data-curio="eyebrow"] {
+  font-family: var(--font-mono);
+  font-size: var(--t-eyebrow);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: lowercase;          /* lowercase + letter-spaced is the Curio signature */
+  color: var(--fg-2);
+  font-weight: 400;
+}
+
+/* Display — Anton, institutional moments */
+h1.curio-display,
+.curio-display {
+  font-family: var(--font-display-cond);
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--track-tight);
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 0;
+  font-weight: 400;     /* Anton is single-weight */
+}
+
+/* H1 — Newsreader italic, dropped to 300 + opsz 96 to align with Jost 200 hairlines */
+h1, .curio-h1 {
+  font-family: var(--font-display-serif);
+  font-size: var(--t-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--track-tighter);
+  font-weight: 300;
+  font-style: italic;
+  font-variation-settings: "opsz" 96;
+  color: var(--fg);
+  margin: 0 0 var(--sp-5) 0;
+  text-wrap: balance;
+}
+
+/* H2 — Newsreader, weight 350 + opsz 72, calibrated to Jost 200 */
+h2, .curio-h2 {
+  font-family: var(--font-display-serif);
+  font-size: var(--t-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--track-tight);
+  font-weight: 350;
+  font-variation-settings: "opsz" 72;
+  color: var(--fg);
+  margin: 0 0 var(--sp-5) 0;
+  text-wrap: balance;
+}
+
+/* H3 — body-weight serif, sub-section */
+h3, .curio-h3 {
+  font-family: var(--font-display-serif);
+  font-size: var(--t-h3);
+  line-height: var(--lh-heading);
+  font-weight: 500;
+  color: var(--fg);
+  margin: 0 0 var(--sp-4) 0;
+}
+
+h4, .curio-h4 {
+  font-family: var(--font-body);
+  font-size: var(--t-h4);
+  line-height: var(--lh-heading);
+  font-weight: 600;
+  letter-spacing: var(--track-tight);
+  color: var(--fg);
+  margin: 0 0 var(--sp-3) 0;
+}
+
+h5, .curio-h5 {
+  font-family: var(--font-body);
+  font-size: var(--t-h5);
+  font-weight: 600;
+  margin: 0 0 var(--sp-3) 0;
+  color: var(--fg);
+}
+
+h6, .curio-h6 {
+  font-family: var(--font-body);
+  font-size: var(--t-h6);
+  font-weight: 600;
+  margin: 0 0 var(--sp-3) 0;
+  color: var(--fg-2);
+}
+
+/* Lede / intro paragraph */
+.curio-lede {
+  font-family: var(--font-display-serif);
+  font-size: var(--t-lead);
+  line-height: var(--lh-prose);
+  font-weight: 400;
+  color: var(--fg);
+  max-width: var(--measure);
+}
+
+/* Body */
+p, .curio-p {
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: var(--lh-prose);
+  color: var(--fg);
+  margin: 0 0 var(--sp-5) 0;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+/* Italic emphasis — Fraunces, rust on light, amber on dark */
+em, i, .curio-em {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  color: var(--curio-rust);
+  font-weight: 400;
+}
+
+/* Strong — Inter 600, no color shift */
+strong, b, .curio-strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* Code / mono inline */
+code, kbd, samp, .curio-mono {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  letter-spacing: 0;
+  color: var(--fg-2);
+}
+
+/* Pull quote — Newsreader italic 300 + opsz 72, hairline-aligned */
+.curio-pullquote {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-size: var(--t-h3);
+  line-height: 1.25;
+  font-weight: 300;
+  font-variation-settings: "opsz" 72;
+  color: var(--fg);
+  border-left: 1px solid var(--border-strong);
+  padding-left: var(--sp-5);
+  margin: var(--sp-7) 0;
+  max-width: var(--measure);
+}
+
+/* Hairline divider with dotted halftone variant */
+.curio-rule        { border: 0; border-top: 1px solid var(--border); }
+.curio-rule-strong { border: 0; border-top: 1px solid var(--border-strong); }
+.curio-rule-dotted { border: 0; border-top: 1px dashed var(--rule-dashed, var(--curio-rule-dashed)); }
+.curio-rule-double {
+  border: 0;
+  height: 6px;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+/* Links */
+a, .curio-a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--border-strong);
+  transition: color var(--dur-base) var(--ease-quiet),
+              text-decoration-color var(--dur-base) var(--ease-quiet);
+}
+a:hover { color: var(--curio-rust); text-decoration-color: var(--curio-rust); }
+
+/* Selection */
+::selection { background: var(--curio-amber); color: var(--curio-ink); }
+
+/* ============================================================
+   DARK / NAVY MIRROR
+   Apply [data-theme="dark"] or .curio-on-dark for navy surfaces.
+   ============================================================ */
+[data-theme="dark"], .curio-on-dark {
+  background: var(--bg-dark);
+  color: var(--fg-on-dark);
+}
+[data-theme="dark"] em,
+.curio-on-dark em,
+[data-theme="dark"] .curio-em,
+.curio-on-dark .curio-em {
+  color: var(--curio-amber);
+}
+[data-theme="dark"] .curio-eyebrow,
+.curio-on-dark .curio-eyebrow {
+  color: var(--fg-on-dark-2);
+}
+[data-theme="dark"] a,
+.curio-on-dark a {
+  color: var(--fg-on-dark);
+  text-decoration-color: rgba(243,237,225,0.4);
+}
+[data-theme="dark"] a:hover,
+.curio-on-dark a:hover {
+  color: var(--curio-amber);
+  text-decoration-color: var(--curio-amber);
+}
+
+/* ============================================================
+   PAPER TEXTURE — halftone-noise overlay
+   Default texture for any surface that wants the printed feel.
+   ============================================================ */
+.curio-paper-grain {
+  position: relative;
+  isolation: isolate;
+}
+.curio-paper-grain::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(circle at 25% 30%, rgba(22,20,15,0.7) 0.5px, transparent 1px),
+    radial-gradient(circle at 75% 70%, rgba(22,20,15,0.55) 0.5px, transparent 1px);
+  background-size: 3px 3px, 5px 5px;
+}
+
+/* ============================================================
+   BLEED SURFACES — Curio's preferred container.
+   A radial-vignetted region of paper that fades into the cream
+   instead of a hard-edged card. Use this in place of cards.
+   ============================================================ */
+.curio-bleed {
+  position: relative;
+  padding: var(--sp-7) var(--sp-7);
+  background:
+    radial-gradient(120% 90% at 50% 50%,
+      var(--curio-paper) 0%,
+      var(--curio-paper) 55%,
+      rgba(250,246,236,0) 100%);
+}
+.curio-bleed.dark {
+  background:
+    radial-gradient(120% 90% at 50% 50%,
+      var(--curio-navy) 0%,
+      var(--curio-navy) 55%,
+      rgba(44,58,94,0) 100%);
+  color: var(--fg-on-dark);
+}
+
+/* Hairline rule — the editorial alternative to a card border.
+   Used as section delimiter; pairs with eyebrow above. */
+.curio-hair {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+.curio-hair-double {
+  border: 0;
+  height: 6px;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+}
+.curio-hair-dotted {
+  border: 0;
+  border-top: 1px dashed var(--curio-rule-dashed);
+}

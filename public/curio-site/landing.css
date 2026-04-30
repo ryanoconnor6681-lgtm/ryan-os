@@ -1,0 +1,1015 @@
+/* =================================================================
+   Curio Landing — landing.css
+   3-act narrative, all on navy:
+     Act I  — Hero
+     Act II — Persona ("Who's here?")
+     Act III — Compass Hub (doors, ask, fallacies)
+   ================================================================= */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--curio-navy-deep);
+  color: var(--fg-on-dark);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Grain (persistent overlay) ─────────────────────────────────── */
+.grain {
+  position: fixed; inset: 0; pointer-events: none; z-index: 1;
+  opacity: 0.4; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.93 0 0 0 0 0.88 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── Masthead (persistent, top-left) ────────────────────────────── */
+.masthead {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 64px;
+  pointer-events: none;
+}
+.masthead > * { pointer-events: auto; }
+.masthead .wm-lockup {
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.masthead .wm-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--curio-amber);
+  display: inline-block;
+}
+.masthead .wm {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--fg-on-dark);
+}
+.masthead .wm-by {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 350;
+  font-variation-settings: "opsz" 24;
+  color: var(--fg-on-dark-2);
+  white-space: nowrap;
+}
+.masthead .progress {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.26em; text-transform: lowercase;
+  color: var(--fg-on-dark-2);
+  opacity: 0.7;
+}
+.masthead .progress .dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: currentColor; opacity: 0.25;
+  transition: opacity 400ms cubic-bezier(.4,0,.2,1);
+}
+.masthead .progress .dot.on { opacity: 1; }
+
+/* Bottom-left "N" mark (the navigation indicator from the screenshots) */
+.bl-mark {
+  position: fixed; left: 18px; bottom: 18px; z-index: 50;
+  width: 28px; height: 28px;
+  background: var(--curio-navy-darkest);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display-geo);
+  font-weight: 300;
+  font-size: 13px;
+  color: var(--fg-on-dark-2);
+  border: 1px solid rgba(243,237,225,0.1);
+}
+
+/* ─── Acts (full-viewport sections, all navy) ────────────────────── */
+.act {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 140px 64px 120px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--curio-navy-deep);
+  color: var(--fg-on-dark);
+}
+.act-inner {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Soft warm wash bottom-center — gives the hero / persona warmth from below */
+.act::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 100%, rgba(212,157,58,0.10), transparent 65%),
+    radial-gradient(80% 60% at 50% 50%, rgba(44,58,94,0.6) 0%, transparent 70%);
+}
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute;
+  left: 50%; bottom: 36px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.3em; text-transform: lowercase;
+  color: var(--fg-on-dark-2); opacity: 0.5;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  z-index: 5; text-decoration: none;
+}
+.scroll-cue .line {
+  width: 1px; height: 28px;
+  background: currentColor;
+  animation: cue-pulse 2.4s cubic-bezier(.4,0,.2,1) infinite;
+}
+@keyframes cue-pulse {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  60%  { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+/* ─── Reveal-on-scroll ────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 900ms cubic-bezier(.2,.8,.25,1),
+    transform 900ms cubic-bezier(.2,.8,.25,1);
+  transition-delay: var(--d, 0ms);
+}
+.act.is-visible .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-strong {
+  transition-duration: 1300ms !important;
+  transition-timing-function: cubic-bezier(.16,.84,.22,1) !important;
+}
+
+/* ─── Eyebrow (mono lowercase) ────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--curio-amber);
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: ''; display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--curio-amber);
+}
+.eyebrow.no-dot::before { display: none; }
+.eyebrow.muted {
+  color: var(--fg-on-dark-2);
+}
+.eyebrow.muted::before { background: var(--fg-on-dark-2); opacity: 0.5; }
+
+/* ─── Headlines: upright Newsreader (matches screenshots) ────────── */
+.h-display {
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "opsz" 96;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: pretty;
+  color: var(--fg-on-dark);
+}
+.h-display em {
+  font-style: italic;
+  color: var(--curio-amber);
+  font-weight: 350;
+}
+
+/* Italic lede */
+.lede-italic {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: "opsz" 24;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--fg-on-dark-2);
+  text-wrap: pretty;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACT I — HERO
+   Left-aligned reading column, serif body, amber italic close.
+   ═══════════════════════════════════════════════════════════════════ */
+.hero .act-inner {
+  max-width: 760px;
+  margin-left: 22%;
+}
+.hero-stack > * + * { margin-top: 1.4em; }
+.hero-line {
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(34px, 3.8vw, 52px);
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+  color: var(--fg-on-dark);
+  font-variation-settings: "opsz" 60;
+  text-wrap: pretty;
+  margin: 0;
+}
+.hero-line.lift {
+  /* "The world has changed." — slightly larger, sits at the top */
+  font-size: clamp(38px, 4.2vw, 58px);
+}
+.hero-line.amber {
+  font-style: italic;
+  color: var(--curio-amber);
+  font-weight: 350;
+  margin-top: 1.6em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACT II — PERSONA ("Who's here?")
+   Title left-aligned, two cards in a 2-col grid below the lede.
+   ═══════════════════════════════════════════════════════════════════ */
+.persona .act-inner {
+  max-width: 920px;
+  margin-left: 22%;
+  margin-right: auto;
+}
+.persona .h-display {
+  font-size: clamp(56px, 7.4vw, 96px);
+  margin: 28px 0 22px;
+  font-weight: 400;
+  font-style: normal;
+}
+.persona .lede-italic {
+  max-width: 520px;
+  margin-bottom: 56px;
+}
+
+.persona-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  max-width: 760px;
+  padding: 12px 8px 32px;
+}
+/* Persona cards — full tarot vibe, parchment with double-rule border,
+   roman numeral arch, italic serif title, soft amber wash. */
+.p-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  padding: 26px 28px 84px;
+  min-height: 240px;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #f7f0e1 0%, #efe6d2 60%, #e6dbc3 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px -30px rgba(0,0,0,0.65),
+    0 12px 24px -12px rgba(0,0,0,0.45),
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1px rgba(70,55,30,0.18);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 480ms cubic-bezier(.2,.8,.25,1),
+    box-shadow 480ms cubic-bezier(.2,.8,.25,1);
+  will-change: transform;
+}
+/* Slight fan */
+.p-card:nth-child(1) { transform: rotate(-1.2deg) translateY(4px); }
+.p-card:nth-child(2) { transform: rotate(1.2deg) translateY(4px); }
+
+/* Double-rule tarot border */
+.p-card::before {
+  content: '';
+  position: absolute; inset: 9px;
+  border: 1px solid rgba(70,55,30,0.32);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+.p-card::after {
+  content: '';
+  position: absolute; inset: 13px;
+  border: 1px solid rgba(70,55,30,0.14);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft amber wash */
+.p-card .wash {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(80% 50% at 50% 100%, rgba(212,157,58,0.18), transparent 70%);
+  pointer-events: none;
+}
+
+/* Corner star ornaments */
+.p-card .corners {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 3;
+}
+.p-card .corners span {
+  position: absolute;
+  width: 7px; height: 7px;
+  background:
+    linear-gradient(currentColor, currentColor) center/100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center/1px 100% no-repeat;
+  color: var(--curio-amber);
+  opacity: 0.7;
+}
+.p-card .corners span:nth-child(1) { top: 18px; left: 18px; }
+.p-card .corners span:nth-child(2) { top: 18px; right: 18px; }
+.p-card .corners span:nth-child(3) { bottom: 18px; left: 18px; }
+.p-card .corners span:nth-child(4) { bottom: 18px; right: 18px; }
+
+/* Roman numeral arch — top center */
+.p-card .roman {
+  position: relative;
+  z-index: 3;
+  align-self: center;
+  margin-top: 4px;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: var(--curio-rust);
+  display: inline-flex;
+  align-items: center; gap: 10px;
+}
+.p-card .roman::before,
+.p-card .roman::after {
+  content: '✦';
+  font-style: normal;
+  font-size: 9px;
+  color: var(--curio-amber);
+  opacity: 0.85;
+}
+
+.p-card .name {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 38px;
+  line-height: 1.04;
+  color: var(--curio-ink);
+  margin: 28px 0 10px;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 60;
+}
+.p-card .name em {
+  font-style: italic;
+  color: var(--curio-rust);
+  font-weight: 400;
+}
+.p-card .sub {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: 14px;
+  line-height: 1.4;
+  font-variation-settings: "opsz" 16;
+  color: rgba(22,20,15,0.7);
+  text-wrap: pretty;
+  max-width: 320px;
+}
+.p-card .arrow {
+  position: absolute;
+  right: 26px; bottom: 22px;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--curio-rust);
+  transition: transform 280ms cubic-bezier(.2,.8,.25,1);
+}
+.p-card:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.02);
+  box-shadow:
+    0 50px 100px -30px rgba(0,0,0,0.8),
+    0 20px 36px -14px rgba(212,157,58,0.28),
+    0 0 0 1px rgba(70,55,30,0.18) inset,
+    0 1px 0 rgba(255,255,255,0.5) inset;
+  z-index: 5;
+}
+.p-card:hover .arrow { transform: translateX(4px); }
+.p-card.is-selected {
+  box-shadow:
+    0 30px 60px -28px rgba(0,0,0,0.65),
+    0 0 0 2px var(--curio-amber),
+    0 0 0 1px rgba(70,55,30,0.18) inset,
+    0 1px 0 rgba(255,255,255,0.5) inset;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACT III — COMPASS HUB
+   Doors (4 cards) along top half — chat strip in middle —
+   Fallacies (4 smaller cards) along bottom half.
+   The "circle" is a soft ring SVG behind for visual binding.
+   ═══════════════════════════════════════════════════════════════════ */
+.hub .act-inner {
+  max-width: 1280px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+}
+
+/* Mid-century-futurism starfield wash behind the hub */
+.hub::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(243,237,225,0.5) 100%, transparent 0),
+    radial-gradient(1px 1px at 22% 72%, rgba(243,237,225,0.35) 100%, transparent 0),
+    radial-gradient(1.5px 1.5px at 38% 8%, rgba(212,157,58,0.6) 100%, transparent 0),
+    radial-gradient(1px 1px at 52% 86%, rgba(243,237,225,0.4) 100%, transparent 0),
+    radial-gradient(1px 1px at 68% 24%, rgba(243,237,225,0.5) 100%, transparent 0),
+    radial-gradient(1.5px 1.5px at 82% 64%, rgba(212,157,58,0.5) 100%, transparent 0),
+    radial-gradient(1px 1px at 92% 12%, rgba(243,237,225,0.45) 100%, transparent 0),
+    radial-gradient(1px 1px at 8% 92%, rgba(243,237,225,0.3) 100%, transparent 0),
+    radial-gradient(1px 1px at 46% 36%, rgba(243,237,225,0.4) 100%, transparent 0),
+    radial-gradient(1px 1px at 78% 88%, rgba(243,237,225,0.4) 100%, transparent 0);
+  z-index: 1;
+  opacity: 0.85;
+}
+.hub-title {
+  text-align: center;
+  margin-bottom: 64px;
+  max-width: 880px;
+}
+.hub-title .eyebrow { margin-bottom: 22px; }
+.hub-title .h-display {
+  font-size: clamp(48px, 5.6vw, 80px);
+}
+.hub-title .lede-italic {
+  margin: 22px auto 0;
+  max-width: 540px;
+}
+
+/* Compass stage — wider than tall, hosts 3 stacked rows */
+.compass-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  padding: 60px 0;
+}
+.compass-ring-bg {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1080px; height: 1080px;
+  pointer-events: none;
+  opacity: 0.5;
+  z-index: 0;
+}
+.compass-ring-bg circle {
+  fill: none;
+  stroke: rgba(243,237,225,0.10);
+  stroke-width: 0.6;
+}
+.compass-ring-bg .ring-inner {
+  stroke: rgba(212,157,58,0.18);
+  stroke-dasharray: 1 6;
+}
+
+/* ─── Focuses row — tarot deck of four parchment cards ──────────── */
+.doors-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-bottom: 56px;
+  padding: 12px 8px 28px;
+}
+/* Each card is a parchment relic on the navy stage — slight fan of
+   alternating tilts, big cast shadow, double-rule tarot border,
+   corner star ornaments, large halftone illustration centered. */
+.door {
+  position: relative;
+  display: flex; flex-direction: column;
+  aspect-ratio: 3 / 5;
+  padding: 22px 18px 24px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #f7f0e1 0%, #efe6d2 60%, #e6dbc3 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px -30px rgba(0,0,0,0.65),
+    0 12px 24px -12px rgba(0,0,0,0.45),
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1px rgba(70,55,30,0.18);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 480ms cubic-bezier(.2,.8,.25,1),
+    box-shadow 480ms cubic-bezier(.2,.8,.25,1);
+  will-change: transform;
+}
+
+/* Fan-out tilts — alternate slight rotations so the row feels hand-laid */
+.door:nth-child(1) { transform: rotate(-1.4deg) translateY(6px); }
+.door:nth-child(2) { transform: rotate(-0.4deg) translateY(0); }
+.door:nth-child(3) { transform: rotate(0.6deg) translateY(0); }
+.door:nth-child(4) { transform: rotate(1.6deg) translateY(6px); }
+
+/* Inset double-line tarot border + faint paper grain */
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border: 1px solid rgba(70,55,30,0.32);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 13px;
+  border: 1px solid rgba(70,55,30,0.14);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Tarot card chrome: roman numeral arch at top */
+.door .roman {
+  position: relative;
+  z-index: 3;
+  margin-top: 6px;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  color: var(--curio-rust);
+  display: inline-flex;
+  align-items: center; gap: 10px;
+  align-self: center;
+}
+.door .roman::before,
+.door .roman::after {
+  content: '✦';
+  font-style: normal;
+  font-size: 9px;
+  color: var(--curio-amber);
+  opacity: 0.8;
+}
+
+/* Big illustration */
+.door .icon-wrap {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  margin: 6px -4px 4px;
+  width: auto; height: auto;
+  opacity: 1;
+}
+.door .icon-wrap img {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: none;
+  mix-blend-mode: multiply;
+}
+
+/* Bottom title block */
+.door .name {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.05;
+  color: var(--curio-ink);
+  margin: 8px 0 4px;
+  font-variation-settings: "opsz" 36;
+  letter-spacing: -0.005em;
+}
+.door .sub {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: 12px;
+  line-height: 1.4;
+  font-variation-settings: "opsz" 14;
+  color: rgba(22,20,15,0.65);
+  text-wrap: pretty;
+  padding: 0 6px;
+}
+
+/* Tiny corner star ornaments — 4-point sparkles in each corner */
+.door .corners {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 3;
+}
+.door .corners span {
+  position: absolute;
+  width: 6px; height: 6px;
+  background:
+    linear-gradient(currentColor, currentColor) center/100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center/1px 100% no-repeat;
+  color: var(--curio-amber);
+  opacity: 0.7;
+}
+.door .corners span:nth-child(1) { top: 18px; left: 18px; }
+.door .corners span:nth-child(2) { top: 18px; right: 18px; }
+.door .corners span:nth-child(3) { bottom: 18px; left: 18px; }
+.door .corners span:nth-child(4) { bottom: 18px; right: 18px; }
+
+/* Soft amber wash bottom — warms the parchment feel */
+.door .wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(70% 50% at 50% 100%, rgba(212,157,58,0.18), transparent 70%);
+  pointer-events: none;
+}
+
+/* Hover: card lifts, straightens, deeper shadow, glows from below */
+.door:hover {
+  transform: rotate(0deg) translateY(-10px) scale(1.03);
+  box-shadow:
+    0 50px 100px -30px rgba(0,0,0,0.85),
+    0 20px 40px -15px rgba(212,157,58,0.25),
+    0 0 0 1px rgba(70,55,30,0.18) inset,
+    0 1px 0 rgba(255,255,255,0.5) inset;
+  z-index: 5;
+}
+.door:hover .name { color: var(--curio-rust); }
+
+/* Arrow lives outside card border at bottom-right corner — kept subtle */
+.door .arrow { display: none; }
+
+/* Center: ASK CURIO chat strip — sits visually inside the ring */
+.ask-row {
+  position: relative;
+  z-index: 3;
+  display: flex; justify-content: center;
+  margin: 18px 0 36px;
+}
+.ask-strip {
+  width: 100%;
+  max-width: 700px;
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 18px 18px 26px;
+  border-radius: 9999px;
+  background: rgba(11,17,32,0.7);
+  border: 1px solid rgba(212,157,58,0.4);
+  box-shadow:
+    0 30px 80px -40px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.ask-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--curio-amber);
+  white-space: nowrap;
+  padding-right: 18px;
+  border-right: 1px solid rgba(212,157,58,0.3);
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.ask-tag::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--curio-amber);
+}
+.ask-input {
+  flex: 1;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-variation-settings: "opsz" 24;
+  font-size: 17px;
+  color: var(--fg-on-dark);
+  opacity: 0.9;
+  outline: none;
+}
+.ask-input:empty::before {
+  content: attr(data-placeholder);
+  color: var(--fg-on-dark-2);
+  opacity: 0.55;
+}
+.ask-send {
+  width: 44px; height: 44px;
+  border-radius: 9999px;
+  background: var(--curio-amber);
+  color: var(--curio-navy-darkest);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: none;
+  transition: background 200ms cubic-bezier(.4,0,.2,1);
+}
+.ask-send:hover { background: var(--curio-amber-warm); }
+.ask-meta {
+  text-align: center;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: lowercase;
+  color: var(--fg-on-dark-2);
+  opacity: 0.6;
+}
+
+/* Block cards — smaller parchment tarot, rust palette,
+   the "shadow side" of the focus deck. */
+.fallacy-row {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 12px;
+  padding: 12px 12px 28px;
+}
+.fallacy {
+  position: relative;
+  display: flex; flex-direction: column;
+  aspect-ratio: 3 / 5;
+  padding: 22px 18px 22px;
+  text-align: center;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #f5ecd9 0%, #ecdfc4 60%, #e0d0b1 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 30px 60px -30px rgba(0,0,0,0.65),
+    0 12px 24px -12px rgba(0,0,0,0.45),
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 0 0 1px rgba(70,55,30,0.18);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 480ms cubic-bezier(.2,.8,.25,1),
+    box-shadow 480ms cubic-bezier(.2,.8,.25,1);
+  will-change: transform;
+}
+
+/* Halftone illustration on block cards */
+.fallacy .icon-wrap {
+  position: relative;
+  z-index: 3;
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  margin: 4px -4px 6px;
+  min-height: 0;
+}
+.fallacy .icon-wrap img {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* Big italic serif title — "The Fallacy of <em>X</em>" */
+.fallacy .title {
+  position: relative;
+  z-index: 3;
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: 19px;
+  line-height: 1.1;
+  color: var(--curio-ink);
+  margin: 6px 0 6px;
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 28;
+  text-wrap: balance;
+  padding: 0 2px;
+}
+.fallacy .title em {
+  font-style: italic;
+  color: var(--curio-rust);
+  font-weight: 400;
+}
+/* Subtle fan — opposing tilts to the focus row */
+.fallacy:nth-child(1) { transform: rotate(0.9deg) translateY(2px); }
+.fallacy:nth-child(2) { transform: rotate(-0.6deg) translateY(6px); }
+.fallacy:nth-child(3) { transform: rotate(0.5deg) translateY(6px); }
+.fallacy:nth-child(4) { transform: rotate(-1.0deg) translateY(2px); }
+
+/* Double-rule rust border */
+.fallacy::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(168,69,58,0.42);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 2;
+}
+.fallacy::after {
+  content: '';
+  position: absolute;
+  inset: 11px;
+  border: 1px solid rgba(168,69,58,0.16);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft rust wash bottom — counterpart to focus cards' amber wash */
+.fallacy .wash {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(70% 50% at 50% 100%, rgba(168,69,58,0.14), transparent 70%);
+  pointer-events: none;
+}
+
+/* X corners — visually counterpart to focus cards' + corners */
+.fallacy .corners {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 3;
+}
+.fallacy .corners span {
+  position: absolute;
+  width: 8px; height: 8px;
+  background:
+    linear-gradient(45deg, transparent 45%, currentColor 45% 55%, transparent 55%) center/100% 100% no-repeat,
+    linear-gradient(-45deg, transparent 45%, currentColor 45% 55%, transparent 55%) center/100% 100% no-repeat;
+  color: var(--curio-rust);
+  opacity: 0.6;
+}
+.fallacy .corners span:nth-child(1) { top: 14px; left: 14px; }
+.fallacy .corners span:nth-child(2) { top: 14px; right: 14px; }
+.fallacy .corners span:nth-child(3) { bottom: 14px; left: 14px; }
+.fallacy .corners span:nth-child(4) { bottom: 14px; right: 14px; }
+
+.fallacy .stamp {
+  position: relative;
+  z-index: 3;
+  margin: 4px 0 0;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--curio-rust);
+  align-self: center;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-variation-settings: "opsz" 18;
+}
+.fallacy .stamp::before,
+.fallacy .stamp::after {
+  content: '✕';
+  font-style: normal;
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.fallacy .quote {
+  position: relative; z-index: 3;
+  padding: 0 4px 2px;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.35;
+  color: rgba(22,20,15,0.7);
+  text-wrap: pretty;
+  margin: 0;
+  font-variation-settings: "opsz" 18;
+}
+
+.fallacy:hover {
+  transform: rotate(0deg) translateY(-10px) scale(1.03);
+  box-shadow:
+    0 40px 80px -28px rgba(0,0,0,0.8),
+    0 16px 30px -12px rgba(168,69,58,0.28),
+    0 0 0 1px rgba(70,55,30,0.18) inset,
+    0 1px 0 rgba(255,255,255,0.5) inset;
+  z-index: 5;
+}
+.fallacy:hover .title em { color: var(--curio-rust); }
+
+/* Section header above block cards — bigger than the focus row label */
+.blocks-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin: 12px 0 8px;
+}
+.blocks-header .eyebrow {
+  color: var(--curio-rust);
+  margin-bottom: 14px;
+}
+.blocks-header .eyebrow::before { background: var(--curio-rust); }
+.blocks-header h3 {
+  font-family: var(--font-display-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(34px, 3.4vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.005em;
+  color: var(--fg-on-dark);
+  margin: 0;
+  font-variation-settings: "opsz" 60;
+}
+.blocks-header h3 em {
+  font-style: italic;
+  color: var(--curio-rust);
+  font-weight: 400;
+}
+
+.fallacy-row-label {
+  position: relative; z-index: 2;
+  margin: 36px 0 16px;
+  display: flex; align-items: center; gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--curio-rust);
+}
+.fallacy-row-label .glyph {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-style: normal;
+}
+.fallacy-row-label .glyph::before { content: '✕'; opacity: 0.6; font-size: 10px; }
+.fallacy-row-label .glyph::after { content: '✕'; opacity: 0.6; font-size: 10px; }
+.fallacy-row-label::before,
+.fallacy-row-label::after {
+  content: ''; flex: 1;
+  height: 1px;
+  background: rgba(168,69,58,0.3);
+}
+
+.doors-row-label {
+  position: relative; z-index: 2;
+  margin: 0 0 22px;
+  display: flex; align-items: center; gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--curio-amber);
+}
+.doors-row-label .glyph {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-style: normal;
+}
+.doors-row-label .glyph::before { content: '✦'; opacity: 0.7; font-size: 11px; }
+.doors-row-label .glyph::after { content: '✦'; opacity: 0.7; font-size: 11px; }
+.doors-row-label::before,
+.doors-row-label::after {
+  content: ''; flex: 1;
+  height: 1px;
+  background: rgba(212,157,58,0.3);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  .scroll-cue .line { animation: none !important; }
+}
+
+/* Smaller screens — stack into 2-col / 1-col */
+@media (max-width: 960px) {
+  .doors-row, .fallacy-row { grid-template-columns: repeat(2, 1fr); }
+  .persona-grid { grid-template-columns: 1fr; }
+  .hero .act-inner, .persona .act-inner { margin-left: 0; }
+}
+@media (max-width: 640px) {
+  .doors-row, .fallacy-row { grid-template-columns: 1fr; }
+  .act { padding: 120px 24px 100px; }
+  .masthead { padding: 22px 24px; }
+}

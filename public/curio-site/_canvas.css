@@ -1,0 +1,193 @@
+/* Shared canvas styles — every direction renders inside .ab artboard */
+
+@import url('colors_and_type.css');
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: #2a2722;
+  font-family: var(--font-body);
+  color: var(--fg);
+}
+
+/* Artboard frame — every direction sits in this 1280×860 surface */
+.ab {
+  width: 1280px;
+  height: 860px;
+  position: relative;
+  overflow: hidden;
+  background: var(--curio-cream);
+  color: var(--curio-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* Halftone dot pattern — used as background texture in several directions */
+.halftone {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(currentColor 1.1px, transparent 1.4px);
+  background-size: 14px 14px;
+  background-position: 0 0;
+  opacity: 0.18;
+}
+
+/* Soft paper grain */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%),
+    radial-gradient(80% 70% at 100% 100%, rgba(22,20,15,0.06) 0%, rgba(22,20,15,0) 55%);
+}
+
+/* Mid-century wordmark — Jost 200 */
+.wm {
+  font-family: var(--font-display-geo);
+  font-weight: 200;
+  letter-spacing: 0.18em;
+  padding-left: 0.18em;
+  text-transform: uppercase;
+  color: inherit;
+  font-size: 18px;
+}
+.wm-by {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 350;
+  color: var(--fg-2);
+  letter-spacing: 0;
+  padding-left: 0;
+  margin-left: 8px;
+  text-transform: none;
+  font-variation-settings: "opsz" 18;
+  white-space: nowrap;
+}
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: lowercase;
+  color: var(--fg-3);
+}
+
+/* Editorial italic headline */
+.italic {
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--curio-ink);
+  font-variation-settings: "opsz" 96;
+  text-wrap: balance;
+}
+.italic em { color: var(--curio-rust); font-style: italic; }
+
+/* Body */
+.body { font-family: var(--font-body); font-size: 16.5px; line-height: 1.6; color: var(--fg); }
+.body em { font-family: var(--font-display-serif); font-style: italic; color: var(--curio-rust); font-variation-settings: "opsz" 18; }
+.body strong { font-weight: 600; }
+.muted { color: var(--fg-2); }
+
+/* Persona pill */
+.persona-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: lowercase;
+  letter-spacing: 0.18em;
+  border: 1px solid var(--border-strong);
+  border-radius: 9999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.5);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.persona-pill > span {
+  padding: 7px 14px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.persona-pill > span.on {
+  background: var(--curio-ink);
+  color: var(--curio-cream);
+}
+
+/* Chat strip */
+.chat {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, var(--curio-paper) 0%, var(--curio-paper-warm) 100%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-paper);
+}
+.chat-tag {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.22em; text-transform: lowercase; color: var(--fg-3);
+  padding-right: 12px; border-right: 1px solid var(--border);
+}
+.chat-input {
+  flex: 1;
+  font-family: var(--font-display-serif);
+  font-style: italic;
+  font-weight: 350;
+  font-size: 18px;
+  color: var(--fg-2);
+  font-variation-settings: "opsz" 24;
+}
+.chat-send {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: lowercase;
+  color: var(--curio-ink); display: flex; gap: 8px; align-items: center;
+}
+.chat-send-dot {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--curio-ink); color: var(--curio-cream);
+  display: grid; place-items: center; font-size: 11px;
+}
+
+/* Door entry — used in directions A & C */
+.door {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--border-strong);
+  align-items: start;
+}
+.door:last-child { border-bottom: 0; }
+.door-num {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--fg-3); padding-top: 6px;
+}
+.door-name {
+  font-family: var(--font-display-serif); font-style: italic; font-weight: 350; font-size: 26px; line-height: 1.05;
+  font-variation-settings: "opsz" 36; color: var(--curio-ink);
+}
+.door-name em { color: var(--curio-rust); }
+.door-sub {
+  font-family: var(--font-body); font-size: 13.5px; color: var(--fg-2); margin-top: 4px;
+}
+.door-arrow {
+  font-family: var(--font-display-geo); font-weight: 300; font-size: 20px; color: var(--curio-ink);
+  padding-top: 8px;
+}
+
+/* Fallacy stamp */
+.stamp {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.22em; text-transform: lowercase;
+  color: var(--curio-rust);
+  border: 1px solid var(--curio-rust); padding: 4px 9px 3px;
+  border-radius: 9999px;
+  background: rgba(168,69,58,0.05);
+}

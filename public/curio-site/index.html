@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Curio — a studio by Ryan O'Connor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Jost:wght@200;300;400&family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="colors_and_type.css?v=7" />
+<link rel="stylesheet" href="landing.css?v=7" />
+<link rel="stylesheet" href="curio-overrides.css?v=9" />
+</head>
+<body data-persona="self">
+
+<!-- Persistent grain -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Masthead -->
+<header class="masthead" id="masthead">
+  <div class="wm-lockup">
+    <span class="wm-dot"></span>
+    <span class="wm">Curio</span>
+    <span class="wm-by">— a studio by Ryan O'Connor</span>
+  </div>
+  <div class="progress" aria-hidden="true">
+    <span class="dot on" data-act="1"></span>
+    <span class="dot" data-act="2"></span>
+    <span class="dot" data-act="3"></span>
+    <span class="label">act <span id="actNum">i</span> of iii</span>
+  </div>
+</header>
+
+<!-- Bottom-left N mark -->
+<div class="bl-mark" aria-hidden="true">N</div>
+
+
+<!-- ═══════════════ ACT I — HERO ═══════════════ -->
+<section class="act hero is-visible" data-act="1" id="act-hero" data-screen-label="01 Hero">
+  <!-- floating decorative artifacts (easter eggs) -->
+  <span class="curio-egg curio-egg-matches" style="top:14%; left:6%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-compass size-sm delay-2" style="top:22%; right:8%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-redthread size-sm delay-3" style="bottom:18%; left:10%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-fortune delay-4" style="bottom:14%; right:7%;" aria-hidden="true"></span>
+  <div class="act-inner">
+    <div class="hero-stack">
+      <p class="hero-line lift reveal reveal-strong" style="--d:200ms">The world has changed.</p>
+
+      <p class="hero-line reveal" style="--d:1100ms">
+        AI is already in your team's day.
+      </p>
+      <p class="hero-line reveal" style="--d:1500ms">
+        Your kid's homework.
+      </p>
+      <p class="hero-line reveal" style="--d:1900ms">
+        The headlines you keep meaning to read.
+      </p>
+
+      <p class="hero-line reveal" style="--d:2500ms">
+        Most of what's reaching you isn't the change.
+      </p>
+      <p class="hero-line reveal" style="--d:2900ms">
+        It's <em>noise</em> about the change.
+      </p>
+
+      <p class="hero-line reveal" style="--d:3300ms">
+        The work is figuring out which is which.
+      </p>
+
+      <p class="hero-line amber reveal" style="--d:3800ms">
+        I'm here to help. Start with <em>Curio</em>.
+      </p>
+    </div>
+  </div>
+
+  <a class="scroll-cue reveal" style="--d:4200ms" href="#act-persona" aria-label="Continue">
+    <span>begin &mdash; who's here?</span>
+    <span class="line"></span>
+  </a>
+</section>
+
+
+<!-- ═══════════════ ACT II — PERSONA ═══════════════ -->
+<section class="act persona" data-act="2" id="act-persona" data-screen-label="02 Persona">
+  <span class="curio-egg curio-egg-cards size-lg" style="top:12%; left:4%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-bell size-sm delay-2" style="top:30%; right:6%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-mag delay-3" style="bottom:16%; right:12%;" aria-hidden="true"></span>
+  <div class="act-inner">
+    <span class="eyebrow reveal" style="--d:0ms">before we sit down</span>
+
+    <h1 class="h-display reveal" style="--d:200ms">Who's here?</h1>
+
+    <p class="lede-italic reveal" style="--d:500ms">
+      Two doors. Pick the one that fits today. The page tunes itself
+      the rest of the way — and you can switch later. No email. No paywall.
+    </p>
+
+    <div class="persona-grid reveal" style="--d:800ms" role="tablist" aria-label="Pick a persona">
+      <a class="p-card" href="#act-hub" data-persona="self" role="tab" aria-selected="true">
+        <span class="wash"></span>
+        <span class="corners"><span></span><span></span><span></span><span></span></span>
+        <span class="roman">I</span>
+        <div class="name">For <em>myself</em></div>
+        <div class="sub">I sense I could be operating differently. I want a guide.</div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="p-card" href="#act-hub" data-persona="team" role="tab" aria-selected="false">
+        <span class="wash"></span>
+        <span class="corners"><span></span><span></span><span></span><span></span></span>
+        <span class="roman">II</span>
+        <div class="name">For my <em>team</em></div>
+        <div class="sub">I see what's coming for us. I want everyone moving the same way.</div>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <a class="scroll-cue reveal" style="--d:1100ms" href="#act-hub" aria-label="Continue">
+    <span>continue</span>
+    <span class="line"></span>
+  </a>
+</section>
+
+
+<!-- ═══════════════ ACT III — COMPASS HUB ═══════════════ -->
+<section class="act hub" data-act="3" id="act-hub" data-screen-label="03 Hub">
+  <span class="curio-egg curio-egg-pocketwatch size-sm" style="top:8%; right:5%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-redthread delay-2" style="top:36%; left:3%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-fortune size-sm delay-3" style="bottom:24%; right:4%;" aria-hidden="true"></span>
+  <span class="curio-egg curio-egg-matches size-sm delay-4" style="bottom:8%; left:8%;" aria-hidden="true"></span>
+  <div class="act-inner">
+
+    <div class="hub-title">
+      <span class="eyebrow reveal" style="--d:0ms">four focuses, four blocks</span>
+      <h2 class="h-display reveal" style="--d:200ms">
+        Pick the focus,<br/>not the <em>block</em>.
+      </h2>
+      <p class="lede-italic reveal" style="--d:500ms">
+        I've found most people need one of <em>four things</em> —
+        and are blocked by one of <em>four fallacies</em>.
+      </p>
+    </div>
+
+    <div class="compass-stage">
+
+      <!-- Soft ring backdrop -->
+      <svg class="compass-ring-bg" viewBox="0 0 1080 1080" aria-hidden="true">
+        <circle cx="540" cy="540" r="520" />
+        <circle cx="540" cy="540" r="420" class="ring-inner" />
+        <circle cx="540" cy="540" r="320" class="ring-inner" />
+      </svg>
+
+      <!-- ── Focuses row label ── -->
+      <div class="doors-row-label reveal" style="--d:800ms">
+        <span class="glyph">focuses · ways through</span>
+      </div>
+
+      <!-- ── Focuses (top) — tarot deck ── -->
+      <div class="doors-row reveal" style="--d:900ms">
+        <a class="door" href="Inspiration.html" data-key="inspiration">
+          <span class="wash"></span>
+          <span class="corners"><span></span><span></span><span></span><span></span></span>
+          <span class="roman">I</span>
+          <div class="icon-wrap"><img src="assets/icon-genie.png" alt="" /></div>
+          <div class="name">Inspiration</div>
+          <div class="sub">where this is all going.</div>
+        </a>
+        <a class="door" href="Filter.html" data-key="filter">
+          <span class="wash"></span>
+          <span class="corners"><span></span><span></span><span></span><span></span></span>
+          <span class="roman">II</span>
+          <div class="icon-wrap"><img src="assets/icon-eye.png" alt="" /></div>
+          <div class="name">Filter</div>
+          <div class="sub">what to actually use, what to ignore.</div>
+        </a>
+        <a class="door" href="Mindset.html" data-key="mindset">
+          <span class="wash"></span>
+          <span class="corners"><span></span><span></span><span></span><span></span></span>
+          <span class="roman">III</span>
+          <div class="icon-wrap"><img src="assets/icon-brain.png" alt="" /></div>
+          <div class="name">Mindset</div>
+          <div class="sub">I'm using it. I've plateaued.</div>
+        </a>
+        <a class="door" href="Solutions.html" data-key="solutions">
+          <span class="wash"></span>
+          <span class="corners"><span></span><span></span><span></span><span></span></span>
+          <span class="roman">IV</span>
+          <div class="icon-wrap"><img src="assets/icon-hand.png" alt="" /></div>
+          <div class="name">Solutions</div>
+          <div class="sub">help building, auditing, thinking.</div>
+        </a>
+      </div>
+
+      <!-- ── Ask Curio chat in the middle ── -->
+      <div class="ask-row reveal" style="--d:1100ms">
+        <form class="ask-strip" id="askForm" onsubmit="return false;">
+          <span class="ask-tag">Ask Curio</span>
+          <span
+            class="ask-input"
+            id="askInput"
+            contenteditable="true"
+            role="textbox"
+            spellcheck="false"
+            data-placeholder-self="what would my version of this look like…"
+            data-placeholder-team="what does my team need right now…"
+            data-placeholder="what would my version of this look like…"
+          ></span>
+          <button class="ask-send" type="submit" aria-label="Send">→</button>
+        </form>
+      </div>
+
+      <!-- ── Block section header ── -->
+      <div class="blocks-header reveal" style="--d:1300ms">
+        <span class="eyebrow">the shadow side</span>
+        <h3>What holds you <em>back</em>.</h3>
+      </div>
+
+      <!-- ── Blocks (bottom) — tarot cards that FLIP for the reframe ── -->
+      <div class="fallacy-row reveal" style="--d:1500ms">
+
+        <div class="fallacy" data-flip>
+          <div class="flip-inner">
+          <div class="f-front">
+            <span class="wash"></span>
+            <span class="corners"><span></span><span></span><span></span><span></span></span>
+            <div class="icon-wrap"><img src="assets/fallacy-exhaustion.png" alt="" /></div>
+            <h4 class="title">The Fallacy of <em>Exhaustion</em></h4>
+            <p class="quote">“I don't have time.”</p>
+            <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
+          </div>
+          <div class="f-back" aria-hidden="true">
+            <span class="b-eyebrow">the reframe</span>
+            <h5 class="b-title">The tool <em>is</em> the time.</h5>
+            <p class="b-body">
+              You're expecting a tool that requires mastery. <strong>Claude doesn't.</strong> You already know how to talk. Saying <em>"I don't have time to learn AI"</em> is like saying <em>"I don't have time to learn to drive — I have to keep walking everywhere."</em> The five years of Excel won't repeat.
+            </p>
+            <span class="b-pointer">→ <em>Filter</em></span>
+            <span class="f-flip-hint"><span>turn back</span><span class="arr">↺</span></span>
+          </div>
+          </div>
+        </div>
+
+        <div class="fallacy" data-flip>
+          <div class="flip-inner">
+          <div class="f-front">
+            <span class="wash"></span>
+            <span class="corners"><span></span><span></span><span></span><span></span></span>
+            <div class="icon-wrap"><img src="assets/fallacy-guilt.png" alt="" /></div>
+            <h4 class="title">The Fallacy of <em>Guilt</em></h4>
+            <p class="quote">“Is this cheating?”</p>
+            <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
+          </div>
+          <div class="f-back" aria-hidden="true">
+            <span class="b-eyebrow">the reframe</span>
+            <h5 class="b-title">The room already moved.</h5>
+            <p class="b-body">
+              A calculator was cheating at math. Until it wasn't. Google was cheating at memory. Until it wasn't. <strong>The people running the future stopped asking this question two years ago.</strong> The real question isn't whether AI is cheating &mdash; it's whether you're <em>still useful</em> after the room stops calling it that.
+            </p>
+            <span class="b-pointer">→ <em>Solutions</em></span>
+            <span class="f-flip-hint"><span>turn back</span><span class="arr">↺</span></span>
+          </div>
+          </div>
+        </div>
+
+        <div class="fallacy" data-flip>
+          <div class="flip-inner">
+          <div class="f-front">
+            <span class="wash"></span>
+            <span class="corners"><span></span><span></span><span></span><span></span></span>
+            <div class="icon-wrap"><img src="assets/fallacy-identity.png" alt="" /></div>
+            <h4 class="title">The Fallacy of <em>Identity</em></h4>
+            <p class="quote">“I'm the [Excel] person.”</p>
+            <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
+          </div>
+          <div class="f-back" aria-hidden="true">
+            <span class="b-eyebrow">the reframe</span>
+            <h5 class="b-title">That was the scaffold.</h5>
+            <p class="b-body">
+              The Excel skill, the deck skill, the [my craft] skill &mdash; that was the <em>ladder</em>, not the destination. AI doesn't take it. <strong>It frees you to be the person who directed the deck.</strong> Which was always the version of you that was trying to arrive. The scaffold is for climbing up, not for living on.
+            </p>
+            <span class="b-pointer">→ <em>Inspiration</em></span>
+            <span class="f-flip-hint"><span>turn back</span><span class="arr">↺</span></span>
+          </div>
+          </div>
+        </div>
+
+        <div class="fallacy" data-flip>
+          <div class="flip-inner">
+          <div class="f-front">
+            <span class="wash"></span>
+            <span class="corners"><span></span><span></span><span></span><span></span></span>
+            <div class="icon-wrap"><img src="assets/fallacy-muscle.png" alt="" /></div>
+            <h4 class="title">The Fallacy of <em>Muscle Memory</em></h4>
+            <p class="quote">“Some day I'll be good at AI.”</p>
+            <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
+          </div>
+          <div class="f-back" aria-hidden="true">
+            <span class="b-eyebrow">the reframe</span>
+            <h5 class="b-title">There is no someday.</h5>
+            <p class="b-body">
+              Twenty years of software-learning trained you to think: <em>"I'll set aside the weekend, I'll get good at this someday."</em> AI isn't software. There is no curriculum. No certification. No someday. <strong>You won't get good at it &mdash; you'll change what you ask of it.</strong> Stop asking <em>how do I&hellip;</em>. Ask what you <em>wish</em>. Or what you <em>hate</em>.
+            </p>
+            <span class="b-pointer">→ <em>Mindset</em></span>
+            <span class="f-flip-hint"><span>turn back</span><span class="arr">↺</span></span>
+          </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<script>
+(function(){
+  // ── Reveal-on-scroll: add .is-visible to acts as they enter ──
+  const acts = document.querySelectorAll('.act');
+  const masthead = document.getElementById('masthead');
+  const dots = masthead.querySelectorAll('.dot');
+  const actNum = document.getElementById('actNum');
+  const NUMERALS = ['', 'i', 'ii', 'iii'];
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((ent) => {
+      if (ent.isIntersecting) ent.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.18 });
+  acts.forEach((a) => obs.observe(a));
+
+  // ── Active-act tracker ──
+  let currentAct = 1;
+  function setActive(n) {
+    if (n === currentAct) return;
+    currentAct = n;
+    dots.forEach((d) => {
+      const k = parseInt(d.getAttribute('data-act'), 10);
+      d.classList.toggle('on', k <= n);
+    });
+    actNum.textContent = NUMERALS[n] || 'i';
+  }
+
+  const trackObs = new IntersectionObserver((entries) => {
+    let best = null;
+    entries.forEach((ent) => {
+      if (!ent.isIntersecting) return;
+      if (!best || ent.intersectionRatio > best.intersectionRatio) best = ent;
+    });
+    if (best) {
+      const n = parseInt(best.target.getAttribute('data-act'), 10);
+      setActive(n);
+    }
+  }, { threshold: [0.3, 0.55, 0.8] });
+  acts.forEach((a) => trackObs.observe(a));
+
+  // ── Persona switching (stored in body[data-persona]) ──
+  const body = document.body;
+  const askInput = document.getElementById('askInput');
+
+  function setPersona(p, opts) {
+    if (p !== 'self' && p !== 'team') return;
+    body.setAttribute('data-persona', p);
+    // Persist across pages so focus pages match the landing choice
+    try { localStorage.setItem('curio-persona', p); } catch (e) {}
+    // Visually flag selected card
+    document.querySelectorAll('.p-card[data-persona]').forEach((el) => {
+      const isOn = el.getAttribute('data-persona') === p;
+      el.classList.toggle('is-selected', isOn);
+      el.setAttribute('aria-selected', isOn ? 'true' : 'false');
+    });
+    // Update placeholder for the chat input
+    if (askInput) {
+      const ph = p === 'team'
+        ? askInput.getAttribute('data-placeholder-team')
+        : askInput.getAttribute('data-placeholder-self');
+      askInput.setAttribute('data-placeholder', ph);
+      if (askInput.dataset.userTyped !== 'true') askInput.textContent = '';
+    }
+  }
+
+  // Restore from previous visit if available
+  try {
+    const stored = localStorage.getItem('curio-persona');
+    if (stored === 'self' || stored === 'team') setPersona(stored);
+  } catch (e) {}
+
+  document.querySelectorAll('.p-card[data-persona]').forEach((el) => {
+    el.addEventListener('click', () => {
+      setPersona(el.getAttribute('data-persona'));
+    });
+  });
+
+  // Track typing on chat input
+  if (askInput) {
+    askInput.addEventListener('input', function () {
+      this.dataset.userTyped = this.textContent.trim() ? 'true' : 'false';
+    });
+    askInput.addEventListener('blur', function () {
+      if (!this.textContent.trim()) this.dataset.userTyped = 'false';
+    });
+  }
+
+  // ── Smooth-scroll for in-page anchors ──
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      const tgt = document.getElementById(id);
+      if (!tgt) return;
+      e.preventDefault();
+      tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── Fallacy cards: click anywhere on the card to flip ──
+  document.querySelectorAll('.fallacy[data-flip]').forEach((card) => {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-pressed', 'false');
+    const toggle = () => {
+      const flipped = card.classList.toggle('is-flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+      const back = card.querySelector('.f-back');
+      if (back) back.setAttribute('aria-hidden', flipped ? 'false' : 'true');
+    };
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

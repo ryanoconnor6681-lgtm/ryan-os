@@ -1,0 +1,1010 @@
+/* ───────────────────────────────────────────────────────────────────────
+   Curio overrides — layered on top of colors_and_type / inspiration / landing.
+   Loaded LAST so these win the cascade. Single place for hand-tuning.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Inline phrase that should never break across two lines */
+.nowrap { white-space: nowrap; }
+
+
+/* ── #1 ── Cold-open: words actually animate in, hero stack centered ─── */
+.act.hero { text-align: center; }
+.act.hero .act-inner { width: 100%; }
+.act.hero .hero-stack {
+  text-align: center !important;
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.act.hero .hero-line {
+  margin: 0 auto !important;
+  text-align: center !important;
+  opacity: 0;
+  /* Use animation, not transition — runs on first paint regardless of
+     whether .is-visible is already applied by the HTML. Each line gets
+     its own delay via the inline --d custom property. */
+  animation: curio-hero-line-in 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: var(--d, 0ms);
+  will-change: opacity, transform;
+}
+@keyframes curio-hero-line-in {
+  0%   { opacity: 0; transform: translateY(14px); filter: blur(2px); }
+  60%  { filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .act.hero .hero-line { animation: none; opacity: 1; transform: none; }
+}
+.act.hero .hero-line.lift { font-weight: 500; }
+.act.hero .hero-line.amber { margin-top: 10px !important; }
+.act.persona .act-inner { text-align: center; }
+.act.persona .h-display,
+.act.persona .lede-italic,
+.act.persona .eyebrow {
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+.act.persona .persona-grid { margin-left: auto; margin-right: auto; }
+
+.act.hero .scroll-cue {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 14px 22px;
+  border: 1px solid rgba(212, 157, 58, 0.5);
+  border-radius: 2px;
+  background: rgba(212, 157, 58, 0.08);
+  color: #f0a830;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.act.hero .scroll-cue:hover {
+  background: rgba(212, 157, 58, 0.18);
+  border-color: rgba(212, 157, 58, 0.8);
+  transform: translateX(-50%) translateY(2px);
+}
+
+
+/* ── Persistent paper grain across the navy stage ────────────────────── */
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  mix-blend-mode: soft-light;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(243, 237, 225, 0.07) 1px, transparent 1.6px),
+    repeating-linear-gradient(135deg, rgba(243, 237, 225, 0.022) 0, rgba(243, 237, 225, 0.022) 1px, transparent 1px, transparent 5px);
+  background-size: 3px 3px, auto;
+}
+
+
+/* ── #4 ── Focus-page hero: REAL decoy cards behind, matching Solutions deck ── */
+/* Three actual <article class="hero-stack-card"> elements sit before the
+   hero card in the markup. They carry their own .wash + .corners spans
+   so they look IDENTICAL to the hero card (paper, +'s in corners, edges).
+   Old pseudo-element approach killed; the real decoys are the look. */
+.hero-wrap {
+  position: relative;
+  isolation: isolate;
+}
+.hero-wrap > .hero-stack-card {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(22, 20, 15, 0.04) 1px, transparent 1.6px),
+    #f3ede1;
+  background-size: 3px 3px, auto;
+  border: 1px solid rgba(22, 20, 15, 0.22);
+  border-radius: inherit;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.40);
+  pointer-events: none;
+  user-select: none;
+}
+/* Corner +'s on the decoy cards so they read as actual paper cards, not boxes */
+.hero-wrap > .hero-stack-card .corners {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+}
+.hero-wrap > .hero-stack-card .corners > span {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+}
+.hero-wrap > .hero-stack-card .corners > span::before,
+.hero-wrap > .hero-stack-card .corners > span::after {
+  content: '';
+  position: absolute;
+  background: rgba(168, 69, 58, 0.55);
+}
+.hero-wrap > .hero-stack-card .corners > span::before {
+  width: 12px; height: 1px; top: 50%; left: 0; transform: translateY(-50%);
+}
+.hero-wrap > .hero-stack-card .corners > span::after {
+  width: 1px; height: 12px; left: 50%; top: 0; transform: translateX(-50%);
+}
+.hero-wrap > .hero-stack-card .corners > span:nth-child(1) { top: 0; left: 0; }
+.hero-wrap > .hero-stack-card .corners > span:nth-child(2) { top: 0; right: 0; }
+.hero-wrap > .hero-stack-card .corners > span:nth-child(3) { bottom: 0; left: 0; }
+.hero-wrap > .hero-stack-card .corners > span:nth-child(4) { bottom: 0; right: 0; }
+.hero-wrap > .hero-stack-card .wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(212, 157, 58, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+/* Smaller decoys — only edges + corners poking out, not full cards */
+.hero-wrap > .hero-stack-card {
+  inset: 16px 16px 16px 16px; /* shrink so only edges/corners peek */
+  opacity: 1 !important;
+  border-radius: 2px;
+}
+.hero-wrap > .hero-stack-card-1 {
+  z-index: 2;
+  transform: translate(10px, 8px) rotate(0.8deg);
+}
+.hero-wrap > .hero-stack-card-2 {
+  z-index: 1;
+  transform: translate(20px, 16px) rotate(-0.9deg);
+}
+.hero-wrap > .hero-stack-card-3 {
+  z-index: 0;
+  transform: translate(30px, 24px) rotate(0.5deg);
+}
+.hero-card {
+  position: relative;
+  z-index: 3;
+}
+/* Kill the old pseudo-element approach so it doesn't double-up */
+.hero-card::before, .hero-card::after { display: none !important; content: none !important; }
+@media (max-width: 720px) {
+  .hero-wrap > .hero-stack-card { display: none; }
+}
+
+
+/* ── #6 ── Catalog card BACK: red-box callout block + breathing room ──── */
+/* Pulled from the curiosity-catalog pattern — the body ends with a quote
+   in a rust-bordered amber-tinted callout, like the original. */
+.cat-card .cc-back .b-callout {
+  margin: 14px 0 4px;
+  padding: 12px 14px;
+  border: 1px solid rgba(168, 69, 58, 0.55);
+  background: rgba(168, 69, 58, 0.14);
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: #ffd58a !important;
+  text-align: center;
+  border-radius: 2px;
+}
+.cat-card .cc-back .b-callout strong { color: #ffffff !important; }
+.cat-card .cc-back ol,
+.cat-card .cc-back ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+  list-style: none;
+  counter-reset: catalog-list;
+}
+.cat-card .cc-back ol li,
+.cat-card .cc-back ul li {
+  counter-increment: catalog-list;
+  position: relative;
+  padding-left: 8px;
+  margin-bottom: 8px;
+  font-family: 'Newsreader', serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: rgba(243, 237, 225, 0.86) !important;
+}
+.cat-card .cc-back ol li::before {
+  content: counter(catalog-list, decimal) ".";
+  position: absolute;
+  left: -16px;
+  color: #f08a4a !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  top: 1px;
+}
+.cat-card .cc-back ol li strong,
+.cat-card .cc-back ul li strong { color: #ffffff !important; }
+.cat-card .cc-back ol li em,
+.cat-card .cc-back ul li em { color: #ffd58a !important; }
+/* Cards taller to hold the longer copy */
+.cat-card { min-height: 540px !important; }
+/* Tarot wash + corners decoration on cat-card faces (injected by JS at runtime) */
+.cat-card .cc-front .corners,
+.cat-card .cc-back .corners {
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+.cat-card .cc-front .corners > span,
+.cat-card .cc-back .corners > span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+}
+.cat-card .cc-front .corners > span::before,
+.cat-card .cc-back .corners > span::before,
+.cat-card .cc-front .corners > span::after,
+.cat-card .cc-back .corners > span::after {
+  content: '';
+  position: absolute;
+  background: rgba(168, 69, 58, 0.55);
+}
+.cat-card .cc-back .corners > span::before,
+.cat-card .cc-back .corners > span::after { background: rgba(212, 157, 58, 0.55); }
+.cat-card .cc-front .corners > span::before,
+.cat-card .cc-back .corners > span::before { width: 10px; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+.cat-card .cc-front .corners > span::after,
+.cat-card .cc-back .corners > span::after { width: 1px; height: 10px; left: 50%; top: 0; transform: translateX(-50%); }
+.cat-card .cc-front .corners > span:nth-child(1),
+.cat-card .cc-back .corners > span:nth-child(1) { top: 0; left: 0; }
+.cat-card .cc-front .corners > span:nth-child(2),
+.cat-card .cc-back .corners > span:nth-child(2) { top: 0; right: 0; }
+.cat-card .cc-front .corners > span:nth-child(3),
+.cat-card .cc-back .corners > span:nth-child(3) { bottom: 0; left: 0; }
+.cat-card .cc-front .corners > span:nth-child(4),
+.cat-card .cc-back .corners > span:nth-child(4) { bottom: 0; right: 0; }
+/* Make sure card content is above the corners */
+.cat-card .cc-front > *:not(.corners):not(.wash),
+.cat-card .cc-back > *:not(.corners):not(.wash) { position: relative; z-index: 1; }
+
+
+/* ── #2 (img) ── Hero illustration: bigger AND printed onto the card ─── */
+@media (min-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1.55fr !important;
+    gap: 56px !important;
+  }
+  .hero-illus {
+    margin: -24px -24px -24px 0 !important;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-illus img {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 540px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transform: scale(1.06);
+    transform-origin: center;
+    mix-blend-mode: multiply;
+    filter: contrast(1.06) saturate(1.05);
+  }
+  .hero-illus::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at center, transparent 56%, rgba(243, 237, 225, 0.78) 100%),
+      linear-gradient(90deg, rgba(243, 237, 225, 0.45) 0%, transparent 18%, transparent 82%, rgba(243, 237, 225, 0.35) 100%);
+  }
+}
+
+
+/* ── #3 ── Fallacy line ON the hero card — bigger, justified, integrated ─ */
+/* Drops the separate fallacy banner. Sits below the for-line on the hero
+   card itself, separated by a thin rule. Same left-justified rhythm. */
+.hero-text .fallacy-line {
+  margin-top: 22px !important;
+  padding-top: 22px !important;
+  border-top: 1px solid rgba(22, 20, 15, 0.18);
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(17px, 1.7vw, 22px) !important;
+  line-height: 1.45;
+  color: rgba(22, 20, 15, 0.78);
+  max-width: 56ch;
+}
+.hero-text .fallacy-line .fl-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a8453a;
+  margin-right: 10px;
+  padding: 3px 8px;
+  border: 1px solid rgba(168, 69, 58, 0.45);
+  border-radius: 2px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.hero-text .fallacy-line strong {
+  font-style: normal;
+  color: #a8453a;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.hero-text .fallacy-line em {
+  color: #a8453a;
+  font-weight: 500;
+}
+
+
+/* Lane-shift / bridge eyebrows still sit on navy — keep them readable */
+.lane-shift .eyebrow.rust,
+.bridge .eyebrow.rust {
+  font-size: 13px !important;
+  letter-spacing: 0.22em !important;
+  color: #f08a4a !important;
+}
+.lane-shift .eyebrow.rust em,
+.bridge .eyebrow.rust em {
+  color: #ffd58a !important;
+  font-style: italic;
+}
+.bridge .nc-tag,
+.examples .b-tag {
+  font-size: 12px !important;
+  letter-spacing: 0.2em !important;
+}
+
+
+/* ── #1 (landing) ── Fallacy FLIP — wrapped in .flip-inner so landing.css can't fight us ── */
+/* Pattern: .fallacy is the perspective host (and stays compatible with
+   any landing.css decoration), .flip-inner is OUR element that does the
+   3D rotation. landing.css doesn't know about .flip-inner so nothing
+   fights us. */
+.fallacy-row { perspective: 1600px; }
+.fallacy {
+  cursor: pointer;
+  position: relative;
+  min-height: 460px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  /* Reset any transform landing.css might set */
+  transform: none !important;
+  transform-style: flat !important;
+  perspective: 1600px;
+}
+.fallacy .flip-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4, 0.05, 0.2, 1);
+  will-change: transform;
+}
+.fallacy.is-flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.fallacy .f-front,
+.fallacy .f-back {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px 56px; /* bottom padding for turn-back hint */
+  overflow: hidden;
+  border-radius: 2px;
+}
+.fallacy .f-front {
+  background: #f3ede1;
+  border: 1px solid rgba(22, 20, 15, 0.20);
+  color: #16140f;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.35);
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+}
+.fallacy .f-back {
+  background-color: #0a0e1a;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 157, 58, 0.06), transparent 70%);
+  border: 1.5px solid rgba(212, 157, 58, 0.42);
+  color: #f3ede1 !important;
+  text-align: left;
+  transform: rotateY(180deg);
+  justify-content: flex-start;
+  padding: 28px 24px 56px;
+}
+/* Force light text on the back regardless of any inherited color */
+.fallacy > .f-back,
+.fallacy > .f-back * { color: #f3ede1 !important; }
+.fallacy > .f-back .b-eyebrow { color: #f08a4a !important; }
+.fallacy > .f-back .b-title { color: #ffd58a !important; }
+.fallacy > .f-back .b-title em { color: #ffffff !important; }
+.fallacy > .f-back .b-body { color: rgba(243, 237, 225, 0.86) !important; }
+.fallacy > .f-back .b-body strong { color: #ffffff !important; }
+.fallacy > .f-back .b-body em { color: #ffd58a !important; font-style: italic; }
+.fallacy > .f-back .b-pointer { color: #f08a4a !important; }
+.fallacy > .f-back .b-pointer em { color: #ffd58a !important; }
+.fallacy .f-back .b-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f08a4a;
+  margin-bottom: 14px;
+}
+.fallacy .f-back .b-title {
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 500;
+  color: #ffd58a;
+  margin-bottom: 16px;
+  line-height: 1.18;
+}
+.fallacy .f-back .b-body {
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(243, 237, 225, 0.84);
+  margin-bottom: 12px;
+}
+.fallacy .f-back .b-body strong {
+  color: #f3ede1;
+  font-weight: 600;
+}
+.fallacy .f-back .b-body em {
+  color: #ffd58a;
+  font-style: italic;
+}
+.fallacy .f-back .b-pointer {
+  margin-top: auto;
+  padding-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f08a4a;
+}
+.fallacy .f-back .b-pointer em {
+  color: #ffd58a;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-family: 'Newsreader', serif;
+  font-size: 14px;
+  margin-left: 8px;
+}
+.fallacy .f-flip-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(243, 237, 225, 0.42);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+.fallacy:hover .f-flip-hint { color: rgba(243, 237, 225, 0.78); }
+.fallacy .f-flip-hint .arr {
+  display: inline-block;
+  transition: transform 0.5s;
+}
+.fallacy.is-flipped .f-flip-hint .arr { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .fallacy { transition: none; }
+}
+
+
+/* ── #2/#3 (focus) ── Catalog cards section — tarot reading on a navy cloth ── */
+/* The whole section sits on navy now (the page bg shows through to it
+   and there was no contrast). Heading text becomes cream/amber. The
+   cards themselves stay cream-front / navy-back — the navy section makes
+   them read as tarot cards laid out on a cloth, not as floating boxes. */
+.catalog-cards {
+  max-width: none;
+  margin: 0;
+  padding: 72px 28px 80px;
+  background: #14182a;
+  position: relative;
+}
+.catalog-cards::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(243, 237, 225, 0.06) 1px, transparent 1.6px),
+    repeating-linear-gradient(135deg, rgba(243, 237, 225, 0.02) 0, rgba(243, 237, 225, 0.02) 1px, transparent 1px, transparent 5px);
+  background-size: 3px 3px, auto;
+  opacity: 0.7;
+  mix-blend-mode: soft-light;
+}
+.catalog-cards > * {
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+.catalog-cards .cc-head {
+  text-align: left;
+  margin-bottom: 28px;
+}
+.catalog-cards .cc-head .eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f08a4a !important;
+  margin-bottom: 14px;
+  display: block;
+}
+.catalog-cards .cc-head h3 {
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.06;
+  color: #f3ede1 !important;
+  margin: 0 0 14px;
+}
+.catalog-cards .cc-head h3 em {
+  color: #ffd58a !important;
+}
+.catalog-cards .cc-head .cc-lede {
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(243, 237, 225, 0.72) !important;
+  max-width: 60ch;
+}
+.catalog-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  perspective: 1400px;
+}
+.cat-card {
+  position: relative;
+  cursor: pointer;
+  min-height: 420px; /* shortened ~120px from prior */
+  aspect-ratio: auto; /* let height be content-driven */
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.05, 0.2, 1);
+  border-radius: 2px;
+}
+.cat-card.is-flipped { transform: rotateY(180deg); }
+.cat-card > .cc-front,
+.cat-card > .cc-back {
+  position: absolute;
+  inset: 0;
+  padding: 26px 24px 24px;
+  border: 1px solid rgba(22, 20, 15, 0.16);
+  border-radius: 2px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.cat-card .cc-front {
+  background-color: #faf6ec !important;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(22, 20, 15, 0.04) 1px, transparent 1.6px),
+    repeating-linear-gradient(135deg, rgba(168, 69, 58, 0.022) 0, rgba(168, 69, 58, 0.022) 1px, transparent 1px, transparent 6px);
+  background-size: 3px 3px, auto;
+  color: #16140f !important;
+  padding-bottom: 56px !important; /* room for turn-over hint at bottom */
+}
+.cat-card .cc-front .cc-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a8453a !important;
+  margin-bottom: 18px;
+}
+/* Decorative icon at the top of each catalog card front */
+.cat-card .cc-front .cc-icon {
+  width: 44px;
+  height: 44px;
+  margin-bottom: 14px;
+  opacity: 0.85;
+  filter: contrast(1.05);
+}
+.cat-card .cc-front .cc-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+/* Bigger headline so the front does the work */
+.cat-card .cc-front h4 {
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.12;
+  color: #16140f !important;
+  margin: 0 0 14px;
+  letter-spacing: -0.005em;
+}
+.cat-card .cc-front .cc-hook {
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(22, 20, 15, 0.72) !important;
+  line-height: 1.5;
+  flex: 1;
+}
+/* Card BACK — make it obviously different from the section so it doesn't blend */
+.cat-card .cc-back,
+.cat-card > div.cc-back {
+  background-color: #0a0e1a !important;
+  background-image:
+    radial-gradient(ellipse at 30% 20%, rgba(212, 157, 58, 0.06), transparent 70%),
+    linear-gradient(135deg, rgba(168, 69, 58, 0.04) 0%, transparent 100%) !important;
+  border: 1.5px solid rgba(212, 157, 58, 0.42) !important;
+  color: #f3ede1 !important;
+  transform: rotateY(180deg);
+  padding-bottom: 56px !important; /* room for turn-back hint without overlapping callout */
+}
+/* Wildcard color force on every descendant so nothing inherits dark from inspiration.css */
+.cat-card .cc-back,
+.cat-card .cc-back > * {
+  color: #f3ede1 !important;
+}
+.cat-card .cc-back .cc-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f08a4a !important;
+  margin-bottom: 14px;
+}
+.cat-card .cc-back .cc-body,
+.cat-card .cc-back p {
+  font-family: 'Newsreader', serif;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #f3ede1 !important;
+  flex: 0 0 auto;
+  margin-bottom: 10px;
+}
+.cat-card .cc-back .cc-body strong,
+.cat-card .cc-back p strong {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+.cat-card .cc-back .cc-body em,
+.cat-card .cc-back p em {
+  color: #ffd58a !important;
+  font-style: italic;
+}
+/* Turn-over / turn-back hint — anchored to the BOTTOM CENTER of each face */
+.cat-card .cc-front .cc-flip-hint,
+.cat-card .cc-back .cc-flip-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(22, 20, 15, 0.45);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.cat-card .cc-back .cc-flip-hint { color: rgba(243, 237, 225, 0.55) !important; }
+.cat-card:hover .cc-front .cc-flip-hint { color: rgba(168, 69, 58, 0.9); }
+.cat-card.is-flipped .cc-back .cc-flip-hint { color: rgba(243, 237, 225, 0.85) !important; }
+
+
+/* ── #3 ── "Start here" button — RUST + CENTERED on the offer card ───── */
+.starter-row {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  margin: 22px auto 0;
+  padding-top: 22px;
+  border-top: 1px dashed rgba(168, 69, 58, 0.28);
+  width: 100%;
+}
+.starter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 22px;
+  background: #a8453a;
+  color: #f3ede1;
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 19px;
+  text-decoration: none;
+  border-radius: 2px;
+  border: 1px solid #a8453a;
+  transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  position: relative;
+}
+.starter-btn:hover {
+  transform: translateY(-2px);
+  background: #8b3127;
+  border-color: #8b3127;
+}
+.starter-btn .price-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: #d49d3a;
+  color: #1a2238;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+.starter-btn .arr { font-style: normal; font-size: 16px; opacity: 0.85; }
+.starter-note {
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: rgba(22, 20, 15, 0.62);
+}
+
+
+/* ── #5 ── Solutions: actual SHUFFLE deck (replaces horizontal slider) ── */
+/* All cards stacked center, top card visible. Click to advance. The
+   leaving card flies off (rotate + translate-X + fade), the next becomes
+   top. Counter + prev/next controls below. */
+body[data-deck="fan"] .examples .build-grid {
+  display: block !important;
+  position: relative;
+  margin: 32px auto 24px;
+  padding: 0 !important;
+  width: 100%;
+  max-width: 460px;
+  height: 540px;
+  perspective: 1400px;
+  overflow: visible !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+body[data-deck="fan"] .examples .build {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  flex: none !important;
+  scroll-snap-align: none !important;
+  background: #faf6ec;
+  border: 1px solid rgba(22, 20, 15, 0.18);
+  padding: 28px 26px 26px;
+  box-shadow: 0 24px 50px -24px rgba(0, 0, 0, 0.45);
+  transform: translateY(0) translateX(0) rotate(0);
+  transition: transform 0.6s cubic-bezier(0.4, 0.05, 0.2, 1), opacity 0.4s ease;
+  cursor: pointer;
+}
+/* Stack the back cards behind, hinted */
+body[data-deck="fan"] .examples .build[data-stack="0"] {
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+  z-index: 9;
+}
+body[data-deck="fan"] .examples .build[data-stack="1"] {
+  transform: translate(8px, 6px) rotate(0.6deg);
+  opacity: 1;
+  z-index: 8;
+}
+body[data-deck="fan"] .examples .build[data-stack="2"] {
+  transform: translate(16px, 12px) rotate(-0.7deg);
+  opacity: 0.92;
+  z-index: 7;
+}
+body[data-deck="fan"] .examples .build[data-stack="3"] {
+  transform: translate(22px, 18px) rotate(0.4deg);
+  opacity: 0.55;
+  z-index: 6;
+}
+body[data-deck="fan"] .examples .build[data-stack="off"] {
+  transform: translate(-180%, -40px) rotate(-12deg);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+body[data-deck="fan"] .examples .build[data-stack="hidden"] {
+  transform: translate(40px, 28px) rotate(-1.2deg);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+/* #5 — bigger, more prominent shuffle arrows for Solutions deck */
+body[data-deck="fan"] .deck-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  margin: 16px auto 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(22, 20, 15, 0.7);
+}
+body[data-deck="fan"] .deck-controls button {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 1.5px solid #d49d3a;
+  background: transparent;
+  color: #d49d3a;
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s, border-color 0.2s;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+body[data-deck="fan"] .deck-controls button:hover {
+  background: #d49d3a;
+  color: #16140f;
+  border-color: #d49d3a;
+  transform: translateY(-2px);
+}
+body[data-deck="fan"] .deck-controls .deck-counter {
+  min-width: 90px;
+  text-align: center;
+  color: rgba(22, 20, 15, 0.62);
+  font-size: 13px;
+}
+body[data-deck="fan"] .deck-controls .deck-helper {
+  position: absolute;
+  margin-top: 80px;
+  font-family: 'Newsreader', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(22, 20, 15, 0.5);
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+
+/* ── Easter-egg floating icons — sprinkled around landing acts ───────── */
+/* Tiny halftone artifacts that drift near the edges of each act. Low
+   opacity, behind content, gentle float. Deliberately understated so the
+   reader catches one and goes "oh, neat" rather than feeling decorated-at. */
+.act { position: relative; overflow: visible; }
+.curio-egg {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.18;
+  filter: saturate(1.05) contrast(1.05);
+  mix-blend-mode: screen;
+  width: 72px; height: 72px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .curio-egg { animation: curio-egg-float 14s ease-in-out infinite alternate; }
+  .curio-egg.delay-2 { animation-delay: -3s; }
+  .curio-egg.delay-3 { animation-delay: -6s; }
+  .curio-egg.delay-4 { animation-delay: -9s; }
+}
+@keyframes curio-egg-float {
+  0%   { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(-12px) rotate(1.5deg); }
+}
+.curio-egg.size-sm { width: 56px; height: 56px; opacity: 0.14; }
+.curio-egg.size-lg { width: 96px; height: 96px; opacity: 0.20; }
+
+/* Egg art tokens */
+.curio-egg-matches      { background-image: url('assets/matches.png'); }
+.curio-egg-mag          { background-image: url('assets/mag.png'); }
+.curio-egg-compass      { background-image: url('assets/compass.png'); }
+.curio-egg-cards        { background-image: url('assets/cards_stack.png'); }
+.curio-egg-pocketwatch  { background-image: url('assets/pocketwatch.png'); }
+.curio-egg-fortune      { background-image: url('assets/fortune.png'); }
+.curio-egg-redthread    { background-image: url('assets/redthread.png'); }
+.curio-egg-bell         { background-image: url('assets/bell.png'); }
+.curio-egg-crystal      { background-image: url('assets/crystalball.png'); }
+
+
+/* ── Landing: tinted backdrop behind "What holds you back" + fallacies ── */
+/* The crystal-ball illustration was eating the section heading. A soft
+   dark wash sits below the heading row + the fallacy cards so they have
+   their own contrast plate. */
+.act.hub .blocks-header,
+.act.hub .fallacy-row {
+  position: relative;
+  z-index: 2;
+}
+.act.hub .blocks-header::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100vw;
+  max-width: 1400px;
+  height: 200%;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(ellipse at center, rgba(10, 14, 26, 0.86) 0%, rgba(10, 14, 26, 0.62) 50%, rgba(10, 14, 26, 0) 80%);
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(2px);
+}
+.act.hub .blocks-header h3,
+.act.hub .blocks-header .eyebrow {
+  position: relative;
+  z-index: 1;
+}
+.act.hub .blocks-header h3 {
+  text-shadow: 0 2px 18px rgba(10, 14, 26, 0.65);
+}
+
+/* ── Landing: crystal ball behind "Ask Curio" with parallax ──────────── */
+.ask-row { position: relative; z-index: 1; }
+.ask-row::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(420px, 60vw, 820px);
+  height: clamp(420px, 60vw, 820px);
+  background-image: url('assets/crystalball.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  filter: saturate(1.05) contrast(1.04);
+  pointer-events: none;
+  z-index: -1;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ask-row::before {
+    animation: curio-genie-float 14s ease-in-out infinite alternate;
+  }
+}
+@keyframes curio-genie-float {
+  0%   { transform: translate(-50%, -52%) scale(1); }
+  100% { transform: translate(-50%, -48%) scale(1.04); }
+}
