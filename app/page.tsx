@@ -115,9 +115,9 @@ const allProjects = [
     ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
     link: '/curio-site/',
-    desc: 'A studio for senior operators catching up on AI without the slop.',
-    fullDesc: 'Curio is the studio behind a stack of AI-native artifacts \u2014 The Ladder That Isn\u2019t, the RedPeg Brand Bible, Style Sync, Lantern & Fox, and a body of essays on what AI actually changes for senior operators.',
-    context: 'The studio\u2019s first product is The Curio Primer \u2014 a bespoke onboarding artifact for ChatGPT-fluent executives moving to Claude. Built as a navigable HTML primer + a starter Brain vault + 2\u20133 custom Claude skills tuned to your work. Two tiers: self-serve ($249) or done-for-you ($2,500).',
+    desc: 'Ryan\u2019s guide for the AI uncertain.',
+    fullDesc: 'Curio is a thinking brand and shelf for everyone moving through the murky middle of the AI shift \u2014 essays, prototypes, and a four-focus primer that helps senior operators catch up on AI without the slop. Four ways through: Inspiration, Filter, Mindset, Solutions. Four blocks underneath: the fallacies of exhaustion, guilt, identity, and muscle memory. One running idea \u2014 speculative thinking pulls you forward while most people are still being pushed.',
+    context: 'Visual language: mid-century cognitive futurism on cream paper, navy stage, amber accent. The home page is a fortune-teller\u2019s compass framed by tarot cards. The four focuses each get a halftone illustration \u2014 sun, hourglass, hand-and-brain, robot-and-human. The four fallacies live as flippable cards: front is the trap, back is the reframe. Decorative motifs pull from the toolkit of someone offering you a way through the uncertain \u2014 magnifier, pocketwatch, compass, matches, red thread, bell, fortune teller. Wishes and hates as the prompt frame. A persona toggle (For myself / For my team) tunes copy across all five pages. Built static (HTML/CSS/vanilla JS), no framework, deployed at /curio-site.',
     subProjects: [
       {
         name: 'Lantern & Fox',
