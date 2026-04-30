@@ -7,7 +7,7 @@
 <title>Curio · I · Inspiration</title>
 <link rel="stylesheet" href="colors_and_type.css?v=7" />
 <link rel="stylesheet" href="inspiration.css?v=4" />
-<link rel="stylesheet" href="curio-overrides.css?v=14" />
+<link rel="stylesheet" href="curio-overrides.css?v=15" />
 </head>
 <body data-persona="self">
 
@@ -34,6 +34,7 @@
     <button class="pp on" data-persona="self" role="tab" aria-selected="true">For myself</button>
     <button class="pp"     data-persona="team" role="tab" aria-selected="false">For my team</button>
   </div>
+  <a class="masthead-more" href="#act-more">want more?</a>
 </header>
 
 
@@ -332,7 +333,7 @@
 
 
 <!-- ═══════════════ THE OFFER — soft CTA, no funnel, no tiers ═══════════════ -->
-<section class="price-block">
+<section class="price-block" id="act-more">
   <article class="price-card reveal">
     <span class="wash"></span>
     <span class="corners"><span></span><span></span><span></span><span></span></span>
@@ -348,15 +349,25 @@
     </p>
 
     <p class="p-body">
-      <strong>Start here.</strong> A short PDF, a CLAUDE.md template, and a few starter skills &mdash; the smallest possible first push. The thing you open at 11pm and have running by morning.
+      <strong>Start here.</strong> Two starter packs &mdash; pick the depth that fits.
     </p>
-    <div class="starter-row">
-      <a class="starter-btn" href="#" aria-label="Start here — Curio starter pack (coming soon)">
-        <span class="price-chip">$9</span>
-        <span><em>start here &mdash;</em> the starter pack</span>
-        <span class="arr">↗</span>
-      </a>
-      <span class="starter-note">PDF + CLAUDE.md template + starter skills. Gumroad link drops here when it&rsquo;s ready.</span>
+    <div class="starter-row two-up">
+      <div class="starter-option">
+        <a class="starter-btn" href="https://ryanoconnor5.gumroad.com/l/curio_firstHour" target="_blank" rel="noopener" aria-label="The First Hour — $9 starter">
+          <span class="price-chip">$9</span>
+          <span><em>the</em> first hour</span>
+          <span class="arr">↗</span>
+        </a>
+        <span class="starter-sub">smallest possible first push</span>
+      </div>
+      <div class="starter-option">
+        <a class="starter-btn" href="https://ryanoconnor5.gumroad.com/l/curio_fieldguide" target="_blank" rel="noopener" aria-label="The Field Guide — $25">
+          <span class="price-chip">$25</span>
+          <span><em>the</em> field guide</span>
+          <span class="arr">↗</span>
+        </a>
+        <span class="starter-sub">the longer version, more depth</span>
+      </div>
     </div>
   </article>
 </section>
