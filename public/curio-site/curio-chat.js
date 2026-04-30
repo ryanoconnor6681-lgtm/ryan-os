@@ -157,7 +157,7 @@
       '  <span class="cb-toggle-icon">✦</span>',
       '  <span class="cb-toggle-label">Ask</span>',
       '</button>',
-      '<div class="cb-panel" role="dialog" aria-label="Curio chat" hidden>',
+      '<div class="cb-panel" role="dialog" aria-label="Curio chat">',
       '  <div class="cb-head">',
       '    <span class="cb-title">Ask Curio</span>',
       '    <button class="cb-close" aria-label="Close chat">✕</button>',
@@ -180,24 +180,32 @@
     const form = bug.querySelector('.cb-form');
     const input = bug.querySelector('.cb-input');
 
+    // Buttons inside the bug are NOT submit buttons — be explicit so they
+    // don't accidentally trigger form submission in any browser.
+    toggle.setAttribute('type', 'button');
+    closeBtn.setAttribute('type', 'button');
+
     const session = createSession();
 
     function open() {
-      panel.hidden = false;
       bug.classList.add('is-open');
       toggle.setAttribute('aria-expanded', 'true');
       setTimeout(function () { input.focus(); }, 50);
     }
     function close() {
-      panel.hidden = true;
       bug.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
     }
 
-    toggle.addEventListener('click', function () {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
       if (bug.classList.contains('is-open')) close(); else open();
     });
-    closeBtn.addEventListener('click', close);
+    closeBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      close();
+    });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && bug.classList.contains('is-open')) close();
     });
