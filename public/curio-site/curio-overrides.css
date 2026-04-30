@@ -495,14 +495,22 @@
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(243, 237, 225, 0.42);
+  color: #a8453a;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   pointer-events: none;
-  transition: color 0.2s;
+  opacity: 0.78;
+  transition: opacity 0.2s, color 0.2s;
+  animation: curio-flip-hint-pulse 2.6s ease-in-out infinite;
 }
-.fallacy:hover .f-flip-hint { color: rgba(243, 237, 225, 0.78); }
+.fallacy:hover .f-flip-hint { opacity: 1; color: #c5564a; }
+.fallacy .f-back .f-flip-hint { color: rgba(243, 237, 225, 0.65); animation: none; }
+@keyframes curio-flip-hint-pulse {
+  0%, 100% { opacity: 0.62; }
+  50%      { opacity: 0.95; }
+}
 .fallacy .f-flip-hint .arr {
   display: inline-block;
   transition: transform 0.5s;
