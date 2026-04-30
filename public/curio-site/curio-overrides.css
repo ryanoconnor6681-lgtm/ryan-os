@@ -1319,6 +1319,24 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   background: transparent; /* sits on the same navy stage as the acts */
 }
 
+/* ───────────────────────────────────────────────────────────────────────
+   5th fallacy — "Yesterday" — capstone below the row of four.
+   Lives inside .fallacy-row (4-col grid in landing.css). The 5th item
+   would naturally wrap to row 2 col 1; we span it across all columns
+   and center it at the original card width so it reads as a capstone
+   under the four — the meta-block.
+   ─────────────────────────────────────────────────────────────────────── */
+@media (min-width: 760px) {
+  .fallacy-row > .fallacy-capstone {
+    grid-column: 1 / -1;
+    justify-self: center;
+    /* Same width as one of the four columns: (100% - 3 gaps) / 4 */
+    width: calc((100% - 24px * 3) / 4);
+    margin-top: 12px;
+  }
+}
+/* On smaller screens, let it flow naturally with the others */
+
 /* Cream parchment panel — defensively forces visibility in case
    landing.css's global .reveal { opacity: 0 } somehow propagates. */
 .offer-panel {
