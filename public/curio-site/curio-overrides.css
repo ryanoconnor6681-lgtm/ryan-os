@@ -1328,17 +1328,30 @@ body[data-deck="fan"] .deck-controls .deck-helper {
 @media (min-width: 1024px) {
   .fallacy-row {
     grid-template-columns: repeat(5, 1fr) !important;
-    gap: 18px !important;
+    gap: 26px !important;
+    /* Escape compass-stage's max-width: 1180px parent so the row can
+       breathe at desktop. Capped at 1500px and 100vw - 64px so it
+       never bleeds off-screen. */
+    max-width: min(1500px, calc(100vw - 64px)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
-  /* Kill the per-card rotations from landing.css — at 5-up the ±1°
-     fan causes corner overlap between neighbors. Keep cards upright. */
-  .fallacy-row .fallacy,
-  .fallacy-row .fallacy:nth-child(1),
-  .fallacy-row .fallacy:nth-child(2),
-  .fallacy-row .fallacy:nth-child(3),
-  .fallacy-row .fallacy:nth-child(4),
-  .fallacy-row .fallacy:nth-child(5) {
-    transform: none !important;
+  /* Replace landing.css's per-card rotation with a vertical stagger.
+     No rotation (corners would overlap at this gap) — just a small
+     up/down offset on alternating cards so they don't read as a
+     single locked block. */
+  .fallacy-row .fallacy:nth-child(1) { transform: translateY(0)    !important; }
+  .fallacy-row .fallacy:nth-child(2) { transform: translateY(14px) !important; }
+  .fallacy-row .fallacy:nth-child(3) { transform: translateY(4px)  !important; }
+  .fallacy-row .fallacy:nth-child(4) { transform: translateY(14px) !important; }
+  .fallacy-row .fallacy:nth-child(5) { transform: translateY(0)    !important; }
+  /* Stronger shadow so each card reads as distinct on the navy */
+  .fallacy-row .fallacy {
+    box-shadow:
+      0 38px 64px -28px rgba(0, 0, 0, 0.85),
+      0 16px 28px -12px rgba(0, 0, 0, 0.55),
+      0 1px 0 rgba(255, 255, 255, 0.4) inset,
+      0 0 0 1px rgba(70, 55, 30, 0.22) !important;
   }
   .fallacy-row .fallacy {
     padding: 18px 12px 14px !important;
