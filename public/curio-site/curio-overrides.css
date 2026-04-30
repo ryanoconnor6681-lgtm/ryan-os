@@ -1223,3 +1223,141 @@ body[data-deck="fan"] .deck-controls .deck-helper {
     height: 70vh;
   }
 }
+
+/* ───────────────────────────────────────────────────────────────────────
+   Curio Landing — "want more?" masthead link + offer panel
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* Small mono link in the masthead, scrolls to #act-more */
+.masthead-more {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #d49d3a;
+  padding: 6px 12px;
+  border: 1px solid rgba(212, 157, 58, 0.45);
+  border-radius: 999px;
+  margin: 0 14px;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+  white-space: nowrap;
+}
+.masthead-more:hover {
+  background: #d49d3a;
+  color: #14182a;
+  border-color: #d49d3a;
+}
+
+/* Offer section anchor target — sits below the hub act on the landing */
+.offer-section {
+  position: relative;
+  padding: 96px 24px 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent; /* sits on the same navy stage as the acts */
+}
+
+/* Cream parchment panel */
+.offer-panel {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  background: #f3ede5;
+  color: #1a1d2e;
+  padding: 56px 56px 48px;
+  border-radius: 4px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(168, 69, 58, 0.12);
+}
+.offer-panel::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(168, 69, 58, 0.18);
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+/* Corner +'s — same vocabulary as fallacy cards */
+.offer-corners > span {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(currentColor, currentColor) center/100% 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center/1px 100% no-repeat;
+  color: rgba(168, 69, 58, 0.55);
+  pointer-events: none;
+}
+.offer-corners > span:nth-child(1) { top: 18px; left: 18px; }
+.offer-corners > span:nth-child(2) { top: 18px; right: 18px; }
+.offer-corners > span:nth-child(3) { bottom: 18px; left: 18px; }
+.offer-corners > span:nth-child(4) { bottom: 18px; right: 18px; }
+
+.offer-panel .p-tag {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #a8453a;
+  margin-bottom: 14px;
+}
+
+.offer-panel .offer-title {
+  font-family: 'Newsreader', serif;
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.18;
+  margin: 0 0 26px;
+  color: #1a1d2e;
+}
+.offer-panel .offer-title em {
+  font-style: italic;
+  color: #a8453a;
+}
+
+.offer-panel .offer-body {
+  font-family: 'Newsreader', serif;
+  font-size: 16px;
+  line-height: 1.62;
+  margin: 0 0 18px;
+  color: #2c2f3e;
+}
+.offer-panel .offer-body strong { color: #1a1d2e; font-weight: 600; }
+.offer-panel .offer-body em { font-style: italic; color: #a8453a; }
+.offer-panel .offer-body a {
+  color: #a8453a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.offer-panel .offer-body a:hover { color: #c5564a; }
+
+/* Inside the cream panel, the starter row needs slight adjustments —
+   the starter-btn is styled for the navy stage (cream chip on dark btn).
+   On cream paper we tighten the note color. */
+.offer-panel .starter-row {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.offer-panel .starter-note {
+  color: rgba(26, 29, 46, 0.62);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .masthead-more { display: none; } /* let the chip yield on tight viewports */
+  .offer-section { padding: 72px 16px 100px; }
+  .offer-panel { padding: 40px 28px 36px; }
+  .offer-panel .offer-title { font-size: 26px; }
+}
