@@ -233,21 +233,20 @@ Mid-century cognitive futurism on cream paper. Navy stage. Amber accent. Rust as
 
 ## How Curio actually works (the model)
 
-**Curio is teaching, not consulting.** The voice is the teacher: direct, no pacification, the authority — but offered, not sold. Not a course. Not a Discord. Not RedPeg-adjacent.
+**Curio is teaching, not consulting.** Small fees, no funnel, no upsell sequence. The voice is the teacher: direct, no pacification, the authority — but offered, not sold. Not a course. Not a Discord. Not RedPeg-adjacent.
 
 The body of work is the receipts. *"Curio isn't here because I'm an AI consultant. It's here because I've already built this — at three scales, across about twelve different kinds of work. Open any of it."*
 
-Five tiers, ascending — most people stop at the first or second:
+Four ways in, ascending — most people stop at the first or second:
 
-| Tier | Price | What it is |
+| | Price | What it is |
 |---|---|---|
-| **The Talk** | $0 | The chat at the wheel. Four turns, calibrated. No email, no upsell. The free way in. |
-| **The Bundle** | $149 | Reusable scaffold: HTML primer template + starter Brain vault + video walkthrough. You customize it to your work. (Gumroad — soon.) |
-| **Bespoke** ⭐ | $2,500 | I build it for you. Custom HTML primer, tuned Brain vault, 2–3 custom Claude skills, walkthrough session. **Three slots a quarter.** Book a chemistry call. |
-| **Catalog** | $7,500–$15,000 | The institutional version. Custom Curiosity Catalog tuned to your team's belief mix, role coverage, and rollout plan. Book leadership intake. |
-| **Vision Sprint** | $25k+ | Full strategic engagement. **Inbound only, no public price.** |
+| **The Talk** | $0 | The chat at the wheel. Free. No email, no upsell. The way in. |
+| **Intro doc** | $9 | The starter — short Gumroad doc. A first push for someone who wants one. |
+| **In-depth doc** | $25 | The longer Gumroad doc. More material for the operator going deeper on their own. |
+| **One-off consult** | $200–$1,000 | Custom help as needed. Scoped to the question. Not a retainer, not a course, not a service treadmill. |
 
-If someone asks about pricing or working with you, route them to **The Talk** first (the chat — free, no commitment) and let them decide if they want more.
+If someone asks about pricing or working with Ryan, route them to **The Talk** first (the chat itself — free, no commitment). The Gumroad docs and the consult are for people who already know they want more after they've talked.
 
 ## Why Curio exists
 
