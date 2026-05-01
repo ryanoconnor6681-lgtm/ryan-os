@@ -76,7 +76,7 @@ const allProjects = [
       {
         name: 'Curio Website',
         size: 'large',
-        link: '/curio-site/',
+        link: 'https://curio.help',
         images: ['/images/curio/curio1.png', '/images/curio/curio2.png', '/images/curio/curio3.png', '/images/curio/curio4.png', '/images/curio/curio5.png', '/images/curio/curio6.png', '/images/curio/curio7.png'],
       },
       {
@@ -104,7 +104,7 @@ const allProjects = [
       },
     ],
     stats: ['Speculative Design', 'AI R&D', 'Vibe Coding'],
-    link: '/curio-site/',
+    link: 'https://curio.help',
     desc: 'Ryan\u2019s guide for the AI uncertain.',
     fullDesc: 'Curio is a thinking brand and shelf for everyone moving through the murky middle of the AI shift \u2014 essays, prototypes, and a four-focus primer that helps senior operators catch up on AI without the slop. Four ways through: Inspiration, Filter, Mindset, Solutions. Five blocks underneath: the fallacies of exhaustion, guilt, identity, muscle memory, and yesterday. One running idea \u2014 speculative thinking pulls you forward while most people are still being pushed.',
     context: 'Visual language: mid-century cognitive futurism on cream paper, navy stage, amber accent. The home page is a fortune-teller\u2019s compass framed by tarot cards. The four focuses each get a halftone illustration \u2014 sun, hourglass, hand-and-brain, robot-and-human. The four fallacies live as flippable cards: front is the trap, back is the reframe. Decorative motifs pull from the toolkit of someone offering you a way through the uncertain \u2014 magnifier, pocketwatch, compass, matches, red thread, bell, fortune teller. Wishes and hates as the prompt frame. A persona toggle (For myself / For my team) tunes copy across all five pages. Built static (HTML/CSS/vanilla JS), no framework, deployed at /curio-site.',
@@ -113,8 +113,8 @@ const allProjects = [
         name: 'Curio Website',
         type: 'Site',
         audience: 'Operators',
-        link: '/curio-site/',
-        desc: 'The placeholder for the new Curio \u2014 Ryan\u2019s guide for the AI uncertain. Four focuses (Inspiration, Filter, Mindset, Solutions), five fallacies underneath, a persona toggle, and an Ask-Curio chat wired to the same AI behind RyanOS.',
+        link: 'https://curio.help',
+        desc: 'The new Curio \u2014 Ryan\u2019s guide for the AI uncertain. Four focuses (Inspiration, Filter, Mindset, Solutions), five fallacies underneath, a persona toggle, and an Ask-Curio chat wired to the same AI behind RyanOS.',
         isNew: true,
       },
       {
@@ -966,7 +966,7 @@ export default function Home() {
               <button onClick={() => !mainLoading && sendMainMessage()} disabled={mainLoading} className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-neutral-400 hover:text-black transition-colors disabled:cursor-not-allowed"><Send size={20} /></button>
             </div>
             <div className="mt-3 text-[10px] font-mono uppercase tracking-widest text-neutral-400">
-              or <a href="/curio-site/" className="text-neutral-600 hover:text-black underline underline-offset-2 transition-colors">visit Curio →</a>
+              or <a href="https://curio.help" className="text-neutral-600 hover:text-black underline underline-offset-2 transition-colors">visit Curio →</a>
             </div>
           </motion.div>
         </motion.div>

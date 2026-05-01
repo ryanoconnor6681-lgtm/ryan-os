@@ -1,0 +1,21 @@
+{
+  "rewrites": [
+    {
+      "source": "/((?!api/|_next/).*)",
+      "has": [{ "type": "host", "value": "curio.help" }],
+      "destination": "/curio-site/$1"
+    },
+    {
+      "source": "/((?!api/|_next/).*)",
+      "has": [{ "type": "host", "value": "www.curio.help" }],
+      "destination": "/curio-site/$1"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/curio-site",
+      "destination": "/curio-site/",
+      "permanent": false
+    }
+  ]
+}
