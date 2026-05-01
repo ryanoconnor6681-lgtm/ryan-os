@@ -11,21 +11,24 @@
       "destination": "/api/:path*"
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "curio.help" }],
-      "destination": "/curio-site/:path*"
+      "destination": "/curio-site/index.html"
     },
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "www.curio.help" }],
-      "destination": "/curio-site/:path*"
-    }
-  ],
-  "redirects": [
+      "destination": "/curio-site/index.html"
+    },
     {
-      "source": "/curio-site",
-      "destination": "/curio-site/",
-      "permanent": false
+      "source": "/:path+",
+      "has": [{ "type": "host", "value": "curio.help" }],
+      "destination": "/curio-site/:path+"
+    },
+    {
+      "source": "/:path+",
+      "has": [{ "type": "host", "value": "www.curio.help" }],
+      "destination": "/curio-site/:path+"
     }
   ]
 }
