@@ -407,9 +407,13 @@
     align-items: center;
     justify-content: center;
     margin: 12px 0;
-    font-size: 80px;
-    color: var(--rust);
-    opacity: 0.7;
+    min-height: 0;
+  }
+  .card-front .card-icon img {
+    max-width: 86%;
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
   }
   .card-front .card-title {
     font-family: 'Newsreader', serif;
@@ -848,7 +852,7 @@
     exhaustion: {
       title: "The Fallacy of <em>Exhaustion</em>",
       quote: "\"I don't have time.\"",
-      icon: '⏳',
+      icon: '../assets/fallacy-exhaustion.png',
       heading: "You're stuck on The Fallacy of <em>Exhaustion</em>.",
       body: [
         "You keep telling yourself this — and it's true, in the way most expensive lies are true. You don't have time. <strong>But the time is exactly the thing AI gives back, the moment you let it.</strong> Saying <em>\"I don't have time to learn AI\"</em> is like saying <em>\"I don't have time to learn to drive — I have to keep walking everywhere.\"</em> The tool <em>is</em> the time.",
@@ -863,7 +867,7 @@
     guilt: {
       title: "The Fallacy of <em>Guilt</em>",
       quote: "\"Is this cheating?\"",
-      icon: '⚖',
+      icon: '../assets/fallacy-guilt.png',
       heading: "You're stuck on The Fallacy of <em>Guilt</em>.",
       body: [
         "A calculator was cheating at math. Until it wasn't. Google was cheating at memory. Until it wasn't. <strong>The people running the future stopped asking this question two years ago.</strong> The real question isn't whether AI is cheating — it's whether you're <em>still useful</em> after the room stops calling it that.",
@@ -878,7 +882,7 @@
     identity: {
       title: "The Fallacy of <em>Identity</em>",
       quote: "\"I'm the [Excel] person.\"",
-      icon: '✦',
+      icon: '../assets/fallacy-identity.png',
       heading: "You're stuck on The Fallacy of <em>Identity</em>.",
       body: [
         "Here's the move that gets missed: <strong>you think AI threatens your whole <em>job</em>. It doesn't. It threatens parts of your <em>role</em>.</strong> The execution layer — the doing, the typing, the rendering, the first-draft-from-scratch. That part moves. The <em>job</em> — your taste, your judgment, your relationships, your sense of when something is <em>done</em> — stays. That was always the real job. The craft was the ladder, not the destination.",
@@ -894,7 +898,7 @@
     muscle_memory: {
       title: "The Fallacy of <em>Muscle Memory</em>",
       quote: "\"Some day I'll be good at AI.\"",
-      icon: '◷',
+      icon: '../assets/fallacy-muscle.png',
       heading: "You're stuck on The Fallacy of <em>Muscle Memory</em>.",
       body: [
         "<strong>Two shapes of the same fallacy. Both wrong in the same way.</strong>",
@@ -911,7 +915,7 @@
     yesterday: {
       title: "The Fallacy of <em>Yesterday</em>",
       quote: "\"I tried it 8 months ago.\"",
-      icon: '⌚',
+      icon: '../assets/yesterdayfallacy.png',
       heading: "You're stuck on The Fallacy of <em>Yesterday</em>.",
       body: [
         "<strong>Three shapes of the same bias.</strong>",
@@ -1118,7 +1122,12 @@
     // Front of card
     $('result-card-title').innerHTML = r.title;
     $('result-card-quote').textContent = r.quote;
-    $('result-icon').textContent = r.icon;
+    // icon is now an image path; fallback to a glyph for the "none" result
+    if (r.icon && r.icon.endsWith('.png')) {
+      $('result-icon').innerHTML = `<img src="${r.icon}" alt="" />`;
+    } else {
+      $('result-icon').innerHTML = `<span style="font-size:64px;color:var(--rust);opacity:0.8;">${r.icon || '★'}</span>`;
+    }
 
     // Result body
     const bodyHtml = `
