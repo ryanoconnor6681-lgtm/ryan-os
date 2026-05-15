@@ -761,6 +761,21 @@
   gap: 6px;
 }
 .starter-option .starter-btn { margin: 0; }
+
+/* The Quiz button — the free entry point. Subtle amber chip differentiates it
+   from the dollar-priced docs without making the button itself look different. */
+.starter-btn.quiz-btn {
+  background: #d49d3a;
+  color: #14182a;
+}
+.starter-btn.quiz-btn:hover { background: #e0ad4d; }
+.starter-btn .price-chip.free {
+  background: #14182a;
+  color: #f3ede5;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
 .starter-sub {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
