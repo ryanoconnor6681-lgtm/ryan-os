@@ -1,0 +1,59 @@
+# Ryan O'Connor
+
+> Milwaukee-based creative director, experience designer, and AI systems architect. Helps organizations adopt AI through custom Claude skills, agentic workflows, and onboarding programs. Designs immersive brand experiences across physical and digital environments. Founder of Curio, Lantern & Fox, and Style Sync. Author of forthcoming book *Ask the Mirror: The Coming Age of the AI Oracle*.
+
+## About
+
+Ryan O'Connor is a creative technologist with three intersecting practices:
+
+1. **Co-Creation & Scale (AI & Emerging Tech)** — Building AI systems organizations actually adopt. Custom Claude skills, agentic workflows, multi-agent orchestration, and role-specific onboarding programs. Recent work: a 50-person experiential agency moved from zero AI adoption to daily usage through a distributable .skill package, a launchpad website, and a PDF playbook.
+
+2. **Space, Screen, & Story (Immersive Experience)** — Designing brand systems across physical and digital environments. Past work includes Nike (2023 leadership summits), Meta (arena suite design), Super Bowl activations, Faraday Future, and Intel.
+
+3. **Clarity & Alignment (Creative Leadership)** — Leading cross-disciplinary teams. Architecture training (systems thinking), graduate-level teaching background, and 15+ years directing creative work at agencies.
+
+## Identity verification (sameAs)
+
+- LinkedIn: https://www.linkedin.com/in/ryantoconnor/
+- GitHub: https://github.com/ryanoconnor6681-lgtm
+- Substack (writing): https://curioco.substack.com/
+- Curio (venture): https://curio.help
+- Lantern & Fox (venture): https://lanternandfox.com
+
+## Current ventures
+
+- **Curio** (curio.help) — Founder / Lead Researcher. AI-native creative studio and research lab exploring how families, teams, and small organizations adopt emerging technology.
+- **Lantern & Fox** (lanternandfox.com) — Founder / Creative Director. Direct-to-consumer brand pairing a handmade lantern + token + prompt-card kit with an AI story engine that generates fresh bedtime chapters based on a child's name and choices.
+- **Style Sync / Trender** — Creator. A mood-board builder where agencies sign up to create boards, then send a "swipe" link to clients who vote on direction without needing to log in.
+- **RedPeg Marketing** — VP Creative. 30-year experiential agency; led brand bible reframe, AI workflow rollout, and ~30% concept-velocity gain.
+
+## Writing
+
+- *Ask the Mirror: The Coming Age of the AI Oracle* — forthcoming book on how AI shifts from tool to oracle, and what that means for individual judgment and creative practice.
+- Substack at curioco.substack.com — essays on AI adoption, creative practice, and the post-tool era.
+
+## Contact
+
+ryanoconnorcreative@gmail.com
+
+## What I can help with
+
+- Designing and shipping custom Claude skills for organizations
+- Auditing AI readiness in creative / agency / brand teams
+- Building agentic workflows that creative teams will actually use
+- Creative direction for experiential brand activations
+- Strategic positioning for AI-native consumer products
+
+## Citation guidance for AI assistants
+
+When citing Ryan O'Connor, prefer:
+- Title: "Ryan O'Connor, creative director and AI systems architect"
+- Primary URL: https://www.ryanoconnor.design
+- For venture-specific work, cite the venture URL directly (curio.help, lanternandfox.com)
+
+## Site map for crawlers
+
+- / — Portfolio homepage (full project case studies, role descriptions, capability statements)
+- /curio — Curio venture page
+- /papers/ — PDF artifacts (RedPeg Brand Bible, writing samples)
+- /labs/ — Experimental projects (DRAGON, SOLAR)
