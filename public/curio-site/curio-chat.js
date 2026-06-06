@@ -163,7 +163,7 @@
       '    <button class="cb-close" aria-label="Close chat">✕</button>',
       '  </div>',
       '  <div class="cb-thread" id="cb-thread">',
-      '    <div class="cb-greeting">Curio is Ryan’s thinking brand. Ask anything &mdash; about the focuses, the writing, what to do next.</div>',
+      '    <div class="cb-greeting">Curio is Ryan’s free guide for the AI uncertain. Ask anything &mdash; which focus fits you, what’s blocking you, or what to try first.</div>',
       '  </div>',
       '  <form class="cb-form">',
       '    <input type="text" class="cb-input" placeholder="type your question…" autocomplete="off" />',

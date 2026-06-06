@@ -1316,8 +1316,48 @@ body[data-deck="fan"] .deck-controls .deck-helper {
 .masthead .masthead-right .masthead-more {
   margin-left: 0;
 }
+/* About link — secondary pill, quieter cream tone so "want more?"
+   stays the primary amber CTA. */
+.masthead .masthead-about,
+.masthead-about {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  z-index: 50;
+  pointer-events: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(243, 237, 225, 0.82) !important;
+  background: transparent;
+  padding: 7px 14px;
+  border: 1px solid rgba(243, 237, 225, 0.3);
+  border-radius: 999px;
+  margin-left: auto;          /* pushes the about + more pair to the right on the landing */
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.18s;
+  white-space: nowrap;
+}
+.masthead .masthead-about:hover,
+.masthead-about:hover {
+  background: rgba(243, 237, 225, 0.12);
+  color: #f3ede5 !important;
+  border-color: rgba(243, 237, 225, 0.6);
+  transform: translateY(-1px);
+}
+/* When about precedes want-more on the landing, they sit together at the
+   right with a gap (about carries the auto-margin; more sits flush after). */
+.masthead-about + .masthead-more { margin-left: 12px !important; }
+/* Inside the focus-page .masthead-right flex wrapper, the gap handles
+   spacing — neither pill needs an auto margin. */
+.masthead .masthead-right .masthead-about { margin-left: 0; }
+
 @media (max-width: 720px) {
-  .masthead-more {
+  .masthead-more,
+  .masthead-about {
     padding: 5px 10px;
     font-size: 10px;
     letter-spacing: 0.12em;
