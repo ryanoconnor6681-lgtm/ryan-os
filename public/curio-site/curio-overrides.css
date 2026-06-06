@@ -1543,3 +1543,16 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   color: var(--curio-amber);
   font-weight: 400;
 }
+
+/* Sub-line under the "What holds you back from AI" block header —
+   tells a newcomer how to read the cards before they hit them. */
+.act.hub .blocks-header .blocks-sub {
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: clamp(13px, 1.3vw, 15px);
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(243, 237, 225, 0.7);
+  max-width: 34em;
+  margin: 12px auto 0;
+  text-align: center;
+}
