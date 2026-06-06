@@ -1556,3 +1556,15 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   margin: 12px auto 0;
   text-align: center;
 }
+
+/* About page — section subheads inside the prose flow */
+.prose .prose-h2 {
+  font-family: 'Newsreader', 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.2;
+  color: var(--curio-amber, #d49d3a);
+  margin: 1.8em 0 0.6em;
+  letter-spacing: -0.005em;
+}
