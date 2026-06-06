@@ -1521,3 +1521,25 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   .offer-panel { padding: 40px 28px 36px; }
   .offer-panel .offer-title { font-size: 26px; }
 }
+
+/* ───────────────────────────────────────────────────────────────────────
+   Hero "what is this" explainer lines — the plain-English answer that
+   lands the poetic cold-open. Smaller + lighter than the display lines
+   so they read as the clarifying layer, not another punch line.
+   ─────────────────────────────────────────────────────────────────────── */
+.hero-line.hero-what {
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 300;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+  color: rgba(243, 237, 225, 0.82);
+  font-variation-settings: normal;
+  max-width: 30em;
+}
+.hero-line.hero-what:first-of-type { margin-top: 1.5em; }
+.hero-line.hero-what em {
+  font-style: normal;
+  color: var(--curio-amber);
+  font-weight: 400;
+}
