@@ -8,7 +8,7 @@ Ryan O'Connor is a creative technologist with three intersecting practices:
 
 1. **Co-Creation & Scale (AI & Emerging Tech)** — Building AI systems organizations actually adopt. Custom Claude skills, agentic workflows, multi-agent orchestration, and role-specific onboarding programs. Recent work: a 50-person experiential agency moved from zero AI adoption to daily usage through a distributable .skill package, a launchpad website, and a PDF playbook.
 
-2. **Space, Screen, & Story (Immersive Experience)** — Designing brand systems across physical and digital environments. Past work includes Nike (2023 leadership summits), Meta (arena suite design), Super Bowl activations, Faraday Future, and Intel.
+2. **Space, Screen, & Story (Immersive Experience)** — Designing brand systems across physical and digital environments. Past work includes Nike CVTS (2026 immersive learning installation at Nike World Headquarters, now expanding to Europe and Greater China), Nike leadership summits (2023), Meta (arena suite design), Super Bowl activations, Faraday Future, and Intel.
 
 3. **Clarity & Alignment (Creative Leadership)** — Leading cross-disciplinary teams. Architecture training (systems thinking), graduate-level teaching background, and 15+ years directing creative work at agencies.
 

@@ -19,6 +19,7 @@ Ryan O'Connor is VP of Creative & Innovation at RedPeg Marketing — a 15-year e
 
 # What he's actively working on (April 2026)
 
+- **Nike CVTS / Home Court** — immersive learning installation at Nike World Headquarters, built with Nike's Executive Business Planning team. Translates the new CEO's 70-page Sport Offense business model into a facilitated learning experience for GMs. Wrapped at WHQ March 2026; a tiered deployment framework is taking it to Nike's European HQ (Netherlands) and Shanghai (Greater China). His flagship proof of executive L&D work: translating complex business goals into immersive experience.
 - **RedPeg Brand Bible 2026** — anchored in "AI Thinks It. We Build It." As AI commoditizes creative strategy, RedPeg's durable advantage is the physical execution layer between brief and reality. Three named service lanes: Live Event Production, Employee Experience (B2E), Music Partnerships through in-house subsidiary Deep Cuts Entertainment.
 - **Curio Studio** — Ryan's umbrella for AI-native projects: The Ladder That Isn't (live wealth dashboard), Style Sync / Trender (AI moodboard tool, live), RedPeg Creative Pricing & Scoping Tool (internal), Career Manager (personal job-search OS).
 - **Lantern & Fox** — D2C heirloom story kit launching 2027, lanternandfox.com.
@@ -78,6 +79,43 @@ If a visitor asks about hiring Ryan or working with the agency: route them to Re
 // Add a new project: add an entry here, push, done. No frontend dependency.
 
 const PROJECT_CONTEXTS: Record<string, string> = {
+  cvts: `# Currently viewing: Nike CVTS (Creating Value Through Sport / Home Court)
+
+An immersive learning installation at Nike World Headquarters, built in partnership with Nike's **Executive Business Planning (EBP) team**. Wrapped at WHQ March 2026. Now expanding abroad — a tiered deployment framework takes it to Nike's European HQ (Netherlands) and Shanghai (Greater China).
+
+## What this project actually is
+
+**Executive learning & development, delivered as a room.** The new CEO set a new operating vision — the **Sport Offense** business model — captured in a 70-page deck that every GM worldwide needed to internalize. Ryan worked directly with the EBP team to translate that deck into a physical, facilitated learning experience called **Home Court**. The mission line from the program: every Sport & Marketplace team could step inside Nike's Athlete Playbook — see how Nike drives revenue growth, expands margin, and captures share.
+
+This is the credential the project proves: **sitting with an executive team and translating complex business goals into immersive experience.** Not decoration — pedagogy. The deck's logic became the room's architecture.
+
+## The room (the physical chapters)
+
+- **Storytelling wall** — an orange ledge wall running the length of the room (the Nike Mind center experience), the non-negotiable anchor
+- **Four athlete chapters** — Uniform, Experience, Promise, Mindset — each a station with prints, screens, and objects
+- **Value Scoreboard** — the growth-company station, making the financial scoreboard physical
+- **Athlete Promise / 120-Week Challenge** — the centerpiece interactive (see below)
+- **Locker moments** — including the Kipchoge locker with race-day timing clock
+- **Tablet second screen** — swipe-through companion each GM carries between stations
+- **Commitment wall** — the exit moment
+- **Field guide takeaway** — every GM leaves with a pocket Sport Offense field guide: finance translated into plays, simple formulas for revenue, margin, and share with the levers a GM can pull
+
+## The 120-Week Challenge (the AI story)
+
+A digital simulation Ryan **designed and prototyped with AI** — iterating the working HTML prototypes (Athlete Promise v6 through v13, the scoreboard, the journey flow) with Claude before production. How it plays: a GM steps to the touch screen, makes real product and marketplace decisions across a 120-week launch timeline, and a live dashboard moves with every choice — revenue, margin, market share, time to launch. At the end, a summary screen compares their run against other GMs' decisions, built as a discussion trigger for the facilitated session.
+
+## Facilitation layer
+
+The room runs as a teachable session, not a self-guided gallery. Ryan wrote facilitator guide cards (Say / Do / Ask format with conversational scripts on the back) so the EBP team can run cohorts through the room consistently.
+
+## The geo rollout (current phase)
+
+A four-tier deployment framework — Full Replica, Reduced Footprint, Compact Kiosk, Away Game/Virtual — designed around space, budget, and logistics per market. Recommendation: Reduced Footprint for EHQ Netherlands, Compact Kiosk for Shanghai. Storytelling wall and Value Scoreboard stay at full fidelity in every tier.
+
+## How to frame it if asked
+
+Lead with the L&D credential: executive-team partnership, business-model translation, facilitated learning, measurable takeaways. The craft (fabrication, volt-and-orange design system, AI-built simulation) is the proof, not the headline. Distinct from "Leading Nike" (the 2023 VP summit with the 400-rod sculpture) — same client, different muscle.`,
+
   'lantern-fox': `# Currently viewing: Lantern & Fox
 
 A D2C heirloom-quality kit of beautifully made physical objects, paired with an AI story engine that generates a brand-new, custom adventure every time it's opened. **The kit doesn't change. The story does.** Tagline: *Where Imagination Leads.* Live demo at lanternandfox.com. Phase 1 launch in 2026.
@@ -366,6 +404,11 @@ The umbrella for Ryan's personal writing — essays, thought leadership, strateg
 // The portfolio's project IDs (from app/page.tsx) are also mapped here
 // so the frontend can pass `project.id` verbatim.
 const SLUG_ALIASES: Record<string, string> = {
+  // Nike CVTS / Home Court
+  'nike-cvts': 'cvts',
+  'home-court': 'cvts',
+  homecourt: 'cvts',
+  'creating-value-through-sport': 'cvts',
   // Lantern & Fox
   lantern: 'lantern-fox',
   lanternfox: 'lantern-fox',
