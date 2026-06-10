@@ -1059,6 +1059,23 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   100% { transform: translate(-50%, -48%) scale(1.04); }
 }
 
+/* The chat label above the strip sits on the crystal-ball art; give the
+   thin mono caps their own chip so they survive the animated backdrop. */
+.ask-label { position: relative; z-index: 2; }
+.ask-label .glyph {
+  background: rgba(11, 17, 32, 0.78);
+  padding: 7px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(212, 157, 58, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* Firm up the strip so the screen-blended ball doesn't wash the placeholder. */
+.ask-strip {
+  background: rgba(11, 17, 32, 0.85);
+}
+
 /* ───────────────────────────────────────────────────────────────────────
    Curio chat — inline thread + floating bug
    Wired by curio-chat.js. Posts to /api/chat (project: "curio").
