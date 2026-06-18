@@ -81,28 +81,38 @@ If a visitor asks about hiring Ryan or working with the agency: route them to Re
 const PROJECT_CONTEXTS: Record<string, string> = {
   cvts: `# Currently viewing: Nike CVTS (Creating Value Through Sport / Home Court)
 
-An immersive learning installation at Nike World Headquarters, built in partnership with Nike's **Executive Business Planning (EBP) team**. Wrapped at WHQ March 2026. Now expanding abroad — a tiered deployment framework takes it to Nike's European HQ (Netherlands) and Shanghai (Greater China).
+A 1,680 sq ft immersive learning installation at Nike World Headquarters (Court 21), built in partnership with Nike's **Executive Business Planning (EBP) team**. Wrapped at WHQ. Now expanding abroad — a tiered deployment framework takes it to Nike's European HQ (Netherlands) and Shanghai (Greater China).
+
+## The impact (lead with this)
+
+Post-program survey of **134 GMs**:
+- **4.84 / 5** — good use of time, would recommend to a peer
+- **4.77 / 5** — content was relevant and provided new insights
+- **4.41 / 5** — learning will inform day-to-day team decisions
+- **~100%** would recommend it to a peer
+
+The simulations were the single most praised element. Real quotes: *"Honestly one of, if not the best, information session I have participated in during my time at Nike."* and *"This training should be part of every new Nike employee's onboarding process."* The top ask was simply more time and wider reach — APLA, GC, and EMEA attendees all asked for it in their own markets.
 
 ## What this project actually is
 
-**Executive learning & development, delivered as a room.** The new CEO set a new operating vision — the **Sport Offense** business model — captured in a 70-page deck that every GM worldwide needed to internalize. Ryan worked directly with the EBP team to translate that deck into a physical, facilitated learning experience called **Home Court**. The mission line from the program: every Sport & Marketplace team could step inside Nike's Athlete Playbook — see how Nike drives revenue growth, expands margin, and captures share.
+**Executive learning & development, delivered as a room.** The new CEO set a new operating vision — the **Sport Offense** business model — captured in a 70-page deck that every GM worldwide needed to internalize. Ryan worked directly with the EBP team to translate that deck into a physical, facilitated learning experience called **Home Court**. The mission line: every Sport & Marketplace team could step inside Nike's Athlete Playbook and see how Nike drives revenue growth, expands margin, and captures share.
 
 This is the credential the project proves: **sitting with an executive team and translating complex business goals into immersive experience.** Not decoration — pedagogy. The deck's logic became the room's architecture.
 
-## The room (the physical chapters)
+## The room
 
+Six core lessons across eight stations, run in facilitated sessions of 15 to 20 people (45 to 60 minutes):
 - **Storytelling wall** — an orange ledge wall running the length of the room (the Nike Mind center experience), the non-negotiable anchor
-- **Four athlete chapters** — Uniform, Experience, Promise, Mindset — each a station with prints, screens, and objects
-- **Value Scoreboard** — the growth-company station, making the financial scoreboard physical
-- **Athlete Promise / 120-Week Challenge** — the centerpiece interactive (see below)
+- **Eight content areas** — Sport Company, Athlete Mindset, Growth Company, Athlete Uniform, Athlete Experience, Athlete Promise, Value Scoreboard, and Takeaway & Tools
+- **Eight screens, B-matrix walls, and physical product displays**
 - **Locker moments** — including the Kipchoge locker with race-day timing clock
-- **Tablet second screen** — swipe-through companion each GM carries between stations
-- **Commitment wall** — the exit moment
-- **Field guide takeaway** — every GM leaves with a pocket Sport Offense field guide: finance translated into plays, simple formulas for revenue, margin, and share with the levers a GM can pull
+- **Field guide takeaway** — every GM leaves with a pocket Sport Offense field guide: finance translated into plays, with the levers a GM can pull
 
-## The 120-Week Challenge (the AI story)
+## The two custom simulations (the AI story)
 
-A digital simulation Ryan **designed and prototyped with AI** — iterating the working HTML prototypes (Athlete Promise v6 through v13, the scoreboard, the journey flow) with Claude before production. How it plays: a GM steps to the touch screen, makes real product and marketplace decisions across a 120-week launch timeline, and a live dashboard moves with every choice — revenue, margin, market share, time to launch. At the end, a summary screen compares their run against other GMs' decisions, built as a discussion trigger for the facilitated session.
+Ryan **designed and prototyped both simulations with AI** — iterating the working HTML prototypes with Claude before production. They were the most praised part of the whole program.
+- **Simulation 01 (Athlete Uniform) — The Training Plan Game.** A GM makes real product decisions from Line Final through Launch; every choice cascades across Revenue, Margin, and on-time delivery. No right answer, only tradeoffs. Outcomes compare against hard-coded GM profiles (the Brand Purist, the Volume Driver).
+- **Simulation 02 (Athlete Promise) — Geo Inventory, Top-Down / Bottom-Up.** A live scenario navigating top-down targets against bottom-up market reality: managing geo inventory, chasing unexpected demand, deciding whether to air-freight or hold.
 
 ## Facilitation layer
 
@@ -114,7 +124,7 @@ A four-tier deployment framework — Full Replica, Reduced Footprint, Compact Ki
 
 ## How to frame it if asked
 
-Lead with the L&D credential: executive-team partnership, business-model translation, facilitated learning, measurable takeaways. The craft (fabrication, volt-and-orange design system, AI-built simulation) is the proof, not the headline. Distinct from "Leading Nike" (the 2023 VP summit with the 400-rod sculpture) — same client, different muscle.`,
+Lead with the L&D credential and the numbers: executive-team partnership, business-model translation, facilitated learning, 4.84/5 across 134 GMs. The craft (fabrication, volt-and-orange design system, AI-built simulations) is the proof, not the headline. Distinct from "Leading Nike" (the 2023 VP summit with the 400-rod sculpture) — same client, different muscle.`,
 
   'lantern-fox': `# Currently viewing: Lantern & Fox
 

@@ -157,6 +157,10 @@ const allProjects = [
     category: 'Experience',
     img: '/images/cvts/hero.jpg',
     images: [
+      '/images/cvts/findings_01_scores.jpg',
+      '/images/cvts/findings_02_landed.jpg',
+      '/images/cvts/findings_03_quotes.jpg',
+      '/images/cvts/findings_04_ask.jpg',
       '/images/cvts/detail_01.jpg',
       '/images/cvts/detail_02.jpg',
       '/images/cvts/detail_03.jpg',
@@ -192,10 +196,10 @@ const allProjects = [
         ],
       },
     ],
-    stats: ['70-Page Strategy, One Room', 'AI-Built 120-Week Simulator', 'EU + Greater China Next'],
-    desc: 'Executive learning you can walk through. A new business model, built as a room at Nike WHQ.',
-    fullDesc: 'Nike’s Executive Business Planning team had a 70-page deck on the new Sport Offense business model, the operating vision set by the new CEO, and needed every GM worldwide to internalize it. Working directly with the EBP team, we translated the deck into Home Court (Creating Value Through Sport): an immersive learning installation at Nike World Headquarters where GMs step inside the Athlete Playbook instead of reading it.',
-    context: 'This is learning and development work as much as creative work. The job was sitting with an executive team and translating complex business goals into an experience a GM walks through, practices in, and remembers. The strategy became physical chapters: large-format prints, an orange ledge storytelling wall, illuminated Athlete Promise panels, a Value Scoreboard, locker moments, and video, organized around the four athlete chapters of uniform, experience, promise, and mindset. The centerpiece interactive is the 120-Week Challenge, a simulation we designed and prototyped with AI. A GM steps to the touch screen, makes real product and marketplace decisions across a 120-week launch timeline, watches a live dashboard move revenue, margin, market share, and time to launch, then compares their run against other GMs. Facilitator guide cards run the room as a teachable session, and every GM leaves with a pocket Sport Offense field guide. The room wrapped at WHQ to real fanfare, and a tiered deployment framework now takes it abroad to Nike’s European HQ in the Netherlands and to Shanghai for Greater China.',
+    stats: ['4.84 / 5 · 134 GMs Surveyed', '2 AI-Built Simulations', 'EU + Greater China Next'],
+    desc: 'Executive learning you can walk through. Rated 4.84/5 by 134 Nike GMs.',
+    fullDesc: 'Nike’s Executive Business Planning team had a 70-page deck on the new Sport Offense business model, the operating vision set by the new CEO, and needed every GM worldwide to internalize it. Working directly with the EBP team, we translated the deck into Home Court (Creating Value Through Sport): a 1,680 sq ft immersive learning installation at Nike World Headquarters where GMs step inside the Athlete Playbook instead of reading it. Surveyed participants rated it 4.84 out of 5, and roughly 100% would recommend it to a peer.',
+    context: 'This is learning and development work as much as creative work. The job was sitting with an executive team and translating complex business goals into an experience a GM walks through, practices in, and remembers. We partnered with the EBP team to distill Nike’s financial model into six core lessons across eight stations, then built the room to deliver them: large-format prints, an orange ledge storytelling wall, illuminated Athlete Promise panels, a Value Scoreboard, locker moments, eight screens, and physical product displays, run in facilitated sessions of 15 to 20 people. The centerpiece is two custom simulations we designed and prototyped with AI. In the first, a GM makes real product decisions from Line Final through Launch and watches every choice cascade across revenue, margin, and on-time delivery, then compares against hard-coded GM profiles like the Brand Purist and the Volume Driver. The second navigates the tension between top-down targets and bottom-up market reality, managing geo inventory and live demand. No right answer, only tradeoffs. In the post-program survey of 134 GMs, the simulations were the single most praised element, and respondents asked for more time, wider reach, and the experience in their own markets. Every GM leaves with a pocket Sport Offense field guide, and a tiered deployment framework now takes the room abroad to Nike’s European HQ in the Netherlands and to Shanghai for Greater China.',
   },
   {
     id: 'nike',
@@ -210,9 +214,6 @@ const allProjects = [
     videos: ['tG6yageDylc', 'A_sVqA4RBH0'],
     images: [
       '/images/nike/detail_01.jpg',
-      '/images/nike/detail_01_1.png',
-      '/images/nike/detail_01_2.png',
-      '/images/nike/detail_01_3.png',
     ],
     groups: [
       {
