@@ -101,7 +101,9 @@
   // Streams if the browser and the response support it; falls back to the
   // JSON shape otherwise so an old browser or a proxy that strips
   // text/event-stream still gets an answer.
-  async function send(session, message, onDelta) {
+  // One attempt. Returns the full reply text, or '' if the stream opened but
+  // produced nothing (which the caller retries without streaming).
+  async function attempt(session, message, onDelta, wantStream) {
     const persona = getPersona();
     // Persona context is appended to the first user message of a new thread
     // so RyanOS knows whether they're addressing self or team — no API change.
@@ -115,7 +117,9 @@
     }
 
     const canStream =
-      typeof ReadableStream !== 'undefined' && typeof TextDecoder !== 'undefined';
+      wantStream &&
+      typeof ReadableStream !== 'undefined' &&
+      typeof TextDecoder !== 'undefined';
 
     const res = await fetch(ENDPOINT, {
       method: 'POST',
@@ -169,6 +173,9 @@
         }
       }
       if (!full && streamError) throw new Error(streamError);
+      // Opened but delivered nothing — let the caller fall back rather than
+      // showing an empty bubble.
+      if (!full) return '';
     } else {
       const data = await res.json();
       full = data.response;
@@ -183,6 +190,21 @@
       { role: 'assistant', content: full },
     ];
     return full;
+  }
+
+  // Try streaming, then fall back to the plain JSON response. SSE can be
+  // defeated by things we can't see from here — a proxy that buffers or strips
+  // text/event-stream, a corporate middlebox, a runtime that doesn't flush.
+  // The JSON path is the same one the portfolio chat has always used, so the
+  // worst case is a reply that arrives all at once instead of token by token.
+  async function send(session, message, onDelta) {
+    try {
+      const streamed = await attempt(session, message, onDelta, true);
+      if (streamed) return streamed;
+    } catch {
+      // Stream threw; the non-streaming attempt below is the real answer.
+    }
+    return attempt(session, message, onDelta, false);
   }
 
   // ─── Rendering helpers ───────────────────────────────────────────────
