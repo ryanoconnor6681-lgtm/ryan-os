@@ -26,8 +26,22 @@ export function middleware(request: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
-  // Everything else: prepend /curio-site/
-  url.pathname = `/curio-site${url.pathname}`;
+  const path = url.pathname.replace(/\/+$/, '');
+
+  // Directory-style routes (/about, /quiz, /the-mirror) resolve to the
+  // index.html inside them. Vercel's static layer already does this on its
+  // own — these URLs work in production — but `next start` does not, so
+  // spelling it out lets a local build reproduce production exactly.
+  // Only the last segment decides, so a dot in a folder name can't make a
+  // directory look like a file.
+  const lastSegment = path.slice(path.lastIndexOf('/') + 1);
+  if (!lastSegment.includes('.')) {
+    url.pathname = `/curio-site${path}/index.html`;
+    return NextResponse.rewrite(url);
+  }
+
+  // Everything else (a real file: .html, .css, .js, .webp, …)
+  url.pathname = `/curio-site${path}`;
   return NextResponse.rewrite(url);
 }
 

@@ -7,9 +7,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Jost:wght@200;300;400&family=Outfit:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<!-- curio:social -->
+<link rel="canonical" href="https://curio.help/" />
+<meta name="description" content="Free guide for people figuring out what AI means for their actual work. Four focuses to move toward, five fallacies that get in the way, and a 90-second quiz to find yours. No pitch, no paywall." />
+<meta name="author" content="Ryan O'Connor" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Curio" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://curio.help/" />
+<meta property="og:title" content="Curio — a studio for figuring out what AI means for your work" />
+<meta property="og:description" content="Free guide for people figuring out what AI means for their actual work. Four focuses to move toward, five fallacies that get in the way, and a 90-second quiz to find yours. No pitch, no paywall." />
+<meta property="og:image" content="https://curio.help/assets/curio-share.jpg" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Halftone illustration of a genie rising from a canyon, ribbons of red and blue running across a cream field, with two small figures below" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Curio — a studio for figuring out what AI means for your work" />
+<meta name="twitter:description" content="Free guide for people figuring out what AI means for their actual work. Four focuses to move toward, five fallacies that get in the way, and a 90-second quiz to find yours. No pitch, no paywall." />
+<meta name="twitter:image" content="https://curio.help/assets/curio-share.jpg" />
+<meta name="theme-color" content="#1a2238" />
 <link rel="stylesheet" href="colors_and_type.css?v=7" />
-<link rel="stylesheet" href="landing.css?v=7" />
-<link rel="stylesheet" href="curio-overrides.css?v=30" />
+<link rel="stylesheet" href="landing.css?v=8" />
+<link rel="stylesheet" href="curio-overrides.css?v=36" />
+<!-- Every act's copy starts at opacity:0 and is revealed by script. With no JS
+     the page would be an empty navy field, so opt out of the animation entirely. -->
+<noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
 </head>
 <body data-persona="self">
 
@@ -29,7 +55,7 @@
     <span class="dot" data-act="3"></span>
     <span class="label">act <span id="actNum">i</span> of iii</span>
   </div>
-  <a class="masthead-about" href="about/">about</a>
+  <a class="masthead-about" href="about">about</a>
   <a class="masthead-more" href="#act-more">want more?</a>
 </header>
 
@@ -46,53 +72,53 @@
   <span class="curio-egg curio-egg-fortune delay-4" style="bottom:14%; right:7%;" aria-hidden="true"></span>
   <div class="act-inner">
     <div class="hero-stack">
-      <p class="hero-line lift reveal reveal-strong" style="--d:200ms">The world has changed.</p>
+      <p class="hero-line lift reveal reveal-strong" style="--d:100ms">The world has changed.</p>
 
-      <p class="hero-line reveal" style="--d:1100ms">
+      <p class="hero-line reveal" style="--d:650ms">
         AI is already in your team's day.
       </p>
-      <p class="hero-line reveal" style="--d:1500ms">
+      <p class="hero-line reveal" style="--d:900ms">
         Your kid's homework.
       </p>
-      <p class="hero-line reveal" style="--d:1900ms">
+      <p class="hero-line reveal" style="--d:1150ms">
         The headlines you keep meaning to read.
       </p>
 
-      <p class="hero-line reveal" style="--d:2500ms">
+      <p class="hero-line reveal" style="--d:1500ms">
         Most of what's reaching you isn't the change.
       </p>
-      <p class="hero-line reveal" style="--d:2900ms">
+      <p class="hero-line reveal" style="--d:1750ms">
         It's <em>noise</em> about the change.
       </p>
 
-      <p class="hero-line reveal" style="--d:3300ms">
+      <p class="hero-line reveal" style="--d:2000ms">
         The work is figuring out which is which.
       </p>
 
-      <p class="hero-line amber reveal" style="--d:3800ms">
+      <p class="hero-line amber reveal" style="--d:2300ms">
         That's what <em>Curio</em> is for.
       </p>
 
-      <p class="hero-line hero-what reveal" style="--d:4400ms">
+      <p class="hero-line hero-what reveal" style="--d:2650ms">
         Curio is a studio for people figuring out what
         AI means for their actual work. I'm Ryan, and
         this is the free way in.
       </p>
 
-      <p class="hero-line hero-what reveal" style="--d:4900ms">
+      <p class="hero-line hero-what reveal" style="--d:2950ms">
         Fifteen years teaching. The last two rolling Claude into
         a forty-person agency &mdash; 75% of the team using it
         daily within a month.
       </p>
 
-      <p class="hero-line hero-what reveal" style="--d:5400ms">
+      <p class="hero-line hero-what reveal" style="--d:3250ms">
         Take the 90-second quiz. Find what's holding you back.
         Get five things to try this week. <em>No pitch. No paywall.</em>
       </p>
     </div>
   </div>
 
-  <a class="scroll-cue reveal" style="--d:5900ms" href="#act-persona" aria-label="Continue">
+  <a class="scroll-cue reveal" style="--d:3550ms" href="#act-persona" aria-label="Continue">
     <span>begin &mdash; who's here?</span>
     <span class="line"></span>
   </a>
@@ -183,7 +209,7 @@
           <span class="wash"></span>
           <span class="corners"><span></span><span></span><span></span><span></span></span>
           <span class="roman">I</span>
-          <div class="icon-wrap"><img src="assets/icon-genie.png" alt="" /></div>
+          <div class="icon-wrap"><img src="assets/icon-genie.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
           <div class="name">Inspiration</div>
           <div class="sub">where this is all going.</div>
         </a>
@@ -191,7 +217,7 @@
           <span class="wash"></span>
           <span class="corners"><span></span><span></span><span></span><span></span></span>
           <span class="roman">II</span>
-          <div class="icon-wrap"><img src="assets/icon-eye.png" alt="" /></div>
+          <div class="icon-wrap"><img src="assets/icon-eye.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
           <div class="name">Filter</div>
           <div class="sub">what to actually use, what to ignore.</div>
         </a>
@@ -199,7 +225,7 @@
           <span class="wash"></span>
           <span class="corners"><span></span><span></span><span></span><span></span></span>
           <span class="roman">III</span>
-          <div class="icon-wrap"><img src="assets/icon-brain.png" alt="" /></div>
+          <div class="icon-wrap"><img src="assets/icon-brain.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
           <div class="name">Mindset</div>
           <div class="sub">I'm using it. I've plateaued.</div>
         </a>
@@ -207,7 +233,7 @@
           <span class="wash"></span>
           <span class="corners"><span></span><span></span><span></span><span></span></span>
           <span class="roman">IV</span>
-          <div class="icon-wrap"><img src="assets/icon-hand.png" alt="" /></div>
+          <div class="icon-wrap"><img src="assets/icon-hand.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
           <div class="name">Solutions</div>
           <div class="sub">help building, auditing, thinking.</div>
         </a>
@@ -249,7 +275,7 @@
           <div class="f-front">
             <span class="wash"></span>
             <span class="corners"><span></span><span></span><span></span><span></span></span>
-            <div class="icon-wrap"><img src="assets/fallacy-exhaustion.png" alt="" /></div>
+            <div class="icon-wrap"><img src="assets/fallacy-exhaustion.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
             <h4 class="title">The Fallacy of <em>Exhaustion</em></h4>
             <p class="quote">“I don't have time.”</p>
             <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -271,7 +297,7 @@
           <div class="f-front">
             <span class="wash"></span>
             <span class="corners"><span></span><span></span><span></span><span></span></span>
-            <div class="icon-wrap"><img src="assets/fallacy-guilt.png" alt="" /></div>
+            <div class="icon-wrap"><img src="assets/fallacy-guilt.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
             <h4 class="title">The Fallacy of <em>Guilt</em></h4>
             <p class="quote">“Is this cheating?”</p>
             <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -293,7 +319,7 @@
           <div class="f-front">
             <span class="wash"></span>
             <span class="corners"><span></span><span></span><span></span><span></span></span>
-            <div class="icon-wrap"><img src="assets/fallacy-identity.png" alt="" /></div>
+            <div class="icon-wrap"><img src="assets/fallacy-identity.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
             <h4 class="title">The Fallacy of <em>Identity</em></h4>
             <p class="quote">“I'm the [Excel] person.”</p>
             <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -315,7 +341,7 @@
           <div class="f-front">
             <span class="wash"></span>
             <span class="corners"><span></span><span></span><span></span><span></span></span>
-            <div class="icon-wrap"><img src="assets/fallacy-muscle.png" alt="" /></div>
+            <div class="icon-wrap"><img src="assets/fallacy-muscle.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
             <h4 class="title">The Fallacy of <em>Muscle Memory</em></h4>
             <p class="quote">“Some day I'll be good at AI.”</p>
             <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -338,7 +364,7 @@
           <div class="f-front">
             <span class="wash"></span>
             <span class="corners"><span></span><span></span><span></span><span></span></span>
-            <div class="icon-wrap"><img src="assets/yesterdayfallacy.png" alt="" /></div>
+            <div class="icon-wrap"><img src="assets/yesterdayfallacy.webp" alt="" width="640" height="640" loading="lazy" decoding="async"/></div>
             <h4 class="title">The Fallacy of <em>Yesterday</em></h4>
             <p class="quote">“I tried it 8 months ago. It got it wrong.”</p>
             <span class="f-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -403,7 +429,7 @@
     </p>
     <div class="starter-row">
       <div class="starter-option">
-        <a class="starter-btn quiz-btn" href="quiz/" aria-label="Take the Curio Quiz — free">
+        <a class="starter-btn quiz-btn" href="quiz" aria-label="Take the Curio Quiz — free">
           <span class="price-chip free">FREE</span>
           <span><em>take the</em> Curio quiz</span>
           <span class="arr">↗</span>
@@ -445,12 +471,47 @@
   const actNum = document.getElementById('actNum');
   const NUMERALS = ['', 'i', 'ii', 'iii'];
 
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((ent) => {
-      if (ent.isIntersecting) ent.target.classList.add('is-visible');
-    });
-  }, { threshold: 0.18 });
-  acts.forEach((a) => obs.observe(a));
+  function revealAll() {
+    acts.forEach((a) => a.classList.add('is-visible'));
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((ent) => {
+        if (ent.isIntersecting) ent.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.18 });
+    acts.forEach((a) => obs.observe(a));
+
+    // Backstop. The observer only fires for sections the viewport actually
+    // touches, so a jump that skips one leaves it at opacity:0 forever —
+    // loading /#act-more (our own masthead link) stranded acts II and III,
+    // and scrolling back up never recovered them. This sweep reveals any act
+    // that is in view or already behind us, so a section can't stay blank.
+    let queued = false;
+    function sweep() {
+      queued = false;
+      const vh = window.innerHeight;
+      acts.forEach((a) => {
+        if (a.classList.contains('is-visible')) return;
+        // top < 82% of the viewport covers both "entering from below" and
+        // "already scrolled past" (where top is negative).
+        if (a.getBoundingClientRect().top < vh * 0.82) a.classList.add('is-visible');
+      });
+    }
+    function queueSweep() {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(sweep);
+    }
+    addEventListener('scroll', queueSweep, { passive: true });
+    addEventListener('resize', queueSweep);
+    addEventListener('hashchange', queueSweep);
+    addEventListener('load', queueSweep);
+    queueSweep();
+  }
 
   // ── Active-act tracker ──
   let currentAct = 1;
@@ -558,6 +619,6 @@
 })();
 </script>
 
-<script src="curio-chat.js?v=3" defer></script>
+<script src="curio-chat.js?v=5" defer></script>
 </body>
 </html>

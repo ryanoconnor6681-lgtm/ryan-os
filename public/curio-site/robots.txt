@@ -1,0 +1,72 @@
+# curio.help
+#
+# Served here because Edge middleware rewrites curio.help/* into /curio-site/*.
+# app/robots.ts covers ryanoconnor.design only, so without this file
+# curio.help/robots.txt 404s and crawlers get no signal at all.
+#
+# Same posture as the portfolio: every major AI crawler explicitly allowed.
+# Several AI engines treat "no explicit allow" as ambiguous and skip the site.
+
+# The Mirror is the private quiz dashboard, so it stays out of every index.
+User-agent: *
+Allow: /
+Disallow: /the-mirror
+
+# ── OpenAI ──
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+
+# ── Anthropic ──
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# ── Perplexity ──
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# ── Google ──
+User-agent: Google-Extended
+Allow: /
+User-agent: GoogleOther
+Allow: /
+
+# ── Apple ──
+User-agent: Applebot-Extended
+Allow: /
+
+# ── Meta ──
+User-agent: FacebookBot
+Allow: /
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# ── Others ──
+User-agent: Bytespider
+Allow: /
+User-agent: CCBot
+Allow: /
+User-agent: cohere-ai
+Allow: /
+User-agent: Diffbot
+Allow: /
+User-agent: Amazonbot
+Allow: /
+User-agent: YouBot
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+User-agent: Mistral-AI
+Allow: /
+
+Sitemap: https://curio.help/sitemap.xml
+Host: https://curio.help

@@ -4,9 +4,32 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Curio · II · Filter</title>
+<!-- curio:social -->
+<link rel="canonical" href="https://curio.help/Filter.html" />
+<meta name="description" content="Most of what's reaching you isn't AI, it's noise about AI. How to sort it, and why the missing thing is hierarchy rather than more information." />
+<meta name="author" content="Ryan O'Connor" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Curio" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://curio.help/Filter.html" />
+<meta property="og:title" content="Filter — what to use, what to ignore · Curio" />
+<meta property="og:description" content="Most of what's reaching you isn't AI, it's noise about AI. How to sort it, and why the missing thing is hierarchy rather than more information." />
+<meta property="og:image" content="https://curio.help/assets/curio-share.jpg" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Halftone illustration of a genie rising from a canyon, ribbons of red and blue running across a cream field, with two small figures below" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Filter — what to use, what to ignore · Curio" />
+<meta name="twitter:description" content="Most of what's reaching you isn't AI, it's noise about AI. How to sort it, and why the missing thing is hierarchy rather than more information." />
+<meta name="twitter:image" content="https://curio.help/assets/curio-share.jpg" />
+<meta name="theme-color" content="#1a2238" />
 <link rel="stylesheet" href="colors_and_type.css?v=7" />
-<link rel="stylesheet" href="inspiration.css?v=4" />
-<link rel="stylesheet" href="curio-overrides.css?v=29" />
+<link rel="stylesheet" href="inspiration.css?v=5" />
+<link rel="stylesheet" href="curio-overrides.css?v=36" />
 </head>
 <body data-persona="self">
 
@@ -34,7 +57,7 @@
     <button class="pp on" data-persona="self" role="tab" aria-selected="true">For myself</button>
     <button class="pp"     data-persona="team" role="tab" aria-selected="false">For my team</button>
   </div>
-    <a class="masthead-about" href="about/">about</a>
+    <a class="masthead-about" href="about">about</a>
     <a class="masthead-more" href="#act-more">want more?</a>
   </div>
 </header>
@@ -84,7 +107,7 @@
         </p>
       </div>
       <div class="hero-illus">
-        <img src="assets/illus-hourglass-mind.jpeg" alt="" />
+        <img srcset="assets/illus-hourglass-mind-800.webp 800w, assets/illus-hourglass-mind.webp 1800w" sizes="(max-width: 760px) calc(100vw - 48px), 1400px" src="assets/illus-hourglass-mind.webp" alt="Halftone illustration of an hourglass holding a human profile" width="1800" height="982" loading="eager" fetchpriority="high" decoding="async"/>
       </div>
     </div>
   </article>
@@ -188,7 +211,7 @@
     <div class="cat-card" data-flip>
       <div class="cc-front">
         <span class="cc-tag">i &middot; it's okay to be skeptical</span>
-        <div class="cc-icon" aria-hidden="true"><img src="assets/mag.png" alt="" /></div>
+        <div class="cc-icon" aria-hidden="true"><img src="assets/mag.webp" alt="" width="320" height="213" loading="lazy" decoding="async"/></div>
         <h4>AI hype is real. So is AI utility.</h4>
         <p class="cc-hook">Skepticism is healthy. The fastest way through it isn't an argument &mdash; it's a small real task.</p>
         <span class="cc-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -206,7 +229,7 @@
     <div class="cat-card" data-flip>
       <div class="cc-front">
         <span class="cc-tag">ii &middot; the computer under the paperwork</span>
-        <div class="cc-icon" aria-hidden="true"><img src="assets/pocketwatch.png" alt="" /></div>
+        <div class="cc-icon" aria-hidden="true"><img src="assets/pocketwatch.webp" alt="" width="320" height="213" loading="lazy" decoding="async"/></div>
         <h4>You have a computer. It's under the pile of work you're doing by hand.</h4>
         <p class="cc-hook">Imagine someone handed you a laptop in 1985 and you said "I'll learn this in my spare time." Then kept doing the work by hand.</p>
         <span class="cc-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -224,7 +247,7 @@
     <div class="cat-card" data-flip>
       <div class="cc-front">
         <span class="cc-tag">iii &middot; what happens to my job</span>
-        <div class="cc-icon" aria-hidden="true"><img src="assets/redthread.png" alt="" /></div>
+        <div class="cc-icon" aria-hidden="true"><img src="assets/redthread.webp" alt="" width="320" height="213" loading="lazy" decoding="async"/></div>
         <h4>AI doesn't take jobs. It absorbs tasks.</h4>
         <p class="cc-hook">The honest answer &mdash; not the reassuring one or the scary one. Just what the evidence actually shows.</p>
         <span class="cc-flip-hint"><span>turn over</span><span class="arr">↻</span></span>
@@ -369,7 +392,7 @@
     </p>
     <div class="starter-row">
       <div class="starter-option">
-        <a class="starter-btn quiz-btn" href="quiz/" aria-label="Take the Curio Quiz — free">
+        <a class="starter-btn quiz-btn" href="quiz" aria-label="Take the Curio Quiz — free">
           <span class="price-chip free">FREE</span>
           <span><em>take the</em> Curio quiz</span>
           <span class="arr">↗</span>
@@ -508,6 +531,6 @@
   });
 })();
 </script>
-<script src="curio-chat.js?v=3" defer></script>
+<script src="curio-chat.js?v=5" defer></script>
 </body>
 </html>

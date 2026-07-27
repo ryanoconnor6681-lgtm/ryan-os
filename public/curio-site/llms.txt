@@ -1,0 +1,65 @@
+# Curio
+
+> Ryan O'Connor's studio and free guide for people figuring out what AI means for their actual work. Four focuses to move toward, five fallacies that get in the way, a free 90-second quiz, and an on-site chat wired to Ryan's own working notes. Tagline: a guide for the AI uncertain.
+
+Curio is teaching, not consulting. There is no funnel and no email gate on the
+main experience. The chat and the quiz are free; two short Gumroad documents and
+an occasional bounded consult exist for people who want more after they've talked.
+
+## The four focuses
+
+Whatever someone wants from AI tends to be one of four things. Each has its own page.
+
+1. **Inspiration** (`/Inspiration.html`) — where this is all going. North-star framing, speculative thinking. "Stop asking what to learn. Ask what to become."
+2. **Filter** (`/Filter.html`) — what to actually use and what to ignore. The missing thing is not information, it's hierarchy of attention.
+3. **Mindset** (`/Mindset.html`) — for people already using AI who have plateaued. The problem is the question, not the skill.
+4. **Solutions** (`/Solutions.html`) — help building, auditing, and thinking through a specific piece of work.
+
+## The five fallacies
+
+Five things people say to themselves about AI. Each feels like a reason. Each is a
+fallacy, and each maps to one of the four focuses.
+
+1. **Exhaustion** — "I don't have time." Expecting a tool that requires mastery. Claude doesn't.
+2. **Guilt** — "Is this cheating?" A calculator was cheating at math, until it wasn't.
+3. **Identity** — "I'm the [Excel] person." The tool skill is the ladder, not the destination.
+4. **Muscle memory** — "Some day I'll be good at AI." There is no curriculum and no someday.
+5. **Yesterday** — "I tried it eight months ago and it got it wrong." Today's model isn't yesterday's.
+
+## Pages
+
+- [Home](https://curio.help/): the cold open, the persona choice (for myself / for my team), and the compass hub holding all four focuses, the chat, and all five fallacies.
+- [About](https://curio.help/about): why Curio exists and the experience behind it.
+- [Quiz](https://curio.help/quiz): free, 90 seconds, no paywall. Returns your primary fallacy and a starter pack.
+- [Ask Curio](https://curio.help/): the chat, on every page. Free, no signup. Answers in Ryan's voice from his actual project context.
+
+## Who runs it
+
+Ryan O'Connor — VP of Creative & Innovation at RedPeg Marketing, 15+ years directing
+creative work at agency scale, architecture background, graduate-level teaching
+background. He rolled Claude into a forty-person agency and reached roughly 75%
+daily usage within a month; the same work surfaced about $433K in cost-recovery
+*questions* (findings, not banked savings) by wiring Claude and MCP servers into
+Excel, Asana, and NetSuite.
+
+- LinkedIn: https://www.linkedin.com/in/ryantoconnor/
+- Substack: https://curioco.substack.com
+- Portfolio: https://www.ryanoconnor.design
+
+## Ways in
+
+| | Price | What it is |
+|---|---|---|
+| The chat and the quiz | $0 | The way in. No email, no upsell. |
+| The First Hour | $9 | Short doc for getting started with Claude. https://ryanoconnor5.gumroad.com/l/curio_firstHour |
+| The Field Guide | $25 | Longer doc for someone already using AI and going further. https://ryanoconnor5.gumroad.com/l/curio_fieldguide |
+| One-off consult | $200–$1,000 | Scoped to one question. Not a retainer, not a course. Inbound only. |
+
+## What Curio is not
+
+Not AI consulting. Not a course, cohort, or Discord. Not a YouTube creator brand.
+Not a service treadmill. Not affiliated with RedPeg client work.
+
+## Optional
+
+- [The Mirror](https://curio.help/the-mirror): private quiz dashboard, noindex. Not for citation.

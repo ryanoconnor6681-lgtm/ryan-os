@@ -1,5 +1,10 @@
 // Migrated from OpenAI Assistants API → Anthropic Claude API on 2026-04-28
-// Model: claude-opus-4-7. System prompt + per-project context are both cached for ~90% cost reduction.
+// Model: claude-opus-5. System prompt + per-project context are both cached for ~90% cost reduction.
+//
+// Two response shapes:
+//   default          → JSON { response, project, history }   (app/page.tsx uses this)
+//   { stream: true } → SSE deltas                            (curio-chat.js uses this)
+// The JSON path is unchanged so the portfolio chat keeps working as-is.
 
 import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
@@ -235,33 +240,37 @@ Next.js 16 (App Router) + TypeScript + Tailwind v4. Supabase (auth + storage). O
 ## Status
 Live and functional. Real APIs wired. Auth working. Pairs with Curio as Ryan's two "what I actually built" AI products.`,
 
-  curio: `# Currently viewing: Curio Studio
+  curio: `# Currently viewing: Curio
 
-**Ryan's guide for the AI uncertain.** A thinking brand and shelf for everyone moving through the murky middle of the AI shift — essays, prototypes, and a four-focus primer for senior operators catching up on AI without the slop.
+**Ryan's studio for figuring out what AI means for your actual work.** A thinking brand and shelf for everyone moving through the murky middle of the AI shift — essays, prototypes, and a four-focus primer for senior operators catching up on AI without the slop.
 
 **One running idea:** *Speculative thinking pulls you forward while most people are still being pushed.*
 
-**Substack:** curioco.substack.com · **Site:** ryanoconnor.design/curio-site/
+**Site:** curio.help · **Substack:** curioco.substack.com
 
-## What it is, right now (April 2026)
+## The pages on this site (you are the chat embedded on all of them)
 
-A live five-page static site (HTML/CSS/vanilla JS, no framework) deployed inside the portfolio. Curio is the lead "case study" — Ryan is Founder / Lead Researcher of the studio. Three discipline tags: **Speculative Design, AI R&D, Vibe Coding.**
+- **Home** (\`curio.help\`) — three acts: the cold open, a persona choice (*for myself* / *for my team*), then the compass hub holding all four focuses, this chat, and all five fallacies.
+- **About** (\`curio.help/about\`) — why Curio exists and the experience behind it.
+- **The Quiz** (\`curio.help/quiz\`) — free, 90 seconds, no paywall. Names the visitor's primary fallacy and sends the Curio Starter (PDF + .skill). **This is the best first step for anyone who sounds stuck or unsure where to begin** — point them at it.
+- **Four focus pages** — \`/Inspiration.html\`, \`/Filter.html\`, \`/Mindset.html\`, \`/Solutions.html\`.
 
-## The four ways through (each its own page, each with a halftone illustration)
+## The four focuses (each its own page, each with a halftone illustration)
 
-1. **Inspiration** — sun glyph. North-star framing. *"Stop asking what to learn. Ask what to become."*
-2. **Filter** — hourglass. Hierarchy of attention. The car-analogy: *"I don't have time to learn to drive — I have to keep walking everywhere."*
-3. **Mindset** — hand-and-brain (full-page navy theme). Food analogy. *"You've been using a colleague like a calculator. Claude is the smartest person in your room."*
-4. **Solutions** — robot-and-human. *"Hand me the task."* Kitchen-sink page with the full body-of-work.
+1. **Inspiration** — genie glyph. North-star framing, futurism, speculation. *"Stop asking what to learn. Ask what to become."*
+2. **Filter** — eye glyph. Hierarchy of attention. The car-analogy: *"I don't have time to learn to drive — I have to keep walking everywhere."*
+3. **Mindset** — brain glyph (full-page navy theme). Food analogy. *"You've been using a colleague like a calculator. Claude is the smartest person in your room."*
+4. **Solutions** — hand glyph. *"Hand me the task."* Kitchen-sink page with the full body-of-work.
 
-## The four fallacies (flippable cards: front = trap, back = reframe)
+## The five fallacies (flippable tarot cards: front = the trap, back = the reframe)
 
-1. **Exhaustion** — there's too much; I can't catch up
-2. **Guilt** — I should already know this
-3. **Identity** — this isn't who I am
-4. **Muscle memory** — I keep doing it the old way
+1. **Exhaustion** — *"I don't have time."* → Expecting a tool that requires mastery. Claude doesn't. Answered by **Filter**.
+2. **Guilt** — *"Is this cheating?"* → A calculator was cheating at math, until it wasn't. Answered by **Solutions**.
+3. **Identity** — *"I'm the [Excel] person."* → The tool skill is the ladder, not the destination. Answered by **Inspiration**.
+4. **Muscle memory** — *"Some day I'll be good at AI."* → No curriculum, no someday, no starting line. Answered by **Mindset**.
+5. **Yesterday** — *"I tried it eight months ago and it got it wrong."* → Today's model isn't yesterday's; it compounds and you don't. Answered by **Mindset**.
 
-Each fallacy maps to one of the four ways through. The home wheel makes the architecture explicit: "blocked by one of four fallacies → answered by one of four shifts."
+The hub makes the architecture explicit: blocked by one of five fallacies → answered by one of four focuses. If a visitor describes a block, name the fallacy and point them at the focus that answers it.
 
 ## Visual + UX language
 
@@ -289,12 +298,12 @@ Four ways in, ascending — most people stop at the first or second:
 
 | | Price | What it is |
 |---|---|---|
-| **The Talk** | $0 | The chat at the wheel. Free. No email, no upsell. The way in. |
-| **Intro doc** | $9 | The starter — short Gumroad doc. A first push for someone who wants one. |
-| **In-depth doc** | $25 | The longer Gumroad doc. More material for the operator going deeper on their own. |
-| **One-off consult** | $200–$1,000 | Custom help as needed. Scoped to the question. Not a retainer, not a course, not a service treadmill. |
+| **This chat + the quiz** | $0 | The way in. Free. No email, no upsell. |
+| **The First Hour** | $9 | Short Gumroad doc, for getting started with Claude. A first push for someone who wants one. |
+| **The Field Guide** | $25 | Longer Gumroad doc. More material for the operator going deeper on their own. |
+| **One-off consult** | $200–$1,000 | Custom help as needed. Scoped to the question. Not a retainer, not a course, not a service treadmill. Reach Ryan at ryanoconnorcreative@gmail.com. |
 
-If someone asks about pricing or working with Ryan, route them to **The Talk** first (the chat itself — free, no commitment). The Gumroad docs and the consult are for people who already know they want more after they've talked.
+If someone asks about pricing or working with Ryan, route them to the free layer first — this chat, and the quiz at \`curio.help/quiz\`. The Gumroad docs and the consult are for people who already know they want more after they've talked.
 
 ## Why Curio exists
 
@@ -460,16 +469,20 @@ function resolveProjectSlug(input: string | undefined): string | null {
   return null;
 }
 
+const MODEL = 'claude-opus-5';
+const MAX_TOKENS = 1024;
+
 interface ChatRequest {
   message: string;
   history?: Array<{ role: 'user' | 'assistant'; content: string }>;
   project?: string;
+  stream?: boolean;
 }
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as ChatRequest;
-    const { message, history = [], project } = body;
+    const { message, history = [], project, stream = false } = body;
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -509,9 +522,64 @@ export async function POST(req: Request) {
       });
     }
 
+    // ── Streaming path ──────────────────────────────────────────────────
+    // Opted into with { stream: true }. The Curio widget used to sit on a
+    // silent "…" for the whole round trip (~2.4s measured), which reads as
+    // broken on the surface that's meant to be the demo.
+    if (stream) {
+      const encoder = new TextEncoder();
+      const sse = new ReadableStream({
+        async start(controller) {
+          const send = (payload: unknown) =>
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
+          try {
+            const events = await client.messages.create({
+              model: MODEL,
+              max_tokens: MAX_TOKENS,
+              system: systemBlocks,
+              messages,
+              stream: true,
+            });
+            for await (const event of events) {
+              if (
+                event.type === 'content_block_delta' &&
+                event.delta.type === 'text_delta'
+              ) {
+                send({ type: 'delta', text: event.delta.text });
+              }
+            }
+            send({ type: 'done', project: resolvedProject });
+          } catch (err: unknown) {
+            console.error('RyanOS stream error:', err);
+            const msg =
+              err instanceof Anthropic.APIError
+                ? err.message
+                : err instanceof Error
+                  ? err.message
+                  : 'Unknown error';
+            send({ type: 'error', message: msg });
+          } finally {
+            controller.close();
+          }
+        },
+      });
+
+      return new Response(sse, {
+        headers: {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          Connection: 'keep-alive',
+          // Vercel/nginx buffer proxied responses without this, which would
+          // defeat the point by delivering the whole stream at once.
+          'X-Accel-Buffering': 'no',
+        },
+      });
+    }
+
+    // ── JSON path (unchanged — the portfolio chat in app/page.tsx uses it) ──
     const response = await client.messages.create({
-      model: 'claude-opus-4-7',
-      max_tokens: 1024,
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
       system: systemBlocks,
       messages,
     });

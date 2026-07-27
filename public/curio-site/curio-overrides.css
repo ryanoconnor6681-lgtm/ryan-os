@@ -65,9 +65,17 @@
   background: rgba(212, 157, 58, 0.08);
   color: #f0a830;
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
-  position: relative;
+  /* Stay absolutely positioned, as landing.css intends and as the persona and
+     hub cues already are. `.act` is display:flex/row, so a position:relative
+     cue becomes a flex item sitting *beside* .act-inner rather than centred
+     below it — and it still inherited left:50% from landing.css, which on a
+     relative box shifts right by half the container instead of centring.
+     Together that put the cue at x=290–440 on a 375px viewport, mostly
+     off-screen. Absolute + left:50% + translateX(-50%) centres correctly. */
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  max-width: calc(100% - 48px);
 }
 .act.hero .scroll-cue:hover {
   background: rgba(212, 157, 58, 0.18);
@@ -984,15 +992,15 @@ body[data-deck="fan"] .deck-controls .deck-helper {
 .curio-egg.size-lg { width: 96px; height: 96px; opacity: 0.20; }
 
 /* Egg art tokens */
-.curio-egg-matches      { background-image: url('assets/matches.png'); }
-.curio-egg-mag          { background-image: url('assets/mag.png'); }
-.curio-egg-compass      { background-image: url('assets/compass.png'); }
-.curio-egg-cards        { background-image: url('assets/cards_stack.png'); }
-.curio-egg-pocketwatch  { background-image: url('assets/pocketwatch.png'); }
-.curio-egg-fortune      { background-image: url('assets/fortune.png'); }
-.curio-egg-redthread    { background-image: url('assets/redthread.png'); }
-.curio-egg-bell         { background-image: url('assets/bell.png'); }
-.curio-egg-crystal      { background-image: url('assets/crystalball.png'); }
+.curio-egg-matches      { background-image: url('assets/matches.webp'); }
+.curio-egg-mag          { background-image: url('assets/mag.webp'); }
+.curio-egg-compass      { background-image: url('assets/compass.webp'); }
+.curio-egg-cards        { background-image: url('assets/cards_stack.webp'); }
+.curio-egg-pocketwatch  { background-image: url('assets/pocketwatch.webp'); }
+.curio-egg-fortune      { background-image: url('assets/fortune.webp'); }
+.curio-egg-redthread    { background-image: url('assets/redthread.webp'); }
+.curio-egg-bell         { background-image: url('assets/bell.webp'); }
+.curio-egg-crystal      { background-image: url('assets/crystalball.webp'); }
 
 
 /* ── Landing: tinted backdrop behind "What holds you back" + fallacies ── */
@@ -1037,7 +1045,7 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   top: 50%;
   width: clamp(420px, 60vw, 820px);
   height: clamp(420px, 60vw, 820px);
-  background-image: url('assets/crystalball.png');
+  background-image: url('assets/crystalball.webp');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -1119,6 +1127,82 @@ body[data-deck="fan"] .deck-controls .deck-helper {
   opacity: 0.55;
   font-style: italic;
 }
+
+/* ───────────────────────────────────────────────────────────────────────
+   Chat: rendered markdown + starter chips
+
+   Replies now stream in as HTML rather than being dropped in as one blob of
+   textContent, so the bot bubble needs real block spacing. `pre-wrap` above
+   was right for raw text and wrong for paragraphs — it doubles every gap.
+   User bubbles are still plain text, so they keep it.
+   ─────────────────────────────────────────────────────────────────────── */
+.ask-thread .cb-msg-bot .cb-bubble,
+.curio-chatbug .cb-msg-bot .cb-bubble {
+  white-space: normal;
+}
+.ask-thread .cb-msg-bot .cb-bubble > :first-child,
+.curio-chatbug .cb-msg-bot .cb-bubble > :first-child { margin-top: 0; }
+.ask-thread .cb-msg-bot .cb-bubble > :last-child,
+.curio-chatbug .cb-msg-bot .cb-bubble > :last-child { margin-bottom: 0; }
+.ask-thread .cb-bubble p,
+.curio-chatbug .cb-bubble p { margin: 0 0 0.7em; }
+.ask-thread .cb-bubble ul,
+.curio-chatbug .cb-bubble ul { margin: 0 0 0.7em; padding-left: 1.15em; }
+.ask-thread .cb-bubble li,
+.curio-chatbug .cb-bubble li { margin: 0 0 0.3em; }
+.ask-thread .cb-bubble strong,
+.curio-chatbug .cb-bubble strong { color: #f7ecd2; font-weight: 600; }
+.ask-thread .cb-bubble em,
+.curio-chatbug .cb-bubble em { font-style: italic; opacity: 0.92; }
+.ask-thread .cb-bubble code,
+.curio-chatbug .cb-bubble code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: rgba(212, 157, 58, 0.14);
+}
+.ask-thread .cb-bubble a,
+.curio-chatbug .cb-bubble a {
+  color: #e0b25c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.ask-thread .cb-bubble a:hover,
+.curio-chatbug .cb-bubble a:hover { color: #f3ede5; }
+
+/* Starter chips. "Ask anything" is a blank page; these are the doors. */
+.ask-starters,
+.curio-chatbug .cb-starters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.curio-chatbug .cb-starters { margin-top: 12px; }
+.ask-starter,
+.cb-starter {
+  appearance: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-align: left;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: rgba(243, 237, 225, 0.78);
+  background: rgba(243, 237, 225, 0.05);
+  border: 1px solid rgba(212, 157, 58, 0.34);
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.ask-starter:hover,
+.cb-starter:hover {
+  background: rgba(212, 157, 58, 0.16);
+  border-color: rgba(212, 157, 58, 0.7);
+  color: #f7ecd2;
+}
+.ask-starters { justify-content: center; }
 
 /* ── Floating chat bug — bottom-right on every page ── */
 .curio-chatbug {
@@ -1573,10 +1657,78 @@ body[data-deck="fan"] .deck-controls .deck-helper {
 }
 
 @media (max-width: 600px) {
-  .masthead-more { display: none; } /* let the chip yield on tight viewports */
   .offer-section { padding: 72px 16px 100px; }
   .offer-panel { padding: 40px 28px 36px; }
   .offer-panel .offer-title { font-size: 26px; }
+}
+
+/* ───────────────────────────────────────────────────────────────────────
+   Phone layout: stop the decoration from pushing the navigation off-screen.
+
+   On a 375px viewport the masthead measured 728px wide, and the About and
+   want-more pills sat at x=506 and x=590 — invisible and unclickable, with
+   no hamburger, so phone visitors had no route to the About page or the
+   offer section. The floating Ask button was pinned out at x=716 too.
+
+   The cause was not the masthead's own content. `.compass-ring-bg` is a
+   1080px-wide absolutely positioned SVG centred on a ~327px stage, so it
+   reaches x=728 and inflates the document's scrollable width. body carries
+   overflow-x:hidden but html does not, so the initial containing block
+   grows to match — and every fixed element (masthead, grain, chat bug)
+   is laid out against that inflated box rather than the viewport.
+
+   Fix the overflow at the source, and clamp the root so no future stray
+   absolute decoration can do the same thing. `clip` rather than `hidden`
+   on html: hidden would make the root a scroll container and break the
+   sticky masthead on the focus pages.
+   ─────────────────────────────────────────────────────────────────────── */
+html { overflow-x: clip; }
+
+.compass-ring-bg {
+  width: min(1080px, 100%);
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+/* With the ring contained, the masthead is sized by its own content again.
+   The byline and act counter are decoration and the two pills are the only
+   navigation, so on a phone the decoration yields and the links stay. */
+@media (max-width: 860px) {
+  .masthead .wm-by { display: none; }
+  .masthead .progress { display: none; }
+  .masthead .wm { letter-spacing: 0.3em; }
+}
+
+/* Focus-page mastheads are a grid (brand · focus-strip · masthead-right).
+   The right cell holds the persona toggle plus both pills — ~440px of
+   non-shrinking content. Below 760px inspiration.css already drops the
+   focus-strip; letting the right cell wrap gives the toggle its own line
+   instead of pushing the pills off-screen. */
+@media (max-width: 760px) {
+  .masthead .masthead-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 8px;
+  }
+
+  /* Focus-page hero. inspiration.css collapses .hero-grid to a single `1fr`
+     column here, but `1fr` is minmax(auto, 1fr) and so refuses to shrink below
+     its content's min-content width — the column measured 387px inside a 339px
+     grid, pushing .hero-text to x=410 and .hero-illus to x=413 in a 375px
+     viewport. minmax(0, 1fr) lets the column actually take the space it has. */
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-text,
+  .hero-illus { min-width: 0; }
+}
+@media (max-width: 520px) {
+  /* Tightest case: brand on its own line, controls beneath it, still
+     one tap away and still in reading order. */
+  .masthead {
+    grid-template-columns: 1fr !important;
+    row-gap: 10px;
+  }
+  .masthead .masthead-right { justify-content: flex-start; }
+  .masthead .persona-pill { justify-self: start; }
 }
 
 /* ───────────────────────────────────────────────────────────────────────
