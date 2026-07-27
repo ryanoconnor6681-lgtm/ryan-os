@@ -83,6 +83,23 @@
   transform: translateX(-50%) translateY(2px);
 }
 
+/* Reserve the floor the absolute cue stands on.
+   Taking the cue out of flow (above) means `.act` no longer accounts for its
+   height, and the hero copy is always taller than the viewport, so the act is
+   always sized by its content and the cue lands inside the last paragraph at
+   every width: -5px >=768, -25px at 520-640 (padding drops to 100px there),
+   and -44px at 375 where the pill wraps to two lines and grows to 108px.
+
+   The cue needs `bottom` + its own height: 36 + 89 = 125px normally, 36 + 108 =
+   144px when wrapped. landing.css gives .act only 120px / 100px. Reserve enough
+   for the cue plus roughly the 46px of breathing room the persona cue already
+   has. Only the hero needs this -- the persona cue is 52px tall and clears
+   inside the existing padding, and the hub has no cue. */
+.act.hero { padding-bottom: 176px; }
+@media (max-width: 640px) {
+  .act.hero { padding-bottom: 200px; }
+}
+
 
 /* ── Persistent paper grain across the navy stage ────────────────────── */
 .grain {
