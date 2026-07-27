@@ -1690,6 +1690,38 @@ html { overflow-x: clip; }
   aspect-ratio: 1 / 1;
 }
 
+/* ───────────────────────────────────────────────────────────────────────
+   Act I + II reading column: keep the indent from crushing the column
+   ───────────────────────────────────────────────────────────────────────
+   Fallout from clamping the root above. landing.css indents both columns
+   with a fixed `margin-left: 22%` and no matching right margin:
+
+     .hero .act-inner    { max-width: 760px; margin-left: 22%; }
+     .persona .act-inner { max-width: 920px; margin-left: 22%; margin-right: auto; }
+
+   `.act` is a flex row, so `.act-inner` shrinks to whatever the indent
+   leaves. That was harmless while the inflated document made the
+   containing block wider than the viewport — the column always had room
+   for its max-width. With the root clamped to the real viewport, a 1000px
+   window gives an 872px content box: the indent takes 192px, the hero
+   column shrinks 760 -> 680 and the persona column 920 -> 680, and both
+   sit flush against the right edge, 96px right of centre. `margin-right:
+   auto` can't correct it because there is no free space left to absorb.
+
+   So cap the indent at half the leftover space. Above the crossover the
+   22% is untouched and the design reads exactly as before; below it the
+   indent yields symmetrically and the column centres instead of drifting
+   right. Zero change at >=1485px (hero) and >=1771px (persona).
+   ─────────────────────────────────────────────────────────────────────── */
+.hero .act-inner {
+  margin-left: max(0px, min(22%, calc((100% - 760px) / 2)));
+  margin-right: auto;
+}
+.persona .act-inner {
+  margin-left: max(0px, min(22%, calc((100% - 920px) / 2)));
+  margin-right: auto;
+}
+
 /* With the ring contained, the masthead is sized by its own content again.
    The byline and act counter are decoration and the two pills are the only
    navigation, so on a phone the decoration yields and the links stay. */
