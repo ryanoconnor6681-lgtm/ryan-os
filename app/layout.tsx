@@ -14,7 +14,7 @@ const SITE_URL = 'https://www.ryanoconnor.design';
 const SITE_NAME = "Ryan O'Connor";
 const SITE_TITLE = "Ryan O'Connor — Creative Director, Experience Designer & AI Systems Architect";
 const SITE_DESCRIPTION =
-  "Ryan O'Connor is a Milwaukee-based creative director, experience designer, and AI systems architect. He helps organizations adopt AI through custom Claude skills, agentic workflows, and onboarding programs; designs immersive brand experiences across physical and digital environments (Nike, Meta, Faraday Future, Super Bowl activations); and leads cross-disciplinary creative teams. He is the founder of Curio (curio.help), Lantern & Fox, and Style Sync, and the author of forthcoming book *Ask the Mirror: The Coming Age of the AI Oracle*.";
+  "Ryan O'Connor is a Milwaukee-based creative director, experience designer, and AI systems architect. He writes and builds around how people and teams take up AI, has designed immersive brand experiences across physical and digital environments (Nike, Meta, Faraday Future, Super Bowl activations), and has led cross-disciplinary creative teams for 15+ years. He is the founder of Curio (curio.help), Lantern & Fox, and Style Sync, and the author of forthcoming book *Ask the Mirror: The Coming Age of the AI Oracle*.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -142,10 +142,6 @@ const personJsonLd = {
       '@type': 'Organization',
       name: 'Lantern & Fox',
       url: 'https://lanternandfox.com',
-    },
-    {
-      '@type': 'Organization',
-      name: 'RedPeg Marketing',
     },
   ],
   sameAs: [
