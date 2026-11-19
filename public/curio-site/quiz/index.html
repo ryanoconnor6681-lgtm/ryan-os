@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Curio Quiz — Which Fallacy Is Yours?</title>
+<title>The Curio Quiz: Which Fallacy Is Yours?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -637,7 +637,7 @@
 </style>
 <!-- curio:social -->
 <link rel="canonical" href="https://curio.help/quiz" />
-<meta name="description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then sends the Curio Starter. Free, no paywall." />
+<meta name="description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then hands you the Curio Starter. Free, no email." />
 <meta name="author" content="Ryan O'Connor" />
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon-512.png" />
@@ -646,23 +646,23 @@
 <meta property="og:site_name" content="Curio" />
 <meta property="og:locale" content="en_US" />
 <meta property="og:url" content="https://curio.help/quiz" />
-<meta property="og:title" content="The Curio Quiz — which fallacy is yours?" />
-<meta property="og:description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then sends the Curio Starter. Free, no paywall." />
+<meta property="og:title" content="The Curio Quiz: which fallacy is yours?" />
+<meta property="og:description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then hands you the Curio Starter. Free, no email." />
 <meta property="og:image" content="https://curio.help/assets/curio-share.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Halftone illustration of a genie rising from a canyon, ribbons of red and blue running across a cream field, with two small figures below" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="The Curio Quiz — which fallacy is yours?" />
-<meta name="twitter:description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then sends the Curio Starter. Free, no paywall." />
+<meta name="twitter:title" content="The Curio Quiz: which fallacy is yours?" />
+<meta name="twitter:description" content="A 90-second quiz that names which of the five fallacies is blocking you from AI fluency, then hands you the Curio Starter. Free, no email." />
 <meta name="twitter:image" content="https://curio.help/assets/curio-share.jpg" />
 <meta name="theme-color" content="#1a2238" />
 </head>
 <body>
 
 <header class="topbar">
-  <a class="brand" href="/">Curio<span class="brand-by">— a guide for the AI uncertain</span></a>
+  <a class="brand" href="/">Curio<span class="brand-by">· a guide for the AI uncertain</span></a>
   <a class="back" href="/">← back to Curio</a>
 </header>
 
@@ -673,12 +673,12 @@
     <div class="intro-eyebrow">The Curio Quiz</div>
     <h1>Which of the five fallacies is blocking <em>you</em>?</h1>
     <p class="lede">
-      Most people are stuck on one specific fallacy — not on skill, not on time. This 90-second quiz tells you which one. And what to do about it this week.
+      Most people are stuck on one specific fallacy. This 90-second quiz tells you which one, and what to do about it this week.
     </p>
     <div class="meta-row">
-      <span>9 questions</span>
+      <span>7 questions</span>
       <span>~90 seconds</span>
-      <span>no email until the end</span>
+      <span>no email</span>
     </div>
     <div class="btn-row">
       <button class="btn" id="start-btn">
@@ -690,7 +690,7 @@
   <!-- ─────────── QUESTION ─────────── -->
   <section class="screen" id="screen-question">
     <div class="progress-meta">
-      <span id="q-meta">Question 1 of 9</span>
+      <span id="q-meta">Question 1 of 7</span>
       <span id="q-kind">Quick read</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
@@ -717,8 +717,8 @@
         <div class="card-face card-front">
           <div class="card-roman">V</div>
           <div class="card-icon" id="result-icon">✕</div>
-          <h3 class="card-title" id="result-card-title">The Fallacy of <em>—</em></h3>
-          <p class="card-quote" id="result-card-quote">—</p>
+          <h3 class="card-title" id="result-card-title">The Fallacy of <em>&hellip;</em></h3>
+          <p class="card-quote" id="result-card-quote">&hellip;</p>
         </div>
         <div class="card-face card-back">
           <div class="card-roman" style="font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--rust);">the reframe</div>
@@ -731,28 +731,14 @@
     </div>
 
     <div class="capture" id="capture-block">
-      <div class="capture-eyebrow">Want the deeper version?</div>
-      <h3 id="capture-title">Send me the <em>Curio Starter</em>.</h3>
-      <p class="capture-sub">A 12-page PDF plus a small add-on you drop into Claude — five concrete experiments to run this week. Free. No spam.</p>
-      <form id="email-form">
-        <input class="email-input" type="email" id="email-input" placeholder="your@email.com" required autocomplete="email" />
-        <div class="error-msg" id="email-error"></div>
-        <button class="btn" type="submit" id="email-submit">
-          Send it to me <span class="arr">→</span>
-        </button>
-      </form>
-      <p class="fine-print">You'll also get the Tuesday Substack essays. Unsubscribe anytime.</p>
-    </div>
-  </section>
-
-  <!-- ─────────── THANKS ─────────── -->
-  <section class="screen thanks" id="screen-thanks">
-    <h1>Check your <em>inbox</em>.</h1>
-    <p>The Curio Starter is on the way — usually arrives in under 60 seconds. If it's not there in two minutes, peek in spam.</p>
-    <p style="margin-top:24px"><strong style="color:var(--amber)">One thing</strong> — when it lands, reply and tell me which experiment you'll try first. I read every reply.</p>
-    <div class="next-steps">
-      <a class="btn" href="/">Back to Curio</a>
-      <a class="btn btn-ghost" href="https://curioco.substack.com" target="_blank" rel="noopener">Substack — the weekly essay</a>
+      <div class="capture-eyebrow">Take it with you</div>
+      <h3 id="capture-title">Get the <em>Curio Starter</em>.</h3>
+      <p class="capture-sub">A short PDF with five experiments to run this week, plus a skill (a small file you upload to Claude so it learns how you work). The PDF works with any AI. Free. No email.</p>
+      <div class="next-steps" style="display:flex;flex-direction:column;gap:12px;margin-top:20px;">
+        <a class="btn" href="../assets/Curio_Starter_v3.pdf" download style="justify-content:center;text-decoration:none;">Download the Starter (PDF) <span class="arr">↓</span></a>
+        <a class="btn btn-ghost" href="../assets/curio-relationship.skill" download style="justify-content:center;text-decoration:none;">Download the Claude skill <span class="arr">↓</span></a>
+      </div>
+      <p class="fine-print">Longer essays are on the <a href="https://curioco.substack.com/archive" target="_blank" rel="noopener" style="color:inherit">Substack</a>.</p>
     </div>
   </section>
 
@@ -762,7 +748,6 @@
 (function() {
   'use strict';
 
-  const ENDPOINT = 'https://asduspnusvvuyvtqgfxn.supabase.co/functions/v1/curio-quiz-signup';
 
   // ────────────────────────────────────────────────────────────
   // Quiz data
@@ -772,40 +757,40 @@
       id: 'q1', kind: 'Posture', type: 'scored',
       prompt: "How would you describe your <em>relationship</em> with AI right now?",
       options: [
-        { label: "I use it constantly — it's woven into my actual work", scores: {} },
-        { label: "I dabble — try things now and then",                   scores: { muscle_memory: 1, yesterday: 1 } },
+        { label: "I use it constantly. It's woven into my actual work", scores: {} },
+        { label: "I dabble. Try things now and then",                   scores: { muscle_memory: 1, yesterday: 1 } },
         { label: "I respect what it can do, but haven't found my opening", scores: { muscle_memory: 2 } },
-        { label: "Honestly? I think most of the AI hype is bullshit",    scores: { yesterday: 3 } },
+        { label: "I think most of the AI hype is bullshit",    scores: { yesterday: 3 } },
         { label: "I'm watching from a distance, waiting to see what sticks", scores: { muscle_memory: 2, yesterday: 1 } },
       ]
     },
     {
       id: 'q2', kind: 'Gut reaction', type: 'scored',
-      prompt: "When you imagine using AI in your <em>actual day-to-day work</em> — creative, strategic, admin, whatever yours looks like — what's your gut reaction?",
+      prompt: "When you imagine using AI in your <em>actual day-to-day work</em> (creative, strategic, admin, whatever yours looks like), what's your gut reaction?",
       options: [
-        { label: "Excited — there's a version of my work that could finally exist", scores: {} },
+        { label: "Excited. There's a version of my work that could finally exist", scores: {} },
         { label: "Curious, but I don't want it touching the thing I'm best at",     scores: { identity: 3 } },
-        { label: "Frustrated — it can't do what I actually do",                     scores: { identity: 3 } },
-        { label: "Indifferent — I do my work fine without it",                       scores: { identity: 2, yesterday: 1 } },
-        { label: "Confused — I don't know what it would do for my specific role",   scores: { muscle_memory: 2, identity: 1 } },
+        { label: "Frustrated. It can't do what I actually do",                     scores: { identity: 3 } },
+        { label: "Indifferent. I do my work fine without it",                       scores: { identity: 2, yesterday: 1 } },
+        { label: "Confused. I don't know what it would do for my specific role",   scores: { muscle_memory: 2, identity: 1 } },
       ]
     },
     {
       id: 'q3', kind: 'Social', type: 'scored',
-      prompt: 'Someone you respect just told you they <em>"live in AI now"</em> — they use it for drafting client work, running 1:1s, the whole stack. Your honest internal reaction?',
+      prompt: 'Someone you respect just told you they <em>"live in AI now."</em> They use it for drafting client work, running 1:1s, the whole stack. Your first internal reaction?',
       options: [
-        { label: "Cool — tell me how",                                                 scores: {} },
+        { label: "Cool. Tell me how",                                                 scores: {} },
         { label: "Hmm. I wonder how their clients feel about that",                    scores: { guilt: 3 } },
-        { label: "I'd feel weird doing it that way — like I'm not really doing the work", scores: { guilt: 3 } },
+        { label: "I'd feel weird doing it that way. Like I'm not really doing the work", scores: { guilt: 3 } },
         { label: "Tracks. They're always ahead.",                                      scores: { yesterday: 1 } },
-        { label: "Not for me — my role requires the human-in-the-loop",                scores: { identity: 2, guilt: 1 } },
+        { label: "Not for me. My role requires the human-in-the-loop",                scores: { identity: 2, guilt: 1 } },
       ]
     },
     {
       id: 'q4', kind: 'Navigation', type: 'scored',
       prompt: "Where do you actually <em>start</em>?",
       options: [
-        { label: "I've already started — there's something running every week",   scores: {} },
+        { label: "I've already started. There's something running every week",   scores: {} },
         { label: "I have a vague plan but haven't sat down to do it",             scores: { muscle_memory: 2 } },
         { label: "I keep meaning to set aside a weekend",                         scores: { muscle_memory: 3 } },
         { label: "I don't even know which task to try it on first",               scores: { muscle_memory: 3 } },
@@ -816,8 +801,8 @@
       id: 'q5', kind: 'Experience', type: 'scored',
       prompt: "When you actually use AI, how does the <em>experience</em> feel?",
       options: [
-        { label: "Like a real collaborator — I tell it the wish, it builds",       scores: {} },
-        { label: "Like a chat I have to keep prompting, over and over — exhausting", scores: { yesterday: 3, exhaustion: 1 } },
+        { label: "Like a real collaborator. I tell it the wish, it builds",       scores: {} },
+        { label: "Like a chat I have to keep prompting, over and over. Exhausting", scores: { yesterday: 3, exhaustion: 1 } },
         { label: "Like a tool that's okay sometimes, useless other times",         scores: { yesterday: 2 } },
         { label: "I haven't used it enough lately to say",                         scores: { muscle_memory: 2 } },
         { label: "I don't really. I keep meaning to",                              scores: { muscle_memory: 2, exhaustion: 1 } },
@@ -825,12 +810,12 @@
     },
     {
       id: 'q6', kind: 'Macro', type: 'scored',
-      prompt: 'A friend says: <em>"AI is a fad. It\'s the new metaverse, the new crypto, the new dot-com bubble."</em> Your honest reaction?',
+      prompt: 'A friend says: <em>"AI is a fad. It\'s the new metaverse, the new crypto, the new dot-com bubble."</em> Your reaction?',
       options: [
-        { label: "Hard disagree — it's already changing how I work",     scores: {} },
+        { label: "Hard disagree. It's already changing how I work",     scores: {} },
         { label: "Maybe partly, but there's something real in there",    scores: { yesterday: 1 } },
-        { label: "They're not wrong — the hype is way out ahead of the reality", scores: { yesterday: 3 } },
-        { label: "It is a bubble — and it'll pop",                       scores: { yesterday: 3 } },
+        { label: "They're not wrong. The hype is way out ahead of the reality", scores: { yesterday: 3 } },
+        { label: "It is a bubble, and it'll pop",                       scores: { yesterday: 3 } },
         { label: "Not sure, I'm waiting it out",                         scores: { yesterday: 2, muscle_memory: 1 } },
       ]
     },
@@ -839,13 +824,13 @@
       prompt: "What's your <em>role</em>?",
       field: 'role',
       options: [
-        { label: "Senior leader — VP, Director, Partner, Principal",   value: "Senior leader" },
+        { label: "Senior leader: VP, Director, Partner, Principal",   value: "Senior leader" },
         { label: "Founder / Solo Operator / Independent",              value: "Founder / Solo Operator" },
-        { label: "Senior creative — CD, Design Director, EIC",         value: "Senior creative" },
-        { label: "Specialist — engineer, lawyer, analyst, marketer, ops", value: "Specialist" },
+        { label: "Senior creative: CD, Design Director, EIC",         value: "Senior creative" },
+        { label: "Specialist: engineer, lawyer, analyst, marketer, ops", value: "Specialist" },
         { label: "Mid-career operator looking to level up",            value: "Mid-career operator" },
-        { label: "Career-shifter — used to do X, want to do Y with AI", value: "Career-shifter" },
-        { label: "Curious civilian — not my profession, but I can feel it", value: "Curious civilian" },
+        { label: "Career-shifter: used to do X, want to do Y with AI", value: "Career-shifter" },
+        { label: "Curious civilian: not my profession, but I can feel it", value: "Curious civilian" },
       ]
     },
     {
@@ -853,20 +838,20 @@
       prompt: "How long have you been using AI in your <em>real work</em>?",
       field: 'ai_fluency',
       options: [
-        { label: "Just getting started — under 1 month", value: "<1mo" },
+        { label: "Just getting started: under 1 month", value: "<1mo" },
         { label: "1–6 months",                            value: "1-6mo" },
         { label: "6–12 months",                           value: "6-12mo" },
         { label: "1–2 years",                              value: "1-2y" },
-        { label: "2+ years — I live in this stuff",       value: "2y+" },
+        { label: "2+ years: I live in this stuff",       value: "2y+" },
       ]
     },
     {
       id: 'q9', kind: 'One last thing', type: 'text',
       prompt: "One sentence: <em>what's the thing you wish AI could do for you</em> but you haven't figured out yet?",
-      sub: 'Type the first specific thing. Don\'t workshop it. The shittier and more specific, the more useful — not "AI strategy" — closer to "my team won\'t open Claude on Mondays."',
+      sub: 'Type the first specific thing. Don\'t workshop it. Rough and specific beats polished: "my team won\'t open Claude on Mondays" is better than "AI strategy." This one stays in your browser. It\'s the first thing to hand to Claude.',
       field: 'open_text',
     },
-  ];
+  ].filter((q) => q.type !== 'demo'); // role and years were only used by the old email signup;
 
   // ────────────────────────────────────────────────────────────
   // Result content (per fallacy)
@@ -878,13 +863,14 @@
       icon: '../assets/fallacy-exhaustion.webp',
       heading: "You're stuck on The Fallacy of <em>Exhaustion</em>.",
       body: [
-        "You keep telling yourself this — and it's true, in the way most expensive lies are true. You don't have time. <strong>But the time is exactly the thing AI gives back, the moment you let it.</strong> Saying <em>\"I don't have time to learn AI\"</em> is like saying <em>\"I don't have time to learn to drive — I have to keep walking everywhere.\"</em> The tool <em>is</em> the time.",
+        "You keep telling yourself you don't have time, and you're right that you don't. Time is also what AI gives back once you let it. Saying <em>\"I don't have time to learn AI\"</em> is like saying <em>\"I don't have time to learn to drive, I have to keep walking everywhere.\"</em> <strong>The tool is the time.</strong>",
+        "One thing to expect, because it's new: once AI handles the routine work, your day fills with decisions, and that's tiring in a different way. That kind of tired means it's working.",
       ],
-      way: "Your way through is <strong>Filter</strong> — sorting the firehose of AI noise into the two posts a week that actually matter for <em>your</em> work.",
+      way: "Your way through is <strong>Filter</strong>: sorting the noise about AI down to the few things that matter for your work.",
       actions: [
-        "<strong>Tomorrow morning</strong> — pick the most-dreaded email in your inbox. Paste the situation into Claude. Send the draft. Time it. (Usually 4 minutes vs. 22.)",
-        "<strong>This weekend</strong> — read the Filter focus page on curio.help. The car-analogy is the one you need.",
-        "<strong>Carry this with you:</strong> the tool <em>is</em> the time. Stop adding AI as a chore. Use it to remove three chores.",
+        "<strong>Tomorrow morning:</strong> pick the most-dreaded email in your inbox. Paste the situation into Claude, edit the draft, send it. Time it.",
+        "<strong>This weekend:</strong> read the Filter page on curio.help. The driving analogy is the one you need.",
+        "<strong>Carry this with you:</strong> the tool is the time. Use AI to remove three chores before you add it as a fourth.",
       ],
     },
     guilt: {
@@ -893,13 +879,14 @@
       icon: '../assets/fallacy-guilt.webp',
       heading: "You're stuck on The Fallacy of <em>Guilt</em>.",
       body: [
-        "A calculator was cheating at math. Until it wasn't. Google was cheating at memory. Until it wasn't. <strong>The people running the future stopped asking this question two years ago.</strong> The real question isn't whether AI is cheating — it's whether you're <em>still useful</em> after the room stops calling it that.",
+        "A calculator was cheating at math, until it wasn't. Google was cheating at memory, until it wasn't. A more useful question is how much of a task you want to keep.",
+        "Picture a dial. Turned down, AI does the task and you check it. Turned up, it teaches you the method or coaches you through it. You set it task by task. <strong>Hand off the typing and keep the judgment:</strong> what's worth doing, whether it's right, when it's done.",
       ],
-      way: "Your way through is <strong>Solutions</strong> — small concrete things you can hand to AI today, without the moral weight.",
+      way: "Your way through is <strong>Solutions</strong>: small concrete things you can hand to AI today, with the dial where you want it.",
       actions: [
-        "<strong>Today</strong> — paste a meeting recap into Claude. Ask it to turn it into a client-facing one. 30 seconds. Notice that your taste still ran the edit.",
-        "<strong>This weekend</strong> — write down the three things AI did this week for you. Notice you still did the thinking; it just sped up the typing.",
-        "<strong>Carry this with you:</strong> the room already moved. The question is whether you move with it.",
+        "<strong>Today:</strong> paste your notes from a meeting into Claude and ask for a clean recap. Notice that your taste still ran the edit.",
+        "<strong>This weekend:</strong> write down three things AI did for you this week, and next to each, the decision that was still yours.",
+        "<strong>Carry this with you:</strong> you set the dial. Hand off the typing. Keep the judgment.",
       ],
     },
     identity: {
@@ -908,14 +895,14 @@
       icon: '../assets/fallacy-identity.webp',
       heading: "You're stuck on The Fallacy of <em>Identity</em>.",
       body: [
-        "Here's the move that gets missed: <strong>you think AI threatens your whole <em>job</em>. It doesn't. It threatens parts of your <em>role</em>.</strong> The execution layer — the doing, the typing, the rendering, the first-draft-from-scratch. That part moves. The <em>job</em> — your taste, your judgment, your relationships, your sense of when something is <em>done</em> — stays. That was always the real job. The craft was the ladder, not the destination.",
-        "If you're a creative director, the deck was never <em>the job</em>. Directing the deck was. If you're an analyst, the spreadsheet wasn't the job. Reading what the numbers meant was. If you're a lawyer, the memo wasn't the job. Choosing what to argue was. AI doesn't take any of that. It moves you up the floor.",
+        "You think AI threatens your whole job. What it takes over is parts of your role: the doing, the typing, the rendering, the first draft from scratch. The job stays: your taste, your judgment, your relationships, your sense of when something is done. <strong>The craft was the ladder.</strong>",
+        "If you're a creative director, directing the deck was the job, and building it was how you got there. If you're an analyst, the job was reading what the numbers meant. If you're a lawyer, it was choosing what to argue. A film director doesn't run the camera, and the film is still theirs.",
       ],
-      way: "Your way through is <strong>Inspiration</strong> — seeing what you'd actually do if your craft stopped being a moat and started being a <em>floor</em>.",
+      way: "Your way through is <strong>Inspiration</strong>: seeing what you'd do if making the thing stopped being the hard part.",
       actions: [
-        "<strong>Tomorrow morning</strong> — open Claude and finish: <em>\"If I never had to do [the executional task that eats my Tuesdays] again, the thing I'd actually build is…\"</em> Whatever comes out — that's your real direction.",
-        "<strong>This week</strong> — list the three things in your work that AI absolutely cannot do. Taste calls. Relationship beats. Moment-of-truth judgment. <em>That</em> is the actual job.",
-        "<strong>Carry this with you:</strong> you are <em>more</em> than your tool. Specialist expertise doesn't vanish; the translation layer moves.",
+        "<strong>Tomorrow morning:</strong> open Claude and finish this sentence: <em>\"If I never had to do [the task that eats my Tuesdays] again, the thing I'd build is…\"</em> Whatever comes out is your direction.",
+        "<strong>This week:</strong> list three things in your work that still need you. Taste calls. Relationships. Judgment at the moment that counts. That list is the job.",
+        "<strong>Carry this with you:</strong> you are more than your tool. Your expertise stays. What moves is who does the making.",
       ],
     },
     muscle_memory: {
@@ -924,15 +911,15 @@
       icon: '../assets/fallacy-muscle.webp',
       heading: "You're stuck on The Fallacy of <em>Muscle Memory</em>.",
       body: [
-        "<strong>Two shapes of the same fallacy. Both wrong in the same way.</strong>",
-        "Twenty years of software-learning trained you to think: <em>\"I'll set aside the weekend. I'll get good at this someday.\"</em> AI isn't software. There is no curriculum. No certification. <strong>No someday.</strong> You won't get good at it — you'll <em>change what you ask of it</em>.",
-        "The <em>\"where do I start\"</em> version is the same fallacy wearing a different hat. You think there's a <em>right place</em> to begin. There isn't. There's just <em>the first task you actually try</em>. Open Claude. Type the thing you wish you had. Don't worry about the right prompt — there isn't one. The mythical Tuesday-morning-when-I-finally-have-time isn't coming.",
+        "Two shapes of the same fallacy.",
+        "Twenty years of software trained you to think <em>\"I'll set aside a weekend and get good at this.\"</em> So you picture AI as one more program to learn, the way early drivers pictured a carriage without a horse. There's no curriculum and no certification. You won't get good at it the way you got good at Excel. <strong>You'll change what you ask of it.</strong>",
+        "<em>\"Where do I start\"</em> is the same fallacy in a different hat. There's no right place to begin. There's the first task you try. Open Claude and type the thing you wish you had. The free Tuesday morning you're waiting for isn't coming.",
       ],
-      way: "Your way through is <strong>Mindset</strong> — the shift from \"learning AI\" to \"asking better questions of it.\"",
+      way: "Your way through is <strong>Mindset</strong>: the shift from learning AI to asking more of it.",
       actions: [
-        "<strong>Tomorrow morning</strong> — open Claude and instead of <em>\"help me write this email,\"</em> say: <em>\"I wish I had a tool that did X. Build it.\"</em> Whatever comes back is your starting point.",
-        "<strong>This week</strong> — list three things you hate doing. Hand them to Claude one at a time. Don't optimize the prompt; just describe the hate.",
-        "<strong>Carry this with you:</strong> there is no someday, and there is no starting line. There's only the next thing you try.",
+        "<strong>Tomorrow morning:</strong> open Claude and skip <em>\"help me write this email.\"</em> Say: <em>\"I wish I had a tool that did X. Build it.\"</em> Whatever comes back is your starting point.",
+        "<strong>This week:</strong> list three things you hate doing. Hand them to Claude one at a time. Don't polish the prompt. Describe the hate.",
+        "<strong>Carry this with you:</strong> there is no someday and no starting line. There's the next thing you try.",
       ],
     },
     yesterday: {
@@ -941,33 +928,32 @@
       icon: '../assets/yesterdayfallacy.webp',
       heading: "You're stuck on The Fallacy of <em>Yesterday</em>.",
       body: [
-        "<strong>Three shapes of the same bias.</strong>",
-        "<strong>The temporal shape.</strong> You tried it months ago, didn't like an answer, quit. That snapshot is obsolete. Today's model isn't yesterday's. Valley of disappointment lasts ten minutes — the people who didn't quit are running circles.",
-        "<strong>The fad/bubble shape.</strong> Look around. You're online right now, taking this quiz. You streamed music this morning. You use email. <em>Every one of those things had its 1998-Today-Show-host-stumbling-over-the-@-symbol moment.</em> The dismissal is the bias. The bias is the cost.",
-        "<strong>The using-it-wrong shape.</strong> You're treating AI like a chat that needs constant prompting. That's why it's exhausting. You're managing it like a child instead of handing it the pantry. <em>Don't ask how. Ask what you wish.</em> The exhaustion is the exhaustion of asking the wrong question.",
-        "And no — your brilliant friend doesn't beat it across twelve disciplines at once. Neither did Jobs. Neither did Einstein. <em>Top 1% in every one of them, on demand.</em> Stay short-sighted, you lose.",
+        "Three shapes of the same bias.",
+        "<strong>The old snapshot.</strong> You tried it months ago, didn't like an answer, and quit. The model you tried has been replaced, probably more than once. The chat that answered one question at a time now reads your files and works on a task for hours.",
+        "<strong>The bubble.</strong> The news wants a pop and keeps reaching for 1999. Whether the stocks are priced right is one question. Whether the tools work is another, and you can test that one yourself. Remember what followed 1999, too: the stocks fell and the internet kept going.",
+        "<strong>Using it like a chat.</strong> If you prompt it line by line, it's exhausting. Hand it the whole pantry, meaning your files, your notes and your goal, and say what you wish.",
       ],
-      way: "Your way through is <strong>Mindset</strong> — updating the bias, not the technology.",
+      way: "Your way through is <strong>Mindset</strong>: updating the picture in your head.",
       actions: [
-        "<strong>Tomorrow morning</strong> — try the exact question you gave AI eight months ago. Notice the difference. Notice it took 30 seconds to update your prior.",
-        "<strong>This week</strong> — stop chatting with it. Hand it your whole pantry. The Curio Starter's \"Pantry Move\" walks you through it.",
-        "<strong>Carry this with you:</strong> <em>it compounds, you don't.</em> The 1998-you would have been the one stumbling over the @ symbol.",
+        "<strong>Tomorrow morning:</strong> give it the exact question you asked eight months ago. Notice the difference.",
+        "<strong>This week:</strong> stop chatting with it. Hand it your whole pantry. The Curio Starter's \"Pantry Move\" walks you through it.",
+        "<strong>Carry this with you:</strong> that snapshot is old. Check again every few months.",
       ],
     },
     none: {
       title: "No clear fallacy",
       quote: "You're already moving.",
       icon: '★',
-      heading: "<em>You're already past the entry-level blocks.</em>",
+      heading: "<em>You're already past the first blocks.</em>",
       body: [
-        "Your answers don't land cleanly on any of the five fallacies. That means either you're already using AI fluently and your real questions are deeper, or you're somewhere the quiz can't quite see yet.",
-        "Either way — the next step is the same: read the focus pages, find what resonates, and let me know what's actually on your mind.",
+        "Your answers don't point to any one of the five fallacies. Either you're already using AI fluently and your questions are further along, or you're somewhere this quiz can't see.",
+        "The questions further along are good ones: what's my part when AI does most of the task, how do I pace a day that's all judgment, what do I build next. The focus pages take those up.",
       ],
-      way: "Your next step is <strong>the chat</strong> — ask Curio anything. The floating chip lives on every page of the site.",
+      way: "Your next step is <strong>the chat</strong>. Ask Curio anything. It's on the home page and on every focus page.",
       actions: [
-        "<strong>Today</strong> — open the chat at curio.help. Tell it the thing you'd want to ask Ryan if you ran into him.",
-        "<strong>This week</strong> — read whichever of the four focuses sounds most like you. Inspiration, Filter, Mindset, Solutions.",
-        "<strong>Carry this with you:</strong> if you're past the fallacies, the next move is conversation, not a framework.",
+        "<strong>Today:</strong> open the chat at curio.help and ask it the question that's on your mind this week.",
+        "<strong>This week:</strong> read whichever of the four focuses sounds most like you: Inspiration, Filter, Mindset, Solutions.",
+        "<strong>Carry this with you:</strong> past the fallacies, the work is building context. Each thing AI learns about your work makes the next task easier.",
       ],
     },
   };
@@ -987,7 +973,6 @@
     intro:    document.getElementById('screen-intro'),
     question: document.getElementById('screen-question'),
     result:   document.getElementById('screen-result'),
-    thanks:   document.getElementById('screen-thanks'),
   };
   const $ = (id) => document.getElementById(id);
 
@@ -1122,7 +1107,7 @@
 
     state.scores = scores;
 
-    // Find max — and secondary
+    // Find max, and secondary
     const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
     const topScore = sorted[0][1];
 
@@ -1146,22 +1131,32 @@
     $('result-card-title').innerHTML = r.title;
     $('result-card-quote').textContent = r.quote;
     // icon is now an image path; fallback to a glyph for the "none" result
-    if (r.icon && r.icon.endsWith('.png')) {
+    if (r.icon && /\.(png|webp)$/.test(r.icon)) {
       $('result-icon').innerHTML = `<img src="${r.icon}" alt="" />`;
     } else {
       $('result-icon').innerHTML = `<span style="font-size:64px;color:var(--rust);opacity:0.8;">${r.icon || '★'}</span>`;
     }
 
     // Result body
+    // Hand the visitor's own wish back to them. It never leaves the browser.
+    const wish = (typeof state.answers['q9'] === 'string' ? state.answers['q9'] : '').trim();
+    const esc = (t) => t.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const wishHtml = wish
+      ? `<div class="way-through" style="margin-top:28px"><strong>Your wish:</strong> <em>"${esc(wish)}"</em><br/>Start there. Open Claude, paste that sentence in, and add: <em>"Ask me what you need to know, then build a first version."</em></div>`
+      : '';
+    const romanEl = document.querySelector('.card-front .card-roman');
+    if (romanEl) romanEl.textContent = ({ exhaustion: 'I', guilt: 'II', identity: 'III', muscle_memory: 'IV', yesterday: 'V' })[state.primary] || '★';
+
     const bodyHtml = `
       <h2>${r.heading}</h2>
       <p class="result-quote">${r.quote}</p>
       ${r.body.map(p => `<p>${p}</p>`).join('')}
       <div class="way-through">${r.way}</div>
-      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);margin:24px 0 8px;">Three things to do this week:</p>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rust);margin:24px 0 8px;">Three things to do first:</p>
       <ol class="actions">
         ${r.actions.map(a => `<li>${a}</li>`).join('')}
       </ol>
+      ${wishHtml}
     `;
     $('result-body').innerHTML = bodyHtml;
 
@@ -1172,77 +1167,12 @@
   }
 
   // ────────────────────────────────────────────────────────────
-  // Email submit
-  // ────────────────────────────────────────────────────────────
-  async function submitEmail(e) {
-    e.preventDefault();
-    const email = $('email-input').value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showError('Please enter a real email.');
-      return;
-    }
-    $('email-submit').disabled = true;
-    $('email-submit').innerHTML = 'Sending…';
-    showError('');
-
-    const payload = {
-      email,
-      primary_fallacy: state.primary,
-      secondary_fallacy: state.secondary,
-      role: state.answers['q7'] !== undefined ? QUESTIONS[6].options[state.answers['q7']].value : null,
-      ai_fluency: state.answers['q8'] !== undefined ? QUESTIONS[7].options[state.answers['q8']].value : null,
-      open_text: state.answers['q9'] || null,
-      referrer: getReferrer(),
-    };
-
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || data.ok !== true) {
-        throw new Error(data.error || 'Submission failed');
-      }
-      showScreen('thanks');
-    } catch (err) {
-      console.error(err);
-      showError("Something broke. Try again in a moment, or email ryanoconnorcreative@gmail.com directly.");
-      $('email-submit').disabled = false;
-      $('email-submit').innerHTML = 'Send it to me <span class="arr">→</span>';
-    }
-  }
-
-  function showError(msg) {
-    const el = $('email-error');
-    if (!msg) {
-      el.classList.remove('is-shown');
-      el.textContent = '';
-    } else {
-      el.classList.add('is-shown');
-      el.textContent = msg;
-    }
-  }
-
-  function getReferrer() {
-    const params = new URLSearchParams(window.location.search);
-    const utm = params.get('utm_source') || params.get('source') || params.get('ref');
-    if (utm) return utm;
-    if (document.referrer) {
-      try { return new URL(document.referrer).hostname; } catch { return null; }
-    }
-    return 'direct';
-  }
-
-  // ────────────────────────────────────────────────────────────
   // Wire everything up
   // ────────────────────────────────────────────────────────────
   $('start-btn').addEventListener('click', start);
   $('next-btn').addEventListener('click', next);
   $('prev-btn').addEventListener('click', prev);
   $('q-text').addEventListener('input', () => { updateCharCount(); updateNextEnabled(); });
-  $('email-form').addEventListener('submit', submitEmail);
 
   // Keyboard: Enter advances when valid
   document.addEventListener('keydown', (e) => {

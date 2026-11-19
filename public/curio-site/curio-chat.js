@@ -27,7 +27,7 @@
   const STARTERS = {
     self: [
       "where do I even start?",
-      "I've plateaued — what now?",
+      "I've plateaued. What now?",
       "what should I ignore?",
     ],
     team: [
@@ -43,11 +43,9 @@
     return { history: [] };
   }
 
+  // The for-myself / for-my-team choice was removed from the site in Nov 2026.
+  // Returning null keeps the default starters and skips the persona prefix.
   function getPersona() {
-    try {
-      const p = localStorage.getItem('curio-persona');
-      if (p === 'self' || p === 'team') return p;
-    } catch (e) {}
     return null;
   }
 
@@ -278,7 +276,7 @@
       try {
         await send(session, msg, streamInto(thread, row));
       } catch (err) {
-        setError(row, "couldn't reach Curio just now — try again in a sec.");
+        setError(row, "couldn't reach Curio just now. Try again in a sec.");
       }
     }
 
@@ -348,7 +346,7 @@
       '    <button class="cb-close" aria-label="Close chat">✕</button>',
       '  </div>',
       '  <div class="cb-thread" id="cb-thread">',
-      '    <div class="cb-greeting">Curio is Ryan’s free guide for the AI uncertain. Ask anything &mdash; which focus fits you, what’s blocking you, or what to try first.</div>',
+      '    <div class="cb-greeting">Curio is Ryan’s free guide for the AI uncertain. Ask anything: which focus fits you, what’s blocking you, or what to try first.</div>',
       '    <div class="cb-starters"></div>',
       '  </div>',
       '  <form class="cb-form">',
@@ -408,7 +406,7 @@
       try {
         await send(session, msg, streamInto(thread, row));
       } catch (err) {
-        setError(row, "couldn't reach Curio just now — try again in a sec.");
+        setError(row, "couldn't reach Curio just now. Try again in a sec.");
       }
     }
 
